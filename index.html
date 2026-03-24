@@ -536,6 +536,13 @@
         </div>
       </div>
 
+      <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
+      <div class="form-section freitext-section" data-freitext="1" style="display:none;">
+        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
+        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="1"></textarea>
+      </div>
+
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
         <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
@@ -577,6 +584,13 @@
           <span>zu hoch</span>
           <span>angemessen</span>
         </div>
+      </div>
+
+      <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
+      <div class="form-section freitext-section" data-freitext="2" style="display:none;">
+        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
+        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="2"></textarea>
       </div>
 
       <div class="nav-row">
@@ -701,6 +715,13 @@
         </div>
       </div>
 
+      <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
+      <div class="form-section freitext-section" data-freitext="3" style="display:none;">
+        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
+        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="3"></textarea>
+      </div>
+
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
         <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
@@ -760,6 +781,13 @@
         </div>
       </div>
 
+      <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
+      <div class="form-section freitext-section" data-freitext="4" style="display:none;">
+        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
+        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="4"></textarea>
+      </div>
+
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
         <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
@@ -816,6 +844,13 @@
           <span>schlecht</span>
           <span>sehr gut</span>
         </div>
+      </div>
+
+      <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
+      <div class="form-section freitext-section" data-freitext="5" style="display:none;">
+        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
+        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="5"></textarea>
       </div>
 
       <div class="nav-row">
@@ -938,6 +973,33 @@
         });
       }
     });
+
+    // =====================================================
+    // FREITEXT REVEAL LOGIC
+    // =====================================================
+    function checkSectionFreitext(stepEl) {
+      var stepNum = stepEl.dataset.step;
+      var freitextCard = stepEl.querySelector('[data-freitext="' + stepNum + '"]');
+      if (!freitextCard) return;
+
+      var shouldShow = false;
+      var sections = stepEl.querySelectorAll('.form-section[data-question]');
+      sections.forEach(function(sec) {
+        var qId = sec.dataset.question;
+        var rating = formData[qId];
+        if (rating === undefined) return;
+
+        if (qId === 'S4-02') {
+          // Bipolar scale: trigger at extremes (1-2 or 4-5), not at 3
+          if (rating <= 2 || rating >= 4) shouldShow = true;
+        } else {
+          // Standard: trigger at 1 or 2 only
+          if (rating <= 2) shouldShow = true;
+        }
+      });
+
+      freitextCard.style.display = shouldShow ? '' : 'none';
+    }
 
     // =====================================================
     // RATING TILES
