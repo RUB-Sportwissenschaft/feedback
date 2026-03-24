@@ -700,39 +700,145 @@
       </div>
     </div>
 
-    <!-- STEP 4: S4 — Prüfung (placeholder) -->
+    <!-- STEP 4: S4 — Prüfung -->
     <div class="step" data-step="4">
       <h2 class="section-title">S4 &#x2014; Pr&#x00fc;fung</h2>
-      <div class="step-placeholder">
-        <p>Fragen folgen in Plan 02</p>
+
+      <!-- S4-01: Organisation der Prüfung -->
+      <div class="form-section" data-question="S4-01">
+        <label class="field-label">Organisation der Pr&#x00fc;fung</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
       </div>
+
+      <!-- S4-02: Prüfungsanforderungen -->
+      <div class="form-section" data-question="S4-02">
+        <label class="field-label">Pr&#x00fc;fungsanforderungen</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>zu leicht</span>
+          <span>zu schwierig</span>
+        </div>
+        <p class="rating-midpoint-hint">3 = genau richtig</p>
+      </div>
+
+      <!-- S4-03: Klarheit der Anforderungen -->
+      <div class="form-section" data-question="S4-03">
+        <label class="field-label">Klarheit der Anforderungen</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>unklar</span>
+          <span>sehr klar</span>
+        </div>
+      </div>
+
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
         <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
       </div>
     </div>
 
-    <!-- STEP 5: S5 — Soziales (placeholder) -->
+    <!-- STEP 5: S5 — Soziales und Rahmenprogramm -->
     <div class="step" data-step="5">
-      <h2 class="section-title">S5 &#x2014; Soziales</h2>
-      <div class="step-placeholder">
-        <p>Fragen folgen in Plan 02</p>
+      <h2 class="section-title">S5 &#x2014; Soziales und Rahmenprogramm</h2>
+
+      <!-- S5-01: Hüttenabend -->
+      <div class="form-section" data-question="S5-01">
+        <label class="field-label">H&#x00fc;ttenabend</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
       </div>
+
+      <!-- S5-02: Après-Ski -->
+      <div class="form-section" data-question="S5-02">
+        <label class="field-label">Apr&#x00e8;s-Ski</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
+      </div>
+
+      <!-- S5-03: Soziales Miteinander -->
+      <div class="form-section" data-question="S5-03">
+        <label class="field-label">Soziales Miteinander</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
+      </div>
+
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
         <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
       </div>
     </div>
 
-    <!-- STEP 6: S6 — Ausbilder & Abschluss (placeholder) -->
+    <!-- STEP 6: S6 — Ausbilder & Abschluss -->
     <div class="step" data-step="6">
-      <h2 class="section-title">S6 &#x2014; Ausbilder &amp; Abschluss</h2>
-      <div class="step-placeholder">
-        <p>Fragen folgen in Plan 02</p>
+      <h2 class="section-title">S6 &#x2014; Ausbilder</h2>
+
+      <!-- Ausbilder placeholder -->
+      <div class="form-section">
+        <p style="color: var(--text-muted); font-style: italic; font-size: 0.9rem;">
+          Nach Auswahl deiner Gruppe erscheinen hier die Ausbilder zur Bewertung.
+        </p>
       </div>
+
+      <h2 class="section-title" style="margin-top: 1rem;">Allgemeines Feedback</h2>
+
+      <!-- Freitext placeholder -->
+      <div class="form-section">
+        <label class="field-label">Hast du sonst noch etwas auf dem Herzen?</label>
+        <textarea rows="4" placeholder="Dein Feedback (optional)&#x2026;"></textarea>
+      </div>
+
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
-        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+        <button class="btn btn-primary" id="submitBtn">Absenden</button>
       </div>
     </div>
 
@@ -751,13 +857,13 @@
     const totalSteps = 7;
 
     const sectionNames = [
-      'Gruppe & Name',
+      'Gruppe \u0026 Name',
       'S1 \u2014 Rahmenbedingungen',
       'S3 \u2014 Organisation',
       'S2 \u2014 Ausbildung',
       'S4 \u2014 Pr\u00fcfung',
       'S5 \u2014 Soziales',
-      'S6 \u2014 Ausbilder & Abschluss'
+      'S6 \u2014 Ausbilder \u0026 Abschluss'
     ];
 
     // =====================================================
