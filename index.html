@@ -339,6 +339,78 @@
     .step-placeholder p {
       font-size: 0.9rem;
     }
+
+    /* =====================================================
+       RATING TILE WIDGETS
+    ===================================================== */
+    .rating-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.4rem;
+    }
+
+    .rating-tile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 0.25rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background: var(--white);
+      user-select: none;
+      min-height: 44px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .rating-tile:hover {
+      border-color: var(--orange);
+      background: var(--orange-light);
+    }
+
+    .rating-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+      padding: 0 0.1rem;
+    }
+
+    .question-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .rating-midpoint-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.25rem;
+    }
+
+    /* =====================================================
+       TEXTAREA
+    ===================================================== */
+    textarea {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--text);
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
   </style>
 </head>
 <body>
@@ -403,36 +475,225 @@
 
     </div>
 
-    <!-- STEP 1: S1 — Rahmenbedingungen (placeholder) -->
+    <!-- STEP 1: S1 — Rahmenbedingungen -->
     <div class="step" data-step="1">
       <h2 class="section-title">S1 &#x2014; Rahmenbedingungen</h2>
-      <div class="step-placeholder">
-        <p>Fragen folgen in Plan 02</p>
+
+      <!-- S1-01: Ausbildungsort -->
+      <div class="form-section" data-question="S1-01">
+        <label class="field-label">Ausbildungsort</label>
+        <p class="question-subtitle">Unterkunft, Skigebiet, Lage</p>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
       </div>
+
+      <!-- S1-02: Kosten / Preis-Leistung -->
+      <div class="form-section" data-question="S1-02">
+        <label class="field-label">Kosten / Preis-Leistung</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>zu teuer</span>
+          <span>angemessen</span>
+        </div>
+      </div>
+
+      <!-- S1-03: Reiseleitung / SkiBo Tours -->
+      <div class="form-section" data-question="S1-03">
+        <label class="field-label">Reiseleitung / SkiBo Tours</label>
+        <p class="question-subtitle">Reiseabwicklung, Kundenservice, Vor-Ort-Betreuung</p>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
+      </div>
+
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
         <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
       </div>
     </div>
 
-    <!-- STEP 2: S3 — Organisation (placeholder) -->
+    <!-- STEP 2: S3 — Organisation -->
     <div class="step" data-step="2">
       <h2 class="section-title">S3 &#x2014; Organisation</h2>
-      <div class="step-placeholder">
-        <p>Fragen folgen in Plan 02</p>
+
+      <!-- S3-01: Organisation des Lehrgangs -->
+      <div class="form-section" data-question="S3-01">
+        <label class="field-label">Organisation des Lehrgangs</label>
+        <p class="question-subtitle">Ablauf, Kommunikation, Zeitplanung</p>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
       </div>
+
+      <!-- S3-02: Zeitliche Belastung -->
+      <div class="form-section" data-question="S3-02">
+        <label class="field-label">Zeitliche Belastung</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>zu hoch</span>
+          <span>angemessen</span>
+        </div>
+      </div>
+
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
         <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
       </div>
     </div>
 
-    <!-- STEP 3: S2 — Ausbildung (placeholder) -->
+    <!-- STEP 3: S2 — Ausbildung -->
     <div class="step" data-step="3">
       <h2 class="section-title">S2 &#x2014; Ausbildung</h2>
-      <div class="step-placeholder">
-        <p>Fragen folgen in Plan 02</p>
+
+      <!-- S2-01: Situatives und demonstratives Können -->
+      <div class="form-section" data-question="S2-01">
+        <label class="field-label">Situatives und demonstratives K&#x00f6;nnen</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
       </div>
+
+      <!-- S2-02: Eigene Lehrkompetenz / Lehrübungen -->
+      <div class="form-section" data-question="S2-02">
+        <label class="field-label">Eigene Lehrkompetenz / Lehr&#x00fc;bungen</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
+      </div>
+
+      <!-- S2-03: Modellunterricht durch Ausbilder -->
+      <div class="form-section" data-question="S2-03">
+        <label class="field-label">Modellunterricht durch Ausbilder</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
+      </div>
+
+      <!-- S2-04: Einsteigermethodik -->
+      <div class="form-section" data-question="S2-04">
+        <label class="field-label">Einsteigermethodik</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
+      </div>
+
+      <!-- S2-05: Videoanalysen -->
+      <div class="form-section" data-question="S2-05">
+        <label class="field-label">Videoanalysen</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
+      </div>
+
+      <!-- S2-06: Schnee-Event -->
+      <div class="form-section" data-question="S2-06">
+        <label class="field-label">Schnee-Event</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
+      </div>
+
+      <!-- S2-07: Verschüttetensuche / Risikomanagement -->
+      <div class="form-section" data-question="S2-07">
+        <label class="field-label">Versch&#x00fc;ttetensuche / Risikomanagement</label>
+        <div class="rating-grid">
+          <div class="rating-tile">1</div>
+          <div class="rating-tile">2</div>
+          <div class="rating-tile">3</div>
+          <div class="rating-tile">4</div>
+          <div class="rating-tile">5</div>
+        </div>
+        <div class="rating-labels">
+          <span>schlecht</span>
+          <span>sehr gut</span>
+        </div>
+      </div>
+
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
         <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
