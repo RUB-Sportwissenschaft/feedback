@@ -66,8 +66,12 @@
 
 ### Admin
 
-- [ ] **ADM-01**: Admin-View via ?admin=true
-- [ ] **ADM-02**: Excel-Export (.xlsx) mit Einzelantworten und Zusammenfassung (Durchschnitte pro Gruppe)
+- [ ] **ADM-01**: Admin-View via ?admin=true mit Inline-Dashboard
+- [ ] **ADM-02**: Teilnehmeranzahl gesamt und pro Gruppe
+- [ ] **ADM-03**: Durchschnittswerte pro Frage (alle 14 bewerteten Items)
+- [ ] **ADM-04**: Durchschnittswerte pro Gruppe (Gruppenvergleich)
+- [ ] **ADM-05**: Freitextantworten gesammelt pro Sektion einsehbar
+- [ ] **ADM-06**: Excel-Export (.xlsx) mit Einzelantworten und Zusammenfassung
 
 ### Design
 
@@ -122,13 +126,52 @@ S1 (Rahmenbedingungen) &#x2192; S3 (Organisation) &#x2192; S2 (Ausbildung) &#x21
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (wird durch Roadmap gef&#x00fc;llt) | | |
+| FORM-01 | Phase 1 | Pending |
+| FORM-02 | Phase 1 | Pending |
+| FORM-03 | Phase 1 | Pending |
+| FORM-04 | Phase 1 | Pending |
+| S1-01 | Phase 1 | Pending |
+| S1-02 | Phase 1 | Pending |
+| S1-03 | Phase 1 | Pending |
+| S2-01 | Phase 1 | Pending |
+| S2-02 | Phase 1 | Pending |
+| S2-03 | Phase 1 | Pending |
+| S2-04 | Phase 1 | Pending |
+| S2-05 | Phase 1 | Pending |
+| S2-06 | Phase 1 | Pending |
+| S2-07 | Phase 1 | Pending |
+| S3-01 | Phase 1 | Pending |
+| S3-02 | Phase 1 | Pending |
+| S4-01 | Phase 1 | Pending |
+| S4-02 | Phase 1 | Pending |
+| S4-03 | Phase 1 | Pending |
+| S5-01 | Phase 1 | Pending |
+| S5-02 | Phase 1 | Pending |
+| S5-03 | Phase 1 | Pending |
+| DES-01 | Phase 1 | Pending |
+| DES-02 | Phase 1 | Pending |
+| RATE-01 | Phase 2 | Pending |
+| RATE-02 | Phase 2 | Pending |
+| RATE-03 | Phase 2 | Pending |
+| RATE-04 | Phase 2 | Pending |
+| RATE-05 | Phase 2 | Pending |
+| S6-01 | Phase 2 | Pending |
+| S6-02 | Phase 2 | Pending |
+| BACK-01 | Phase 3 | Pending |
+| BACK-02 | Phase 3 | Pending |
+| BACK-03 | Phase 3 | Pending |
+| ADM-01 | Phase 4 | Pending |
+| ADM-02 | Phase 4 | Pending |
+| ADM-03 | Phase 4 | Pending |
+| ADM-04 | Phase 4 | Pending |
+| ADM-05 | Phase 4 | Pending |
+| ADM-06 | Phase 4 | Pending |
 
-**Coverage:**
-- v1 requirements: 31 total
-- Mapped to phases: 0
-- Unmapped: 31 &#x26a0;&#xfe0f;
+**Coverage:** 40/40 v1 requirements mapped (FORM 4 + RATE 5 + S1 3 + S3 2 + S2 7 + S4 3 + S5 3 + S6 2 + BACK 3 + ADM 6 + DES 2)
+
+- Mapped to phases: 40
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-24*
-*Last updated: 2026-03-24 after initial definition*
+*Last updated: 2026-03-24 — traceability filled by roadmap*
