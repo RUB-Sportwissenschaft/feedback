@@ -2,7 +2,7 @@
 
 ## What This Is
 
-Digitaler Feedbackbogen f&#x00fc;r die Schneesport-Exkursion Valmorel der RUB Sportwissenschaft. Ersetzt den bisherigen Papierbogen (Lehrgangskritik) durch eine mobile-optimierte Web-App. Studierende bewerten alle Aspekte der Ausfahrt auf einer Skala von 1&#x2013;8 mit optionalem Freitext. Design und Layout orientieren sich an der bestehenden Pr&#x00fc;fungs-App (`pruefung/index.html`).
+Digitaler Feedbackbogen f&#x00fc;r die Schneesport-Exkursion Valmorel der RUB Sportwissenschaft. Ersetzt den bisherigen Papierbogen (Lehrgangskritik) durch eine mobile-optimierte Web-App. Studierende bewerten alle Aspekte der Ausfahrt auf einer Skala von 1&#x2013;5 (1=negativ, 5=positiv) mit individuellen Endpunkt-Labels. Bei negativen Bewertungen (1 oder 2) erscheint ein optionales Freitextfeld. Design und Layout orientieren sich an der bestehenden Pr&#x00fc;fungs-App (`pruefung/index.html`).
 
 ## Core Value
 
@@ -16,15 +16,15 @@ Studierende k&#x00f6;nnen schnell und unkompliziert auf dem Handy ein vollst&#x0
 
 ### Active
 
-- [ ] Feedbackbogen mit allen Kategorien der alten Lehrgangskritik
-- [ ] Bewertungsskala 1&#x2013;8 (1=sehr gut, 8=sehr schlecht), nur Endpunkte gelabelt
-- [ ] Optionale Freitextfelder (pro Kategorie/Frage, individuell festgelegt)
+- [ ] Feedbackbogen in 6 Sektionen (Reihenfolge: S1&#x2192;S3&#x2192;S2&#x2192;S4&#x2192;S5&#x2192;S6)
+- [ ] Bewertungsskala 1&#x2013;5 (1=negativ, 5=positiv), individuelle Endpunkt-Labels pro Frage
+- [ ] Freitextfeld pro Sektion erscheint bei negativer Bewertung (1 oder 2)
 - [ ] Gruppenauswahl Pflicht (Gruppe 1&#x2013;8, Snowboard 1&#x2013;2)
 - [ ] Optionale Namenseingabe
-- [ ] Ausbilder-Bewertung: 2 Ausbilder pro Team, automatisch anhand Gruppenwahl
-- [ ] Mobile-optimiertes Layout (Touch-freundlich, schnelles Ausf&#x00fc;llen)
+- [ ] Ausbilder-Bewertung: Pflicht-Freitext pro Ausbilder, automatisch nach Gruppenwahl
+- [ ] Mobile-optimiertes Layout (Touch-freundlich, 44px Targets)
 - [ ] Admin-Export als Excel (.xlsx)
-- [ ] JSONBin v3 als Backend
+- [ ] JSONBin v3 als Backend (UUID-keyed)
 - [ ] Design konsistent mit Pr&#x00fc;fungs-App (RUB-Fonts, Farbschema)
 
 ### Out of Scope
@@ -39,6 +39,7 @@ Studierende k&#x00f6;nnen schnell und unkompliziert auf dem Handy ein vollst&#x0
 **Vorlage:** `Lehrgangskritik Valmorel.doc` (Papierbogen seit 2002/03, reiner Freitext)
 
 **Kategorien aus der Vorlage:**
+
 1. Ausbildungsort
 2. Kosten / Preis-Leistung
 3. Kursinhalte (situatives/demonstratives K&#x00f6;nnen, Videoanalysen, Modellunterricht, Einsteigermethodik, Lehrkompetenz)
@@ -59,11 +60,12 @@ Studierende k&#x00f6;nnen schnell und unkompliziert auf dem Handy ein vollst&#x0
 **Gruppen:** Gruppe 1&#x2013;8 (Ski), Snowboard 1&#x2013;2
 
 **Ausbilder-Teams (je 2 Gruppen):**
+
 | Team | Gruppen | Ausbilder |
 |------|---------|-----------|
 | 1 | 1 + 2 | Kilian, Claudia |
-| 2 | 3 + 4 | Michael, Annika |
-| 3 | 5 + 6 | Arno, Batti |
+| 2 | 3 + 4 | Arno, Batti |
+| 3 | 5 + 6 | Michael, Annika |
 | 4 | 7 + 8 | Tanne, Pablo |
 | 5 | SB 1 + 2 | Adam, Kami |
 
@@ -83,11 +85,13 @@ Studierende k&#x00f6;nnen schnell und unkompliziert auf dem Handy ein vollst&#x0
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Skala 1&#x2013;8 statt 1&#x2013;5 | Feinere Abstufung gew&#x00fc;nscht, konsistent mit Uni-Bewertungen | &#x2014; Pending |
-| Nur Endpunkte labeln | Weniger visueller Clutter auf Mobile | &#x2014; Pending |
+| Skala 1&#x2013;5 statt 1&#x2013;8 | &#x00dc;bersichtlicher auf Mobile, 5 Stufen reichen | &#x2014; Pending |
+| Individuelle Endpunkt-Labels | Jede Frage hat passende Bezeichnungen (gut/schlecht, angemessen/zu teuer etc.) | &#x2014; Pending |
+| Freitext nur bei neg. Bewertung | Reduziert Aufwand, fokussiert auf Verbesserungspotenzial | &#x2014; Pending |
+| Theorie/Moodle gestrichen | Nicht mehr relevant f&#x00fc;r aktuelle Ausfahrt | &#x2014; Pending |
 | Gruppe Pflicht, Name optional | Auswertung pro Gruppe m&#x00f6;glich, aber anonym | &#x2014; Pending |
 | Ausbilder automatisch nach Gruppe | Verhindert Zuordnungsfehler, weniger Klicks | &#x2014; Pending |
 | Design von Pr&#x00fc;fungs-App &#x00fc;bernehmen | Konsistentes Erscheinungsbild, bew&#x00e4;hrtes Layout | &#x2014; Pending |
 
 ---
-*Last updated: 2026-03-24 after initialization*
+*Last updated: 2026-03-24 after requirements definition*
