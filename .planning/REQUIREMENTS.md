@@ -14,11 +14,11 @@
 
 ### Bewertung
 
-- [ ] **RATE-01**: Skala 1&#x2013;5 als Radio-Buttons (1=negativ, 5=positiv), nur Endpunkte gelabelt, individuelle Labels pro Frage
-- [ ] **RATE-02**: Freitextfeld pro Sektion erscheint automatisch wenn mindestens eine Frage mit 1 oder 2 bewertet wurde (Ausf&#x00fc;llen optional)
-- [ ] **RATE-03**: Sonderfall S4-02: Freitext bei beiden Extremen (1+2 und 4+5), nur 3 triggert nicht
-- [ ] **RATE-04**: Allgemeines Freitextfeld am Ende des Bogens
-- [ ] **RATE-05**: Freitext-Prompt: &#x201e;Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum&#x201c;
+- [x] **RATE-01**: Skala 1&#x2013;5 als Radio-Buttons (1=negativ, 5=positiv), nur Endpunkte gelabelt, individuelle Labels pro Frage
+- [x] **RATE-02**: Freitextfeld pro Sektion erscheint automatisch wenn mindestens eine Frage mit 1 oder 2 bewertet wurde (Ausf&#x00fc;llen optional)
+- [x] **RATE-03**: Sonderfall S4-02: Freitext bei beiden Extremen (1+2 und 4+5), nur 3 triggert nicht
+- [x] **RATE-04**: Allgemeines Freitextfeld am Ende des Bogens
+- [x] **RATE-05**: Freitext-Prompt: &#x201e;Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum&#x201c;
 
 ### S1 &#x2014; Rahmenbedingungen
 
@@ -150,11 +150,11 @@ S1 (Rahmenbedingungen) &#x2192; S3 (Organisation) &#x2192; S2 (Ausbildung) &#x21
 | S5-03 | Phase 1 | Complete |
 | DES-01 | Phase 1 | Done (01-01) |
 | DES-02 | Phase 1 | Done (01-01) |
-| RATE-01 | Phase 2 | Pending |
-| RATE-02 | Phase 2 | Pending |
-| RATE-03 | Phase 2 | Pending |
-| RATE-04 | Phase 2 | Pending |
-| RATE-05 | Phase 2 | Pending |
+| RATE-01 | Phase 2 | Complete |
+| RATE-02 | Phase 2 | Complete |
+| RATE-03 | Phase 2 | Complete |
+| RATE-04 | Phase 2 | Complete |
+| RATE-05 | Phase 2 | Complete |
 | S6-01 | Phase 2 | Pending |
 | S6-02 | Phase 2 | Pending |
 | BACK-01 | Phase 3 | Pending |
