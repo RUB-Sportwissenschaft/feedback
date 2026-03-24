@@ -180,6 +180,11 @@
       gap: 0.5rem;
     }
 
+    /* Snowboard cards: each spans 2 of the 4 columns */
+    .card-snowboard {
+      grid-column: span 2;
+    }
+
     .card {
       display: flex;
       align-items: center;
@@ -360,7 +365,42 @@
 
     <!-- STEP 0: Gruppe & Name -->
     <div class="step" data-step="0">
-      <!-- Content added in Task 2 -->
+
+      <h2 class="section-title">Gruppe &amp; Name</h2>
+
+      <!-- Group selector -->
+      <div class="form-section">
+        <label class="field-label">Deine Gruppe <span class="req">*</span></label>
+        <div class="card-grid" id="groupGrid">
+          <!-- Row 1: Gruppe 1-4 -->
+          <div class="card" data-group="1">1</div>
+          <div class="card" data-group="2">2</div>
+          <div class="card" data-group="3">3</div>
+          <div class="card" data-group="4">4</div>
+          <!-- Row 2: Gruppe 5-8 -->
+          <div class="card" data-group="5">5</div>
+          <div class="card" data-group="6">6</div>
+          <div class="card" data-group="7">7</div>
+          <div class="card" data-group="8">8</div>
+          <!-- Row 3: Snowboard 1-2 (each spans 2 cols) -->
+          <div class="card card-snowboard" data-group="SB 1">SB 1</div>
+          <div class="card card-snowboard" data-group="SB 2">SB 2</div>
+        </div>
+      </div>
+
+      <!-- Name field -->
+      <div class="form-section">
+        <label class="field-label" for="inputName">
+          Name <span class="field-hint">(optional)</span>
+        </label>
+        <input type="text" id="inputName" placeholder="Dein Name (optional)">
+      </div>
+
+      <!-- Navigation: only Weiter on Step 0 -->
+      <div class="nav-row justify-end">
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+
     </div>
 
     <!-- STEP 1: S1 — Rahmenbedingungen (placeholder) -->
@@ -439,6 +479,11 @@
 
   <script>
     // =====================================================
+    // FORM STATE
+    // =====================================================
+    let selectedGroup = null;
+
+    // =====================================================
     // WIZARD STATE
     // =====================================================
     let currentStep = 0;
@@ -498,6 +543,26 @@
         window.scrollTo(0, 0);
       }
     }
+
+    // =====================================================
+    // GROUP SELECTOR
+    // =====================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      var grid = document.getElementById('groupGrid');
+      if (grid) {
+        grid.addEventListener('click', function(e) {
+          var card = e.target.closest('.card');
+          if (!card) return;
+          // Deselect all
+          grid.querySelectorAll('.card').forEach(function(c) {
+            c.classList.remove('selected');
+          });
+          // Select clicked
+          card.classList.add('selected');
+          selectedGroup = card.dataset.group;
+        });
+      }
+    });
 
     // =====================================================
     // INIT
