@@ -370,6 +370,13 @@
       background: var(--orange-light);
     }
 
+    .rating-tile.selected {
+      border-color: var(--orange);
+      background: var(--orange-light);
+      color: var(--orange);
+      font-weight: 700;
+    }
+
     .rating-labels {
       display: flex;
       justify-content: space-between;
@@ -849,6 +856,7 @@
     // FORM STATE
     // =====================================================
     let selectedGroup = null;
+    const formData = {}; // keyed by data-question ID, value 1-5
 
     // =====================================================
     // WIZARD STATE
@@ -929,6 +937,32 @@
           selectedGroup = card.dataset.group;
         });
       }
+    });
+
+    // =====================================================
+    // RATING TILES
+    // =====================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.rating-grid').forEach(function(grid) {
+        grid.addEventListener('click', function(e) {
+          var tile = e.target.closest('.rating-tile');
+          if (!tile) return;
+          var section = grid.closest('.form-section');
+          var questionId = section ? section.dataset.question : null;
+          var value = parseInt(tile.textContent.trim(), 10);
+          // Deselect all tiles in this grid
+          grid.querySelectorAll('.rating-tile').forEach(function(t) {
+            t.classList.remove('selected');
+          });
+          // Select clicked tile
+          tile.classList.add('selected');
+          // Track in formData
+          if (questionId) formData[questionId] = value;
+          // Trigger freitext check for the containing step
+          var stepEl = grid.closest('.step');
+          if (stepEl) checkSectionFreitext(stepEl);
+        });
+      });
     });
 
     // =====================================================
