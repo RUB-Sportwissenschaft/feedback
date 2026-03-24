@@ -22,36 +22,36 @@
 
 ### S1 &#x2014; Rahmenbedingungen
 
-- [ ] **S1-01**: Ausbildungsort bewerten *(Unterkunft, Skigebiet, Lage)* &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S1-02**: Kosten/Preis-Leistung bewerten &#x2014; zu teuer&#x2192;angemessen
-- [ ] **S1-03**: Reiseleitung/SkiBo Tours bewerten *(Reiseabwicklung, Kundenservice, Vor-Ort-Betreuung)* &#x2014; schlecht&#x2192;sehr gut
+- [x] **S1-01**: Ausbildungsort bewerten *(Unterkunft, Skigebiet, Lage)* &#x2014; schlecht&#x2192;sehr gut
+- [x] **S1-02**: Kosten/Preis-Leistung bewerten &#x2014; zu teuer&#x2192;angemessen
+- [x] **S1-03**: Reiseleitung/SkiBo Tours bewerten *(Reiseabwicklung, Kundenservice, Vor-Ort-Betreuung)* &#x2014; schlecht&#x2192;sehr gut
 
 ### S3 &#x2014; Organisation
 
-- [ ] **S3-01**: Organisation des Lehrgangs bewerten *(Ablauf, Kommunikation, Zeitplanung)* &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S3-02**: Zeitliche Belastung bewerten &#x2014; zu hoch&#x2192;angemessen
+- [x] **S3-01**: Organisation des Lehrgangs bewerten *(Ablauf, Kommunikation, Zeitplanung)* &#x2014; schlecht&#x2192;sehr gut
+- [x] **S3-02**: Zeitliche Belastung bewerten &#x2014; zu hoch&#x2192;angemessen
 
 ### S2 &#x2014; Ausbildung
 
-- [ ] **S2-01**: Situatives und demonstratives K&#x00f6;nnen bewerten &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S2-02**: Eigene Lehrkompetenz / Lehr&#x00fc;bungen bewerten &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S2-03**: Modellunterricht durch Ausbilder bewerten &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S2-04**: Einsteigermethodik bewerten &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S2-05**: Videoanalysen bewerten &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S2-06**: Schnee-Event bewerten &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S2-07**: Versch&#x00fc;ttetensuche/Risikomanagement bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S2-01**: Situatives und demonstratives K&#x00f6;nnen bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S2-02**: Eigene Lehrkompetenz / Lehr&#x00fc;bungen bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S2-03**: Modellunterricht durch Ausbilder bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S2-04**: Einsteigermethodik bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S2-05**: Videoanalysen bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S2-06**: Schnee-Event bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S2-07**: Versch&#x00fc;ttetensuche/Risikomanagement bewerten &#x2014; schlecht&#x2192;sehr gut
 
 ### S4 &#x2014; Pr&#x00fc;fung
 
-- [ ] **S4-01**: Pr&#x00fc;fung Organisation bewerten &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S4-02**: Pr&#x00fc;fungsanforderungen bewerten &#x2014; zu leicht&#x2192;zu schwierig (Mitte 3=genau richtig)
-- [ ] **S4-03**: Klarheit der Pr&#x00fc;fungsanforderungen bewerten &#x2014; unklar&#x2192;sehr klar
+- [x] **S4-01**: Pr&#x00fc;fung Organisation bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S4-02**: Pr&#x00fc;fungsanforderungen bewerten &#x2014; zu leicht&#x2192;zu schwierig (Mitte 3=genau richtig)
+- [x] **S4-03**: Klarheit der Pr&#x00fc;fungsanforderungen bewerten &#x2014; unklar&#x2192;sehr klar
 
 ### S5 &#x2014; Soziales und Rahmenprogramm
 
-- [ ] **S5-01**: H&#x00fc;ttenabend bewerten &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S5-02**: Apr&#x00e8;s-Ski bewerten &#x2014; schlecht&#x2192;sehr gut
-- [ ] **S5-03**: Soziales Miteinander bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S5-01**: H&#x00fc;ttenabend bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S5-02**: Apr&#x00e8;s-Ski bewerten &#x2014; schlecht&#x2192;sehr gut
+- [x] **S5-03**: Soziales Miteinander bewerten &#x2014; schlecht&#x2192;sehr gut
 
 ### S6 &#x2014; Ausbilder
 
@@ -130,24 +130,24 @@ S1 (Rahmenbedingungen) &#x2192; S3 (Organisation) &#x2192; S2 (Ausbildung) &#x21
 | FORM-02 | Phase 1 | Done (01-01) |
 | FORM-03 | Phase 1 | Done (01-01) |
 | FORM-04 | Phase 1 | Done (01-01) |
-| S1-01 | Phase 1 | Pending |
-| S1-02 | Phase 1 | Pending |
-| S1-03 | Phase 1 | Pending |
-| S2-01 | Phase 1 | Pending |
-| S2-02 | Phase 1 | Pending |
-| S2-03 | Phase 1 | Pending |
-| S2-04 | Phase 1 | Pending |
-| S2-05 | Phase 1 | Pending |
-| S2-06 | Phase 1 | Pending |
-| S2-07 | Phase 1 | Pending |
-| S3-01 | Phase 1 | Pending |
-| S3-02 | Phase 1 | Pending |
-| S4-01 | Phase 1 | Pending |
-| S4-02 | Phase 1 | Pending |
-| S4-03 | Phase 1 | Pending |
-| S5-01 | Phase 1 | Pending |
-| S5-02 | Phase 1 | Pending |
-| S5-03 | Phase 1 | Pending |
+| S1-01 | Phase 1 | Complete |
+| S1-02 | Phase 1 | Complete |
+| S1-03 | Phase 1 | Complete |
+| S2-01 | Phase 1 | Complete |
+| S2-02 | Phase 1 | Complete |
+| S2-03 | Phase 1 | Complete |
+| S2-04 | Phase 1 | Complete |
+| S2-05 | Phase 1 | Complete |
+| S2-06 | Phase 1 | Complete |
+| S2-07 | Phase 1 | Complete |
+| S3-01 | Phase 1 | Complete |
+| S3-02 | Phase 1 | Complete |
+| S4-01 | Phase 1 | Complete |
+| S4-02 | Phase 1 | Complete |
+| S4-03 | Phase 1 | Complete |
+| S5-01 | Phase 1 | Complete |
+| S5-02 | Phase 1 | Complete |
+| S5-03 | Phase 1 | Complete |
 | DES-01 | Phase 1 | Done (01-01) |
 | DES-02 | Phase 1 | Done (01-01) |
 | RATE-01 | Phase 2 | Pending |

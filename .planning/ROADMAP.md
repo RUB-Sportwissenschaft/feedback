@@ -23,7 +23,7 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
   3. The group selector renders all 10 options (Gruppe 1-8, Snowboard 1-2) and the name field is present
   4. A progress indicator is visible showing the current section and overall progress through the form
   5. All tap targets are at least 44x44px and the form is fully usable without horizontal scrolling on a 375px device
-**Plans:** 3 plans
+**Plans:** 2/3 plans executed
 
 Plans:
 - [x] 01-01-PLAN.md — Design system, header, progress bar, Step 0 (Gruppe + Name), wizard navigation
@@ -73,7 +73,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/3 | In Progress | - |
+| 1. Foundation | 2/3 | In Progress|  |
 | 2. Interactive Form | 0/? | Not started | - |
 | 3. Submission and Backend | 0/? | Not started | - |
 | 4. Admin Export | 0/? | Not started | - |
