@@ -7,10 +7,10 @@
 
 ### Formular-Basis
 
-- [ ] **FORM-01**: User muss Gruppe ausw&#x00e4;hlen (Gruppe 1&#x2013;8, Snowboard 1&#x2013;2)
-- [ ] **FORM-02**: User kann optional Namen eingeben
-- [ ] **FORM-03**: Fortschrittsanzeige zeigt aktuelle Sektion und Gesamtfortschritt
-- [ ] **FORM-04**: Mobile-optimiertes Layout (min 375px, Touch-Targets 44px)
+- [x] **FORM-01**: User muss Gruppe ausw&#x00e4;hlen (Gruppe 1&#x2013;8, Snowboard 1&#x2013;2)
+- [x] **FORM-02**: User kann optional Namen eingeben
+- [x] **FORM-03**: Fortschrittsanzeige zeigt aktuelle Sektion und Gesamtfortschritt
+- [x] **FORM-04**: Mobile-optimiertes Layout (min 375px, Touch-Targets 44px)
 
 ### Bewertung
 
@@ -75,8 +75,8 @@
 
 ### Design
 
-- [ ] **DES-01**: Design konsistent mit Pr&#x00fc;fungs-App (RubFlama-Fonts, Farbschema, Card-Layout)
-- [ ] **DES-02**: Single-File-Architektur (HTML mit externen Fonts)
+- [x] **DES-01**: Design konsistent mit Pr&#x00fc;fungs-App (RubFlama-Fonts, Farbschema, Card-Layout)
+- [x] **DES-02**: Single-File-Architektur (HTML mit externen Fonts)
 
 ## Formular-Reihenfolge
 
@@ -126,10 +126,10 @@ S1 (Rahmenbedingungen) &#x2192; S3 (Organisation) &#x2192; S2 (Ausbildung) &#x21
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FORM-01 | Phase 1 | Pending |
-| FORM-02 | Phase 1 | Pending |
-| FORM-03 | Phase 1 | Pending |
-| FORM-04 | Phase 1 | Pending |
+| FORM-01 | Phase 1 | Done (01-01) |
+| FORM-02 | Phase 1 | Done (01-01) |
+| FORM-03 | Phase 1 | Done (01-01) |
+| FORM-04 | Phase 1 | Done (01-01) |
 | S1-01 | Phase 1 | Pending |
 | S1-02 | Phase 1 | Pending |
 | S1-03 | Phase 1 | Pending |
@@ -148,8 +148,8 @@ S1 (Rahmenbedingungen) &#x2192; S3 (Organisation) &#x2192; S2 (Ausbildung) &#x21
 | S5-01 | Phase 1 | Pending |
 | S5-02 | Phase 1 | Pending |
 | S5-03 | Phase 1 | Pending |
-| DES-01 | Phase 1 | Pending |
-| DES-02 | Phase 1 | Pending |
+| DES-01 | Phase 1 | Done (01-01) |
+| DES-02 | Phase 1 | Done (01-01) |
 | RATE-01 | Phase 2 | Pending |
 | RATE-02 | Phase 2 | Pending |
 | RATE-03 | Phase 2 | Pending |
@@ -174,4 +174,4 @@ S1 (Rahmenbedingungen) &#x2192; S3 (Organisation) &#x2192; S2 (Ausbildung) &#x21
 
 ---
 *Requirements defined: 2026-03-24*
-*Last updated: 2026-03-24 — traceability filled by roadmap*
+*Last updated: 2026-03-24 — DES-01, DES-02, FORM-01, FORM-02, FORM-03, FORM-04 completed by 01-01*

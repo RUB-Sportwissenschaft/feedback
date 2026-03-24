@@ -26,7 +26,7 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 **Plans:** 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Design system, header, progress bar, Step 0 (Gruppe + Name), wizard navigation
+- [x] 01-01-PLAN.md — Design system, header, progress bar, Step 0 (Gruppe + Name), wizard navigation
 - [ ] 01-02-PLAN.md — All 14 rating questions across Steps 1-6 (S1, S3, S2, S4, S5, S6+Freitext)
 - [ ] 01-03-PLAN.md — Visual verification checkpoint on mobile device
 
@@ -73,7 +73,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/3 | Planned | - |
+| 1. Foundation | 1/3 | In Progress | - |
 | 2. Interactive Form | 0/? | Not started | - |
 | 3. Submission and Backend | 0/? | Not started | - |
 | 4. Admin Export | 0/? | Not started | - |
