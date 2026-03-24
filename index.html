@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lehrgangskritik Valmorel &#x2014; Schneesport 2026</title>
+  <style>
+    /* =====================================================
+       FONTS
+    ===================================================== */
+    @font-face {
+      font-family: 'RubFlama';
+      src: url('fonts/RubFlama-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'RubFlama';
+      src: url('fonts/RubFlama-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* =====================================================
+       DESIGN SYSTEM — CSS VARIABLES
+    ===================================================== */
+    :root {
+      --orange: #EC633A;
+      --orange-dark: #d4522b;
+      --orange-light: #fff3ef;
+      --blau: #003560;
+      --blau-light: #e8eef5;
+      --text: #1a1a1a;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #f4f5f7;
+      --white: #ffffff;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.07);
+      --shadow: 0 4px 12px rgba(0,0,0,.10);
+    }
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* =====================================================
+       BASE
+    ===================================================== */
+    body {
+      font-family: 'RubFlama', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+    header {
+      background: var(--blau);
+      color: var(--white);
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .header-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    /* =====================================================
+       STICKY PROGRESS INDICATOR
+    ===================================================== */
+    .progress-bar-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 0.6rem 1rem;
+    }
+
+    .progress-top {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 4px;
+      background: var(--bg);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--orange);
+      border-radius: 2px;
+      width: calc(var(--progress, 0) * 1%);
+      transition: width 0.3s ease;
+    }
+
+    .progress-counter {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .progress-section-name {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* =====================================================
+       MAIN LAYOUT
+    ===================================================== */
+    main {
+      flex: 1;
+      max-width: 560px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    /* =====================================================
+       STEP CONTAINERS
+    ===================================================== */
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    /* =====================================================
+       CARD / FORM-SECTION PATTERN
+    ===================================================== */
+    .form-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.65rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+
+    /* =====================================================
+       GROUP / RATING TILE GRID PATTERN
+    ===================================================== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem;
+      min-height: 44px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background: var(--white);
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: var(--orange);
+      background: var(--orange-light);
+    }
+
+    .card.selected {
+      border-color: var(--orange);
+      background: var(--orange-light);
+      color: var(--orange);
+    }
+
+    .card.selected::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    /* =====================================================
+       LABELS / FORM ELEMENTS
+    ===================================================== */
+    .field-label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .field-label .req {
+      color: var(--orange);
+      margin-left: 2px;
+    }
+
+    .field-hint {
+      font-weight: 400;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-left: 0.25rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--orange);
+    }
+
+    input[type="text"]::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* =====================================================
+       SECTION TITLE
+    ===================================================== */
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.85rem;
+    }
+
+    /* =====================================================
+       NAVIGATION BUTTONS
+    ===================================================== */
+    .nav-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .nav-row.justify-end {
+      justify-content: flex-end;
+    }
+
+    .btn {
+      min-height: 44px;
+      padding: 0.6rem 1.5rem;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+      flex: 1;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-dark);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--blau);
+      border: 1.5px solid var(--blau);
+    }
+
+    .btn-ghost:hover {
+      background: var(--blau-light);
+    }
+
+    /* Placeholder step styling */
+    .step-placeholder {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem 1rem;
+      text-align: center;
+      color: var(--text-muted);
+      border: 1px dashed var(--border);
+      margin-bottom: 1rem;
+    }
+
+    .step-placeholder p {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <span class="header-icon">&#x26F7;</span>
+    <h1>Lehrgangskritik Valmorel</h1>
+  </header>
+
+  <!-- STICKY PROGRESS INDICATOR -->
+  <div class="progress-bar-wrapper" id="progressBar">
+    <div class="progress-top">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-counter" id="progressCounter">1 / 7</span>
+    </div>
+    <div class="progress-section-name" id="progressSectionName">Gruppe &amp; Name</div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- STEP 0: Gruppe & Name -->
+    <div class="step" data-step="0">
+      <!-- Content added in Task 2 -->
+    </div>
+
+    <!-- STEP 1: S1 — Rahmenbedingungen (placeholder) -->
+    <div class="step" data-step="1">
+      <h2 class="section-title">S1 &#x2014; Rahmenbedingungen</h2>
+      <div class="step-placeholder">
+        <p>Fragen folgen in Plan 02</p>
+      </div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: S3 — Organisation (placeholder) -->
+    <div class="step" data-step="2">
+      <h2 class="section-title">S3 &#x2014; Organisation</h2>
+      <div class="step-placeholder">
+        <p>Fragen folgen in Plan 02</p>
+      </div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: S2 — Ausbildung (placeholder) -->
+    <div class="step" data-step="3">
+      <h2 class="section-title">S2 &#x2014; Ausbildung</h2>
+      <div class="step-placeholder">
+        <p>Fragen folgen in Plan 02</p>
+      </div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: S4 — Prüfung (placeholder) -->
+    <div class="step" data-step="4">
+      <h2 class="section-title">S4 &#x2014; Pr&#x00fc;fung</h2>
+      <div class="step-placeholder">
+        <p>Fragen folgen in Plan 02</p>
+      </div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: S5 — Soziales (placeholder) -->
+    <div class="step" data-step="5">
+      <h2 class="section-title">S5 &#x2014; Soziales</h2>
+      <div class="step-placeholder">
+        <p>Fragen folgen in Plan 02</p>
+      </div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: S6 — Ausbilder & Abschluss (placeholder) -->
+    <div class="step" data-step="6">
+      <h2 class="section-title">S6 &#x2014; Ausbilder &amp; Abschluss</h2>
+      <div class="step-placeholder">
+        <p>Fragen folgen in Plan 02</p>
+      </div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // =====================================================
+    // WIZARD STATE
+    // =====================================================
+    let currentStep = 0;
+    const totalSteps = 7;
+
+    const sectionNames = [
+      'Gruppe & Name',
+      'S1 \u2014 Rahmenbedingungen',
+      'S3 \u2014 Organisation',
+      'S2 \u2014 Ausbildung',
+      'S4 \u2014 Pr\u00fcfung',
+      'S5 \u2014 Soziales',
+      'S6 \u2014 Ausbilder & Abschluss'
+    ];
+
+    // =====================================================
+    // SHOW STEP
+    // =====================================================
+    function showStep(n) {
+      // Clamp
+      if (n < 0) n = 0;
+      if (n >= totalSteps) n = totalSteps - 1;
+      currentStep = n;
+
+      // Hide all steps, show active
+      document.querySelectorAll('.step').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      var target = document.querySelector('[data-step="' + n + '"]');
+      if (target) target.classList.add('active');
+
+      // Update progress fill via CSS variable
+      var progressPercent = (n / (totalSteps - 1)) * 100;
+      document.getElementById('progressFill').style.setProperty('--progress', progressPercent);
+      document.getElementById('progressFill').style.width = progressPercent + '%';
+
+      // Update counter: show current step as 1-indexed
+      document.getElementById('progressCounter').textContent = (n + 1) + ' / ' + totalSteps;
+
+      // Update section name
+      document.getElementById('progressSectionName').textContent = sectionNames[n] || '';
+    }
+
+    // =====================================================
+    // NAVIGATION
+    // =====================================================
+    function nextStep() {
+      if (currentStep < totalSteps - 1) {
+        showStep(currentStep + 1);
+        window.scrollTo(0, 0);
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 0) {
+        showStep(currentStep - 1);
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // =====================================================
+    // INIT
+    // =====================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      showStep(0);
+    });
+  </script>
+</body>
+</html>
