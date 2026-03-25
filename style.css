@@ -579,56 +579,6 @@
     .admin-tag:hover { background:var(--blau); color:var(--white); }
 
     /* =====================================================
-       DARK MODE (body.admin-mode)
-    ===================================================== */
-    body.admin-mode {
-      --bg: #0f1117;
-      --white: #1c1f2e;
-      --text: #e8eef5;
-      --text-muted: #8890a0;
-      --border: #2d3147;
-      --blau-light: #1a2540;
-      --orange-light: #2a1812;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,.45);
-      --shadow: 0 4px 16px rgba(0,0,0,.55);
-    }
-    body.admin-mode header {
-      background: rgba(0,53,96,0.82);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-    body.admin-mode .admin-topbar {
-      background: rgba(0,53,96,0.7);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-    body.admin-mode .admin-tabs { background: var(--white); }
-    body.admin-mode .admin-tab { background: var(--white); color: var(--text-muted); }
-    body.admin-mode .admin-tab.active { color: #5b9bd5; border-bottom-color: #5b9bd5; }
-    body.admin-mode .admin-kpi-card,
-    body.admin-mode .admin-sec-list,
-    body.admin-mode .admin-group-list,
-    body.admin-mode .admin-q-list,
-    body.admin-mode .admin-freitext-card,
-    body.admin-mode .admin-chart-wrap,
-    body.admin-mode .admin-tag-cloud,
-    body.admin-mode .admin-name-pill,
-    body.admin-mode .admin-pill {
-      background: var(--white);
-      border-color: var(--border);
-    }
-    body.admin-mode .admin-kpi-value,
-    body.admin-mode .admin-q-avg,
-    body.admin-mode .admin-sec-avg,
-    body.admin-mode .admin-group-avg { color: #5b9bd5; }
-    body.admin-mode .admin-name-badge { background: rgba(91,155,213,0.18); color: #5b9bd5; }
-    body.admin-mode .admin-tag { background: rgba(91,155,213,0.18); color: #5b9bd5; }
-    body.admin-mode .admin-tag:hover { background: #5b9bd5; color: #0f1117; }
-    body.admin-mode .admin-q-row,
-    body.admin-mode .admin-sec-row,
-    body.admin-mode .admin-group-row { border-bottom-color: var(--border); }
-
-    /* =====================================================
        VALIDATION FEEDBACK
     ===================================================== */
     .form-section.required-missing { border-color: #e0453a !important; box-shadow: 0 0 0 3px rgba(224,69,58,.12); }

@@ -439,7 +439,6 @@
       var confirmEl = document.getElementById('confirmationScreen');
       var adminEl = document.getElementById('adminDashboard');
       var progressBarEl = document.getElementById('progressBar');
-      document.body.classList.add('admin-mode');
       if (mainEl) mainEl.style.display = 'none';
       if (confirmEl) confirmEl.style.display = 'none';
       if (progressBarEl) progressBarEl.style.display = 'none';
