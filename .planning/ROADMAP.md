@@ -47,8 +47,8 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 
 **Plans:** 2/2 plans complete
 
-- [ ] 02-01-PLAN.md — Rating tile interactivity + per-section freitext reveal/hide (RATE-01 through RATE-05)
-- [ ] 02-02-PLAN.md — TEAM_MAP, Ausbilder dynamic rendering, submit gate validation (S6-01, S6-02)
+- [x] 02-01-PLAN.md — Rating tile interactivity + per-section freitext reveal/hide (RATE-01 through RATE-05)
+- [x] 02-02-PLAN.md — TEAM_MAP, Ausbilder dynamic rendering, submit gate validation (S6-01, S6-02)
 
 ### Phase 3: Submission and Backend
 
@@ -64,9 +64,8 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 
 **Plans:** 2/2 plans complete
 
-Plans:
-- [ ] 03-01-PLAN.md — JSONBin constants, submitFeedback() with payload assembly, UUID-keyed PATCH, loading and error states
-- [ ] 03-02-PLAN.md — Confirmation screen HTML/CSS (Danke card) and visual verification
+- [x] 03-01-PLAN.md — JSONBin constants, submitFeedback() with payload assembly, UUID-keyed PATCH, loading and error states
+- [x] 03-02-PLAN.md — Confirmation screen HTML/CSS (Danke card) and visual verification
 
 ### Phase 4: Admin Dashboard und Export
 
@@ -76,16 +75,15 @@ Plans:
 **Success Criteria** (what must be TRUE):
 
 1. Opening `?admin=true` shows Teilnehmeranzahl gesamt und pro Gruppe
-2. Dashboard zeigt Durchschnittswerte pro Frage (alle 14 bewerteten Items)
+2. Dashboard zeigt Durchschnittswerte pro Frage (alle 18 bewerteten Items)
 3. Dashboard zeigt Durchschnittswerte pro Gruppe (Vergleich der Gruppen)
 4. Alle Freitextantworten sind gesammelt pro Sektion einsehbar
 5. Export-Button l&#x00e4;dt .xlsx mit Einzelantworten und Zusammenfassung herunter
 
 **Plans:** 2 plans
 
-Plans:
-- [ ] 03-01-PLAN.md — JSONBin constants, submitFeedback() with payload assembly, UUID-keyed PATCH, loading and error states
-- [ ] 03-02-PLAN.md — Confirmation screen HTML/CSS (Danke card) and visual verification
+- [ ] 04-01-PLAN.md — Admin mode detection, JSONBin fetch, stats computation, dashboard render (ADM-01 through ADM-05)
+- [ ] 04-02-PLAN.md — SheetJS Excel export + visual verification checkpoint (ADM-06)
 
 ## Progress
 
@@ -97,4 +95,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation | 3/3 | Complete | 2026-03-24 |
 | 2. Interactive Form | 2/2 | Complete   | 2026-03-25 |
 | 3. Submission and Backend | 2/2 | Complete   | 2026-03-25 |
-| 4. Admin Export | 0/? | Not started | - |
+| 4. Admin Export | 0/2 | Not started | - |
