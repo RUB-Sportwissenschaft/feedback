@@ -505,25 +505,34 @@
     /* =====================================================
        ADMIN DASHBOARD
     ===================================================== */
-    #adminDashboard { display:none; padding:1rem; max-width:800px; margin:0 auto; }
-    .admin-section { margin-bottom:2rem; }
-    .admin-section-title { font-size:1rem; font-weight:700; color:var(--blau); margin-bottom:0.75rem; padding-bottom:0.4rem; border-bottom:2px solid var(--blau-light); }
-    .admin-stat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:0.5rem; }
-    .admin-stat-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.6rem 0.75rem; text-align:center; box-shadow:var(--shadow-sm); }
-    .admin-stat-card .stat-group { font-size:0.75rem; color:var(--text-muted); margin-bottom:0.2rem; }
-    .admin-stat-card .stat-count { font-size:1.4rem; font-weight:700; color:var(--blau); }
-    .admin-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
-    .admin-table th { text-align:left; padding:0.4rem 0.5rem; background:var(--blau-light); color:var(--blau); font-weight:700; border-bottom:1px solid var(--border); }
-    .admin-table td { padding:0.35rem 0.5rem; border-bottom:1px solid var(--border); vertical-align:middle; }
-    .admin-table tr:last-child td { border-bottom:none; }
-    .avg-bar-wrap { width:100px; }
-    .avg-bar { height:8px; background:var(--orange); border-radius:4px; min-width:2px; }
+    #adminDashboard { display:none; max-width:560px; margin:0 auto; }
+    .admin-topbar { background:var(--blau); color:var(--white); padding:0.75rem 1rem; display:flex; align-items:center; justify-content:space-between; gap:0.5rem; }
+    .admin-topbar-title { font-size:1rem; font-weight:700; }
+    .admin-topbar-meta { font-size:0.78rem; opacity:0.8; }
+    .btn-export { background:var(--orange); color:var(--white); border:none; padding:0.45rem 0.9rem; border-radius:var(--radius-sm); font-size:0.85rem; font-weight:700; cursor:pointer; font-family:inherit; min-height:36px; white-space:nowrap; }
+    .btn-export:disabled { opacity:0.4; cursor:not-allowed; }
+    .admin-tabs { display:flex; background:var(--white); border-bottom:2px solid var(--border); }
+    .admin-tab { flex:1; padding:0.65rem 0.4rem; text-align:center; font-size:0.85rem; font-weight:700; color:var(--text-muted); cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; background:none; border-top:none; border-left:none; border-right:none; font-family:inherit; transition:color 0.15s, border-color 0.15s; }
+    .admin-tab.active { color:var(--blau); border-bottom-color:var(--blau); }
+    .admin-panel { display:none; padding:1rem; }
+    .admin-panel.active { display:block; }
+    .admin-panel-label { font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin:0 0 0.5rem; }
+    .admin-stat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(88px,1fr)); gap:0.5rem; margin-bottom:1rem; }
+    .admin-stat-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.5rem 0.6rem; text-align:center; }
+    .admin-stat-card .stat-group { font-size:0.72rem; color:var(--text-muted); margin-bottom:0.15rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .admin-stat-card .stat-count { font-size:1.3rem; font-weight:700; color:var(--blau); }
+    .admin-q-list { background:var(--white); border-radius:var(--radius); padding:0.25rem 0.75rem; box-shadow:var(--shadow-sm); border:1px solid var(--border); }
+    .admin-q-row { display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0; border-bottom:1px solid var(--border); }
+    .admin-q-row:last-child { border-bottom:none; }
+    .admin-q-label { flex:1; font-size:0.82rem; color:var(--text); min-width:0; }
+    .admin-q-avg { font-size:0.85rem; font-weight:700; color:var(--blau); min-width:28px; text-align:right; flex-shrink:0; }
+    .admin-q-bar-track { width:48px; height:6px; background:var(--bg); border-radius:3px; flex-shrink:0; }
+    .admin-q-bar-fill { height:100%; background:var(--orange); border-radius:3px; }
+    .admin-select { width:100%; padding:0.6rem 0.75rem; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-family:inherit; font-size:1rem; color:var(--text); background:var(--white); outline:none; margin-bottom:0.75rem; }
+    .admin-select:focus { border-color:var(--orange); }
     .admin-freitext-card { background:var(--white); border-left:3px solid var(--orange); border-radius:var(--radius-sm); padding:0.6rem 0.75rem; margin-bottom:0.5rem; box-shadow:var(--shadow-sm); }
     .admin-freitext-text { font-size:0.9rem; color:var(--text); margin-bottom:0.3rem; }
     .admin-freitext-meta { font-size:0.75rem; color:var(--text-muted); }
-    .admin-header-card { background:var(--blau); color:var(--white); border-radius:var(--radius); padding:1rem 1.25rem; margin-bottom:1.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem; }
-    .admin-header-title { font-size:1.1rem; font-weight:700; }
-    .admin-header-count { font-size:0.9rem; opacity:0.85; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </head>
@@ -1428,8 +1437,10 @@
       var mainEl = document.querySelector('main');
       var confirmEl = document.getElementById('confirmationScreen');
       var adminEl = document.getElementById('adminDashboard');
+      var progressBarEl = document.getElementById('progressBar');
       if (mainEl) mainEl.style.display = 'none';
       if (confirmEl) confirmEl.style.display = 'none';
+      if (progressBarEl) progressBarEl.style.display = 'none';
       if (adminEl) adminEl.style.display = 'block';
 
       adminEl.innerHTML = '<p style="padding:1rem;color:var(--text-muted)">Daten werden geladen\u2026</p>';
@@ -1539,104 +1550,138 @@
     }
 
     function renderAdminDashboard(adminData, adminEl) {
+      // Collect all unique Ausbilder from TEAM_MAP (sorted)
+      var allAusbilder = [];
+      Object.values(TEAM_MAP).forEach(function(arr) {
+        arr.forEach(function(name) { if (allAusbilder.indexOf(name) === -1) allAusbilder.push(name); });
+      });
+      allAusbilder.sort();
+
       var html = '';
 
-      // a. Header card
-      html += '<div class="admin-header-card">';
-      html += '<div><p class="admin-header-title">Admin-Dashboard</p>';
-      html += '<p class="admin-header-count">Gesamt: ' + adminData.total + ' Teilnehmer</p></div>';
-      html += '<button id="exportBtn" class="btn btn-primary" disabled>Excel exportieren</button>';
+      // Top bar
+      html += '<div class="admin-topbar">';
+      html += '<div><div class="admin-topbar-title">Admin</div>';
+      html += '<div class="admin-topbar-meta">' + adminData.total + ' Teilnehmer</div></div>';
+      html += '<button id="exportBtn" class="btn-export" disabled>Excel</button>';
       html += '</div>';
 
-      // b. Teilnahme pro Gruppe
-      html += '<div class="admin-section">';
-      html += '<h3 class="admin-section-title">Teilnahme pro Gruppe</h3>';
+      // Tab bar
+      html += '<div class="admin-tabs">';
+      html += '<button class="admin-tab active" data-tab="overview">\u00dcbersicht</button>';
+      html += '<button class="admin-tab" data-tab="questions">Fragen</button>';
+      html += '<button class="admin-tab" data-tab="ausbilder">Ausbilder</button>';
+      html += '</div>';
+
+      // ---- Panel 1: Übersicht ----
+      html += '<div class="admin-panel active" id="panel-overview">';
+
+      // Group counts
+      html += '<p class="admin-panel-label">Teilnahme pro Gruppe</p>';
       html += '<div class="admin-stat-grid">';
-      var groupKeys = sortGroups(Object.keys(adminData.groupCounts));
-      groupKeys.forEach(function(g) {
-        html += '<div class="admin-stat-card">';
-        html += '<div class="stat-group">' + g + '</div>';
-        html += '<div class="stat-count">' + adminData.groupCounts[g] + '</div>';
-        html += '</div>';
+      sortGroups(Object.keys(adminData.groupCounts)).forEach(function(g) {
+        html += '<div class="admin-stat-card"><div class="stat-group">' + g + '</div><div class="stat-count">' + adminData.groupCounts[g] + '</div></div>';
       });
-      html += '</div></div>';
+      html += '</div>';
 
-      // c. Durchschnittswerte pro Frage
-      html += '<div class="admin-section">';
-      html += '<h3 class="admin-section-title">Durchschnittswerte pro Frage</h3>';
-      html += '<table class="admin-table"><thead><tr>';
-      html += '<th>Frage</th><th>\u00d8</th><th>Balken</th>';
-      html += '</tr></thead><tbody>';
-      Object.keys(QUESTION_LABELS).forEach(function(qId) {
-        var avg = adminData.qAverages[qId];
-        var barW = avg ? (avg / 5 * 100).toFixed(1) : 0;
-        html += '<tr>';
-        html += '<td>' + QUESTION_LABELS[qId] + '</td>';
-        html += '<td>' + (avg !== null ? avg.toFixed(1) : '\u2014') + '</td>';
-        html += '<td><div class="avg-bar-wrap"><div class="avg-bar" style="width:' + barW + '%"></div></div></td>';
-        html += '</tr>';
+      // Section averages
+      var sections = [
+        { label: 'Rahmen', keys: ['S1-01','S1-02','S1-03'] },
+        { label: 'Organisation', keys: ['S3-01','S3-02'] },
+        { label: 'Ausbildung', keys: ['S2-01','S2-02','S2-04','S2-05','S2-06','S2-07'] },
+        { label: 'Pr\u00fcfung', keys: ['S4-01','S4-02','S4-03'] },
+        { label: 'Soziales', keys: ['S5-01','S5-02','S5-03'] }
+      ];
+      html += '<p class="admin-panel-label">Sektionsschnitte</p>';
+      html += '<div class="admin-stat-grid">';
+      sections.forEach(function(sec) {
+        var vals = sec.keys.map(function(k) { return adminData.qAverages[k]; }).filter(function(v) { return v !== null; });
+        var avg = vals.length ? vals.reduce(function(a,b){return a+b;},0) / vals.length : null;
+        html += '<div class="admin-stat-card"><div class="stat-group">' + sec.label + '</div><div class="stat-count">' + (avg !== null ? avg.toFixed(1) : '\u2014') + '</div></div>';
       });
-      html += '</tbody></table></div>';
+      html += '</div>';
 
-      // d. Gruppenvergleich
-      html += '<div class="admin-section">';
-      html += '<h3 class="admin-section-title">Gruppenvergleich</h3>';
-      html += '<table class="admin-table"><thead><tr>';
-      html += '<th>Gruppe</th><th>\u00d8 gesamt</th>';
-      html += '</tr></thead><tbody>';
-      var gAvgKeys = sortGroups(Object.keys(adminData.groupAverages));
-      gAvgKeys.forEach(function(g) {
-        var qVals = Object.values(adminData.groupAverages[g]).filter(function(v) { return v !== null; });
-        var overall = qVals.length ? (qVals.reduce(function(a, b) { return a + b; }, 0) / qVals.length) : null;
-        html += '<tr>';
-        html += '<td>' + g + '</td>';
-        html += '<td>' + (overall !== null ? overall.toFixed(2) : '\u2014') + '</td>';
-        html += '</tr>';
-      });
-      html += '</tbody></table></div>';
-
-      // e. Freitextantworten
+      // Freitexte (kompakt, collapsible-ähnlich)
       var hasFreitext = Object.keys(SECTION_LABELS).some(function(k) {
         return adminData.freitexteBySection[k] && adminData.freitexteBySection[k].length;
       });
       if (hasFreitext) {
-        html += '<div class="admin-section">';
-        html += '<h3 class="admin-section-title">Freitextantworten</h3>';
+        html += '<p class="admin-panel-label" style="margin-top:0.25rem;">Freitextantworten</p>';
         Object.keys(SECTION_LABELS).forEach(function(key) {
           var entries = adminData.freitexteBySection[key];
           if (!entries || !entries.length) return;
-          html += '<h4 style="font-size:0.875rem;color:var(--text-muted);margin:0.5rem 0">' + SECTION_LABELS[key] + '</h4>';
+          html += '<p style="font-size:0.8rem;font-weight:700;color:var(--blau);margin:0.6rem 0 0.3rem;">' + SECTION_LABELS[key] + '</p>';
           entries.forEach(function(entry) {
-            html += '<div class="admin-freitext-card">';
-            html += '<p class="admin-freitext-text">' + entry.text + '</p>';
-            html += '<p class="admin-freitext-meta">' + entry.group + '</p>';
-            html += '</div>';
+            html += '<div class="admin-freitext-card"><p class="admin-freitext-text">' + entry.text + '</p><p class="admin-freitext-meta">' + entry.group + '</p></div>';
           });
         });
-        html += '</div>';
       }
+      html += '</div>';
 
-      // f. Ausbilder-Feedback
-      var ausbilderNames = Object.keys(adminData.ausbilderFeedback).sort();
-      if (ausbilderNames.length) {
-        html += '<div class="admin-section">';
-        html += '<h3 class="admin-section-title">Ausbilder-Feedback</h3>';
-        ausbilderNames.forEach(function(name) {
-          var entries = adminData.ausbilderFeedback[name];
-          if (!entries || !entries.length) return;
-          html += '<h4 style="font-size:0.875rem;color:var(--text-muted);margin:0.5rem 0">' + name + '</h4>';
-          entries.forEach(function(entry) {
-            html += '<div class="admin-freitext-card">';
-            html += '<p class="admin-freitext-text">' + entry.text + '</p>';
-            html += '<p class="admin-freitext-meta">' + entry.group + '</p>';
-            html += '</div>';
-          });
-        });
+      // ---- Panel 2: Fragen ----
+      html += '<div class="admin-panel" id="panel-questions">';
+      html += '<div class="admin-q-list">';
+      Object.keys(QUESTION_LABELS).forEach(function(qId) {
+        var avg = adminData.qAverages[qId];
+        var barW = avg ? (avg / 5 * 100).toFixed(1) : 0;
+        html += '<div class="admin-q-row">';
+        html += '<span class="admin-q-label">' + QUESTION_LABELS[qId] + '</span>';
+        html += '<div class="admin-q-bar-track"><div class="admin-q-bar-fill" style="width:' + barW + '%"></div></div>';
+        html += '<span class="admin-q-avg">' + (avg !== null ? avg.toFixed(1) : '\u2014') + '</span>';
         html += '</div>';
-      }
+      });
+      html += '</div></div>';
+
+      // ---- Panel 3: Ausbilder ----
+      html += '<div class="admin-panel" id="panel-ausbilder">';
+      html += '<select class="admin-select" id="ausbilderFilter">';
+      html += '<option value="">-- Ausbilder ausw\u00e4hlen --</option>';
+      allAusbilder.forEach(function(name) {
+        var count = adminData.ausbilderFeedback[name] ? adminData.ausbilderFeedback[name].length : 0;
+        html += '<option value="' + name + '">' + name + ' (' + count + ' Feedbacks)</option>';
+      });
+      html += '</select>';
+      html += '<div id="ausbilderFeedbackPanel"><p style="color:var(--text-muted);font-size:0.9rem;">W\u00e4hle einen Ausbilder aus, um das Feedback anzuzeigen.</p></div>';
+      html += '</div>';
 
       adminEl.innerHTML = html;
       window.lastAdminData = adminData;
+
+      // Tab switching
+      adminEl.querySelectorAll('.admin-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          adminEl.querySelectorAll('.admin-tab').forEach(function(t) { t.classList.remove('active'); });
+          adminEl.querySelectorAll('.admin-panel').forEach(function(p) { p.classList.remove('active'); });
+          tab.classList.add('active');
+          var panel = document.getElementById('panel-' + tab.dataset.tab);
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      // Ausbilder filter
+      var ausbilderSelect = document.getElementById('ausbilderFilter');
+      if (ausbilderSelect) {
+        ausbilderSelect.addEventListener('change', function() {
+          var name = this.value;
+          var panel = document.getElementById('ausbilderFeedbackPanel');
+          if (!name) {
+            panel.innerHTML = '<p style="color:var(--text-muted);font-size:0.9rem;">W\u00e4hle einen Ausbilder aus, um das Feedback anzuzeigen.</p>';
+            return;
+          }
+          var entries = adminData.ausbilderFeedback[name] || [];
+          if (!entries.length) {
+            panel.innerHTML = '<p style="color:var(--text-muted);font-size:0.9rem;">Noch kein Feedback f\u00fcr ' + name + '.</p>';
+            return;
+          }
+          var h = '';
+          entries.forEach(function(entry) {
+            h += '<div class="admin-freitext-card"><p class="admin-freitext-text">' + entry.text + '</p><p class="admin-freitext-meta">' + entry.group + '</p></div>';
+          });
+          panel.innerHTML = h;
+        });
+      }
+
+      // Export button
       var exportBtn = document.getElementById('exportBtn');
       if (exportBtn) {
         exportBtn.disabled = false;
@@ -1645,37 +1690,38 @@
     }
 
     function exportToExcel(adminData) {
-      // ---- Sheet 1: Einzelantworten ----
+      // All unique Ausbilder (consistent column order)
+      var allAusbilder = [];
+      Object.values(TEAM_MAP).forEach(function(arr) {
+        arr.forEach(function(name) { if (allAusbilder.indexOf(name) === -1) allAusbilder.push(name); });
+      });
+      allAusbilder.sort();
+
       var qKeys = Object.keys(QUESTION_LABELS);
+
+      // ---- Sheet 1: Einzelantworten ----
       var headerRow = ['Timestamp', 'Gruppe', 'Hochschule', 'Name']
-        .concat(qKeys)
+        .concat(qKeys.map(function(k) { return k + ' ' + QUESTION_LABELS[k]; }))
         .concat(['S1 Freitext', 'S3 Freitext', 'S2 Freitext', 'S4 Freitext', 'S5 Freitext', 'Allgemeines Freitext'])
-        .concat(['Ausbilder Feedback']);
+        .concat(allAusbilder.map(function(n) { return 'Ausbilder: ' + n; }));
 
       var dataRows = adminData.submissions.map(function(s) {
-        var ratings = qKeys.map(function(q) {
-          return s.ratings ? (s.ratings[q] || '') : '';
-        });
+        var ratings = qKeys.map(function(q) { return s.ratings ? (s.ratings[q] || '') : ''; });
         var freitexte = ['S1', 'S3', 'S2', 'S4', 'S5', 'allgemein'].map(function(k) {
           return s.freitexte ? (s.freitexte[k] || '') : '';
         });
-        var ausbilder = s.ausbilder
-          ? Object.keys(s.ausbilder).map(function(n) { return n + ': ' + s.ausbilder[n]; }).join(' | ')
-          : '';
-        return [s.timestamp, s.group, s.uni || '', s.name || ''].concat(ratings).concat(freitexte).concat([ausbilder]);
+        var ausbilderCols = allAusbilder.map(function(n) { return s.ausbilder ? (s.ausbilder[n] || '') : ''; });
+        return [s.timestamp, s.group, s.uni || '', s.name || ''].concat(ratings).concat(freitexte).concat(ausbilderCols);
       });
-
       var sheet1 = XLSX.utils.aoa_to_sheet([headerRow].concat(dataRows));
 
       // ---- Sheet 2: Zusammenfassung ----
-      var partAHeader = ['Frage-ID', 'Frage', 'Durchschnitt (alle Gruppen)'];
+      var partAHeader = ['Frage-ID', 'Frage', '\u00d8 gesamt'];
       var partARows = qKeys.map(function(qId) {
         var avg = adminData.qAverages[qId];
         return [qId, QUESTION_LABELS[qId], avg !== null ? +avg.toFixed(2) : ''];
       });
-
       var blankRow = [''];
-
       var partBHeader = ['Gruppe', '\u00d8 gesamt', 'N Teilnehmer'];
       var sortedGroups = sortGroups(Object.keys(adminData.groupAverages));
       var partBRows = sortedGroups.map(function(g) {
@@ -1683,14 +1729,22 @@
         var overallAvg = qVals.length ? (qVals.reduce(function(a, b) { return a + b; }, 0) / qVals.length) : null;
         return [g, overallAvg !== null ? +overallAvg.toFixed(2) : '', adminData.groupCounts[g] || 0];
       });
+      var sheet2 = XLSX.utils.aoa_to_sheet([partAHeader].concat(partARows).concat([blankRow]).concat([partBHeader]).concat(partBRows));
 
-      var allRows = [partAHeader].concat(partARows).concat([blankRow]).concat([partBHeader]).concat(partBRows);
-      var sheet2 = XLSX.utils.aoa_to_sheet(allRows);
+      // ---- Sheet 3: Ausbilder-Feedback ----
+      var sheet3Rows = [['Ausbilder', 'Gruppe', 'Feedback']];
+      allAusbilder.forEach(function(name) {
+        (adminData.ausbilderFeedback[name] || []).forEach(function(entry) {
+          sheet3Rows.push([name, entry.group, entry.text]);
+        });
+      });
+      var sheet3 = XLSX.utils.aoa_to_sheet(sheet3Rows);
 
       // ---- Assemble workbook ----
       var wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, sheet1, 'Einzelantworten');
       XLSX.utils.book_append_sheet(wb, sheet2, 'Zusammenfassung');
+      XLSX.utils.book_append_sheet(wb, sheet3, 'Ausbilder-Feedback');
       XLSX.writeFile(wb, 'Lehrgangskritik-Valmorel-Export.xlsx');
     }
 
