@@ -7,7 +7,7 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 ## Phases
 
 - [x] **Phase 1: Foundation** - Static HTML/CSS skeleton with all sections and RUB design system
-- [ ] **Phase 2: Interactive Form** - Rating tiles, Ausbilder mapping, freitext triggers, validation
+- [x] **Phase 2: Interactive Form** - Rating tiles, Ausbilder mapping, freitext triggers, validation (completed 2026-03-25)
 - [ ] **Phase 3: Submission and Backend** - JSONBin integration, confirmation screen, error handling
 - [ ] **Phase 4: Admin Export** - Admin view, Excel export with per-group summary
 
@@ -45,7 +45,7 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 4. For the Pruefungsanforderungen question (S4-02), the freitext field appears at both extremes (1-2 and 4-5) but not at 3
 5. The submit button is disabled until a Gruppe is selected; each Ausbilder row has a required free-text field that must be filled before submit is enabled
 
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 - [ ] 02-01-PLAN.md — Rating tile interactivity + per-section freitext reveal/hide (RATE-01 through RATE-05)
 - [ ] 02-02-PLAN.md — TEAM_MAP, Ausbilder dynamic rendering, submit gate validation (S6-01, S6-02)
@@ -87,6 +87,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-03-24 |
-| 2. Interactive Form | 1/2 | In Progress|  |
+| 2. Interactive Form | 2/2 | Complete   | 2026-03-25 |
 | 3. Submission and Backend | 0/? | Not started | - |
 | 4. Admin Export | 0/? | Not started | - |

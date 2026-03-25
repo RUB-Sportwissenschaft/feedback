@@ -55,8 +55,8 @@
 
 ### S6 &#x2014; Ausbilder
 
-- [ ] **S6-01**: App zeigt automatisch die 2 Ausbilder passend zur gew&#x00e4;hlten Gruppe
-- [ ] **S6-02**: Jeder Ausbilder wird per Pflicht-Freitext bewertet (keine Skala)
+- [x] **S6-01**: App zeigt automatisch die 2 Ausbilder passend zur gew&#x00e4;hlten Gruppe
+- [x] **S6-02**: Jeder Ausbilder wird per Pflicht-Freitext bewertet (keine Skala)
 
 ### Backend und Submission
 
@@ -155,8 +155,8 @@ S1 (Rahmenbedingungen) &#x2192; S3 (Organisation) &#x2192; S2 (Ausbildung) &#x21
 | RATE-03 | Phase 2 | Complete |
 | RATE-04 | Phase 2 | Complete |
 | RATE-05 | Phase 2 | Complete |
-| S6-01 | Phase 2 | Pending |
-| S6-02 | Phase 2 | Pending |
+| S6-01 | Phase 2 | Complete |
+| S6-02 | Phase 2 | Complete |
 | BACK-01 | Phase 3 | Pending |
 | BACK-02 | Phase 3 | Pending |
 | BACK-03 | Phase 3 | Pending |
