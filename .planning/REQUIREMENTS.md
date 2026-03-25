@@ -66,11 +66,11 @@
 
 ### Admin
 
-- [ ] **ADM-01**: Admin-View via ?admin=true mit Inline-Dashboard
-- [ ] **ADM-02**: Teilnehmeranzahl gesamt und pro Gruppe
-- [ ] **ADM-03**: Durchschnittswerte pro Frage (alle 14 bewerteten Items)
-- [ ] **ADM-04**: Durchschnittswerte pro Gruppe (Gruppenvergleich)
-- [ ] **ADM-05**: Freitextantworten gesammelt pro Sektion einsehbar
+- [x] **ADM-01**: Admin-View via ?admin=true mit Inline-Dashboard
+- [x] **ADM-02**: Teilnehmeranzahl gesamt und pro Gruppe
+- [x] **ADM-03**: Durchschnittswerte pro Frage (alle 14 bewerteten Items)
+- [x] **ADM-04**: Durchschnittswerte pro Gruppe (Gruppenvergleich)
+- [x] **ADM-05**: Freitextantworten gesammelt pro Sektion einsehbar
 - [ ] **ADM-06**: Excel-Export (.xlsx) mit Einzelantworten und Zusammenfassung
 
 ### Design
@@ -160,11 +160,11 @@ S1 (Rahmenbedingungen) &#x2192; S3 (Organisation) &#x2192; S2 (Ausbildung) &#x21
 | BACK-01 | Phase 3 | Complete |
 | BACK-02 | Phase 3 | Complete |
 | BACK-03 | Phase 3 | Complete |
-| ADM-01 | Phase 4 | Pending |
-| ADM-02 | Phase 4 | Pending |
-| ADM-03 | Phase 4 | Pending |
-| ADM-04 | Phase 4 | Pending |
-| ADM-05 | Phase 4 | Pending |
+| ADM-01 | Phase 4 | Complete |
+| ADM-02 | Phase 4 | Complete |
+| ADM-03 | Phase 4 | Complete |
+| ADM-04 | Phase 4 | Complete |
+| ADM-05 | Phase 4 | Complete |
 | ADM-06 | Phase 4 | Pending |
 
 **Coverage:** 40/40 v1 requirements mapped (FORM 4 + RATE 5 + S1 3 + S3 2 + S2 7 + S4 3 + S5 3 + S6 2 + BACK 3 + ADM 6 + DES 2)
