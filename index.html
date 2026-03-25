@@ -525,6 +525,7 @@
     .admin-header-title { font-size:1.1rem; font-weight:700; }
     .admin-header-count { font-size:0.9rem; opacity:0.85; }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -1610,6 +1611,69 @@
       }
 
       adminEl.innerHTML = html;
+      window.lastAdminData = adminData;
+      var exportBtn = document.getElementById('exportBtn');
+      if (exportBtn) {
+        exportBtn.disabled = false;
+        exportBtn.addEventListener('click', function() { exportToExcel(window.lastAdminData); });
+      }
+    }
+
+    function exportToExcel(adminData) {
+      // ---- Sheet 1: Einzelantworten ----
+      var qKeys = Object.keys(QUESTION_LABELS);
+      var headerRow = ['Timestamp', 'Gruppe', 'Name']
+        .concat(qKeys)
+        .concat(['S1 Freitext', 'S3 Freitext', 'S2 Freitext', 'S4 Freitext', 'S5 Freitext', 'Allgemeines Freitext'])
+        .concat(['Ausbilder Feedback']);
+
+      var dataRows = adminData.submissions.map(function(s) {
+        var ratings = qKeys.map(function(q) {
+          return s.ratings ? (s.ratings[q] || '') : '';
+        });
+        var freitexte = ['S1', 'S3', 'S2', 'S4', 'S5', 'allgemein'].map(function(k) {
+          return s.freitexte ? (s.freitexte[k] || '') : '';
+        });
+        var ausbilder = s.ausbilder
+          ? Object.keys(s.ausbilder).map(function(n) { return n + ': ' + s.ausbilder[n]; }).join(' | ')
+          : '';
+        return [s.timestamp, s.group, s.name || ''].concat(ratings).concat(freitexte).concat([ausbilder]);
+      });
+
+      var sheet1 = XLSX.utils.aoa_to_sheet([headerRow].concat(dataRows));
+
+      // ---- Sheet 2: Zusammenfassung ----
+      var partAHeader = ['Frage-ID', 'Frage', 'Durchschnitt (alle Gruppen)'];
+      var partARows = qKeys.map(function(qId) {
+        var avg = adminData.qAverages[qId];
+        return [qId, QUESTION_LABELS[qId], avg !== null ? +avg.toFixed(2) : ''];
+      });
+
+      var blankRow = [''];
+
+      var partBHeader = ['Gruppe', '\u00d8 gesamt', 'N Teilnehmer'];
+      var sortedGroups = Object.keys(adminData.groupAverages).sort(function(a, b) {
+        var aIsNum = /^Gruppe \d+$/.test(a);
+        var bIsNum = /^Gruppe \d+$/.test(b);
+        if (aIsNum && bIsNum) return parseInt(a.replace('Gruppe ', '')) - parseInt(b.replace('Gruppe ', ''));
+        if (aIsNum) return -1;
+        if (bIsNum) return 1;
+        return a.localeCompare(b);
+      });
+      var partBRows = sortedGroups.map(function(g) {
+        var qVals = Object.values(adminData.groupAverages[g]).filter(function(v) { return v !== null; });
+        var overallAvg = qVals.length ? (qVals.reduce(function(a, b) { return a + b; }, 0) / qVals.length) : null;
+        return [g, overallAvg !== null ? +overallAvg.toFixed(2) : '', adminData.groupCounts[g] || 0];
+      });
+
+      var allRows = [partAHeader].concat(partARows).concat([blankRow]).concat([partBHeader]).concat(partBRows);
+      var sheet2 = XLSX.utils.aoa_to_sheet(allRows);
+
+      // ---- Assemble workbook ----
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, sheet1, 'Einzelantworten');
+      XLSX.utils.book_append_sheet(wb, sheet2, 'Zusammenfassung');
+      XLSX.writeFile(wb, 'Lehrgangskritik-Valmorel-Export.xlsx');
     }
 
     // =====================================================
