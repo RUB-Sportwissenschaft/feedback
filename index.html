@@ -544,6 +544,14 @@
     .admin-name-pill.active { background:var(--orange-light); border-color:var(--orange); color:var(--orange); }
     .admin-name-badge { background:var(--blau-light); color:var(--blau); border-radius:999px; padding:0.15rem 0.5rem; font-size:0.72rem; font-weight:700; flex-shrink:0; }
     .admin-name-pill.active .admin-name-badge { background:var(--orange); color:var(--white); }
+
+    /* =====================================================
+       VALIDATION FEEDBACK
+    ===================================================== */
+    .form-section.required-missing { border-color: #e0453a !important; box-shadow: 0 0 0 3px rgba(224,69,58,.12); }
+    .form-section.required-missing .field-label { color: #e0453a; }
+    .step-error-hint { display:none; font-size:0.82rem; color:#e0453a; font-weight:700; margin-top:0.5rem; padding:0.4rem 0.6rem; background:#fdf0ef; border-radius:var(--radius-sm); }
+    .step-error-hint.visible { display:block; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </head>
@@ -625,6 +633,7 @@
       </div>
 
       <!-- Navigation: only Weiter on Step 0 -->
+      <div class="step-error-hint" id="step0Error">Bitte w&#x00e4;hle deine Hochschule und Gruppe.</div>
       <div class="nav-row justify-end">
         <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
       </div>
@@ -757,7 +766,7 @@
 
       <!-- S2-01: Situatives und demonstratives Können -->
       <div class="form-section" data-question="S2-01">
-        <label class="field-label">Situatives und demonstratives K&#x00f6;nnen</label>
+        <label class="field-label">Situatives und demonstratives K&#x00f6;nnen <span class="req">*</span></label>
         <p class="question-subtitle">Wie sehr hat der Lehrgang deine eigene fahrerische Leistung verbessert?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
@@ -766,15 +775,15 @@
           <div class="tile-base rating-tile">4</div>
           <div class="tile-base rating-tile">5</div>
         </div>
-        <div class="rating-labels">
-          <span>kaum</span>
-          <span>sehr viel</span>
+        <div class="rating-labels"><span>kaum</span><span>sehr viel</span></div>
+        <div class="freitext-section per-q-freitext" style="margin-top:0.65rem;">
+          <textarea rows="2" class="per-q-textarea" data-freitext-q="S2-01" placeholder="Was hat dir gefehlt? (optional)&#x2026;"></textarea>
         </div>
       </div>
 
       <!-- S2-02: Eigene Lehrkompetenz / Lehrübungen -->
       <div class="form-section" data-question="S2-02">
-        <label class="field-label">Eigene Lehrkompetenz / Lehr&#x00fc;bungen</label>
+        <label class="field-label">Eigene Lehrkompetenz / Lehr&#x00fc;bungen <span class="req">*</span></label>
         <p class="question-subtitle">Wie sehr hat der Lehrgang deine eigene Lehrkompetenz weiterentwickelt?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
@@ -783,9 +792,9 @@
           <div class="tile-base rating-tile">4</div>
           <div class="tile-base rating-tile">5</div>
         </div>
-        <div class="rating-labels">
-          <span>kaum</span>
-          <span>sehr viel</span>
+        <div class="rating-labels"><span>kaum</span><span>sehr viel</span></div>
+        <div class="freitext-section per-q-freitext" style="margin-top:0.65rem;">
+          <textarea rows="2" class="per-q-textarea" data-freitext-q="S2-02" placeholder="Was hat dir gefehlt? (optional)&#x2026;"></textarea>
         </div>
       </div>
 
@@ -793,7 +802,7 @@
 
       <!-- S2-04: Einsteigermethodik -->
       <div class="form-section" data-question="S2-04">
-        <label class="field-label">Einsteigermethodik</label>
+        <label class="field-label">Einsteigermethodik <span class="req">*</span></label>
         <p class="question-subtitle">Lehreinheit: Wie f&#x00fc;hre ich Anf&#x00e4;nger an den Schneesport heran?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
@@ -802,15 +811,15 @@
           <div class="tile-base rating-tile">4</div>
           <div class="tile-base rating-tile">5</div>
         </div>
-        <div class="rating-labels">
-          <span>schlecht</span>
-          <span>sehr gut</span>
+        <div class="rating-labels"><span>schlecht</span><span>sehr gut</span></div>
+        <div class="freitext-section per-q-freitext" style="margin-top:0.65rem;">
+          <textarea rows="2" class="per-q-textarea" data-freitext-q="S2-04" placeholder="Was hat dir gefehlt? (optional)&#x2026;"></textarea>
         </div>
       </div>
 
       <!-- S2-05: Videoanalysen -->
       <div class="form-section" data-question="S2-05">
-        <label class="field-label">Videoanalysen</label>
+        <label class="field-label">Videoanalysen <span class="req">*</span></label>
         <p class="question-subtitle">Einsatz von Videoaufnahmen zur Analyse und Verbesserung der eigenen Fahrtechnik</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
@@ -819,15 +828,15 @@
           <div class="tile-base rating-tile">4</div>
           <div class="tile-base rating-tile">5</div>
         </div>
-        <div class="rating-labels">
-          <span>schlecht</span>
-          <span>sehr gut</span>
+        <div class="rating-labels"><span>schlecht</span><span>sehr gut</span></div>
+        <div class="freitext-section per-q-freitext" style="margin-top:0.65rem;">
+          <textarea rows="2" class="per-q-textarea" data-freitext-q="S2-05" placeholder="Was hat dir gefehlt? (optional)&#x2026;"></textarea>
         </div>
       </div>
 
       <!-- S2-06: Schnee-Event -->
       <div class="form-section" data-question="S2-06">
-        <label class="field-label">Schnee-Event</label>
+        <label class="field-label">Schnee-Event <span class="req">*</span></label>
         <p class="question-subtitle">Gemeinsame Ski-Rallye mit Gruppen-Challenges und Siegerehrung</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
@@ -836,15 +845,15 @@
           <div class="tile-base rating-tile">4</div>
           <div class="tile-base rating-tile">5</div>
         </div>
-        <div class="rating-labels">
-          <span>schlecht</span>
-          <span>sehr gut</span>
+        <div class="rating-labels"><span>schlecht</span><span>sehr gut</span></div>
+        <div class="freitext-section per-q-freitext" style="margin-top:0.65rem;">
+          <textarea rows="2" class="per-q-textarea" data-freitext-q="S2-06" placeholder="Was hat dir gefehlt? (optional)&#x2026;"></textarea>
         </div>
       </div>
 
       <!-- S2-07: Verschüttetensuche / Risikomanagement -->
       <div class="form-section" data-question="S2-07">
-        <label class="field-label">Versch&#x00fc;ttetensuche / Risikomanagement</label>
+        <label class="field-label">Versch&#x00fc;ttetensuche / Risikomanagement <span class="req">*</span></label>
         <p class="question-subtitle">Praktische LVS-&#x00dc;bung und Lawinenkunde im Schnee</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
@@ -853,17 +862,10 @@
           <div class="tile-base rating-tile">4</div>
           <div class="tile-base rating-tile">5</div>
         </div>
-        <div class="rating-labels">
-          <span>schlecht</span>
-          <span>sehr gut</span>
+        <div class="rating-labels"><span>schlecht</span><span>sehr gut</span></div>
+        <div class="freitext-section per-q-freitext" style="margin-top:0.65rem;">
+          <textarea rows="2" class="per-q-textarea" data-freitext-q="S2-07" placeholder="Was hat dir gefehlt? (optional)&#x2026;"></textarea>
         </div>
-      </div>
-
-      <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
-      <div class="form-section freitext-section" data-freitext="3">
-        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
-        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="3"></textarea>
       </div>
 
       <div class="nav-row">
@@ -1160,11 +1162,46 @@
     // =====================================================
     // NAVIGATION
     // =====================================================
-    function nextStep() {
-      if (currentStep < totalSteps - 1) {
-        showStep(currentStep + 1);
-        window.scrollTo(0, 0);
+    function validateStep(n) {
+      var stepEl = document.querySelector('[data-step="' + n + '"]');
+      if (!stepEl) return true;
+
+      if (n === 0) {
+        var uniSection = document.getElementById('uniGrid') && document.getElementById('uniGrid').closest('.form-section');
+        var groupSection = document.getElementById('groupGrid') && document.getElementById('groupGrid').closest('.form-section');
+        if (uniSection) uniSection.classList.toggle('required-missing', !selectedUni);
+        if (groupSection) groupSection.classList.toggle('required-missing', !selectedGroup);
+        var ok = !!(selectedUni && selectedGroup);
+        var hint = document.getElementById('step0Error');
+        if (hint) hint.classList.toggle('visible', !ok);
+        if (!ok) {
+          var first = stepEl.querySelector('.required-missing');
+          if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return ok;
       }
+
+      // Steps 1–5: all rating questions required
+      var questions = stepEl.querySelectorAll('.form-section[data-question]');
+      if (!questions.length) return true;
+      var allRated = true;
+      questions.forEach(function(sec) {
+        var rated = formData[sec.dataset.question] !== undefined;
+        sec.classList.toggle('required-missing', !rated);
+        if (!rated) allRated = false;
+      });
+      if (!allRated) {
+        var firstMissing = stepEl.querySelector('.required-missing');
+        if (firstMissing) firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return allRated;
+    }
+
+    function nextStep() {
+      if (currentStep >= totalSteps - 1) return;
+      if (!validateStep(currentStep)) return;
+      showStep(currentStep + 1);
+      window.scrollTo(0, 0);
     }
 
     function prevStep() {
@@ -1186,6 +1223,8 @@
           grid.querySelectorAll('.card').forEach(function(c) { c.classList.remove('selected'); });
           card.classList.add('selected');
           selectedGroup = card.dataset.group;
+          var groupSec = grid.closest('.form-section');
+          if (groupSec) groupSec.classList.remove('required-missing');
           renderAusbilder(selectedGroup);
           updateSubmitState();
         });
@@ -1199,6 +1238,10 @@
           uniGrid.querySelectorAll('.uni-card').forEach(function(c) { c.classList.remove('selected'); });
           card.classList.add('selected');
           selectedUni = card.dataset.uni;
+          var uniSec = uniGrid.closest('.form-section');
+          if (uniSec) uniSec.classList.remove('required-missing');
+          var hint = document.getElementById('step0Error');
+          if (hint && selectedGroup) hint.classList.remove('visible');
         });
       }
     });
@@ -1312,7 +1355,15 @@
           tile.classList.add('selected');
           // Track in formData
           if (questionId) formData[questionId] = value;
-          // Trigger freitext check for the containing step
+          // Clear required-missing on this section
+          if (section) section.classList.remove('required-missing');
+          // Per-question freitext (S2: show on ≤2, hide+clear on >2)
+          var perQ = section && section.querySelector('.per-q-freitext');
+          if (perQ) {
+            perQ.style.display = (value <= 2) ? 'block' : 'none';
+            if (value > 2) { var ta = perQ.querySelector('textarea'); if (ta) ta.value = ''; }
+          }
+          // Trigger section freitext check for the containing step
           var stepEl = grid.closest('.step');
           if (stepEl) checkSectionFreitext(stepEl);
         });
@@ -1351,6 +1402,12 @@
           var sectionId = sectionMap[stepKey] || stepKey;
           freitexte[sectionId] = val;
         }
+      });
+
+      // Per-Frage-Freitexte S2
+      document.querySelectorAll('[data-freitext-q]').forEach(function(ta) {
+        var val = ta.value.trim();
+        if (val) freitexte[ta.dataset.freitextQ] = val;
       });
 
       // Allgemeines Freitext (step 6, no data-freitext-input attribute)
@@ -1718,12 +1775,15 @@
       // ---- Sheet 1: Einzelantworten ----
       var headerRow = ['Timestamp', 'Gruppe', 'Hochschule', 'Name']
         .concat(qKeys.map(function(k) { return k + ' ' + QUESTION_LABELS[k]; }))
-        .concat(['S1 Freitext', 'S3 Freitext', 'S2 Freitext', 'S4 Freitext', 'S5 Freitext', 'Allgemeines Freitext'])
+        .concat(['S1 Freitext', 'S3 Freitext',
+                 'S2-01 Freitext', 'S2-02 Freitext', 'S2-04 Freitext',
+                 'S2-05 Freitext', 'S2-06 Freitext', 'S2-07 Freitext',
+                 'S4 Freitext', 'S5 Freitext', 'Allgemeines Freitext'])
         .concat(allAusbilder.map(function(n) { return 'Ausbilder*in: ' + n; }));
 
       var dataRows = adminData.submissions.map(function(s) {
         var ratings = qKeys.map(function(q) { return s.ratings ? (s.ratings[q] || '') : ''; });
-        var freitexte = ['S1', 'S3', 'S2', 'S4', 'S5', 'allgemein'].map(function(k) {
+        var freitexte = ['S1', 'S3', 'S2-01', 'S2-02', 'S2-04', 'S2-05', 'S2-06', 'S2-07', 'S4', 'S5', 'allgemein'].map(function(k) {
           return s.freitexte ? (s.freitexte[k] || '') : '';
         });
         var ausbilderCols = allAusbilder.map(function(n) { return s.ausbilder ? (s.ausbilder[n] || '') : ''; });
