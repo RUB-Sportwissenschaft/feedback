@@ -155,9 +155,8 @@
       // Update counter: show current step as 1-indexed
       document.getElementById('progressCounter').textContent = (n + 1) + ' / ' + totalSteps;
 
-      // Update section name with icon
-      var icon = STEP_ICONS[n] ? STEP_ICONS[n] + ' ' : '';
-      document.getElementById('progressSectionName').textContent = icon + (sectionNames[n] || '');
+      // Update section name
+      document.getElementById('progressSectionName').textContent = sectionNames[n] || '';
     }
 
     // --- NAVIGATION ---
