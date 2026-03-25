@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exkursionsreflexion Valmorel 2026 &#x2014; Schneesport 2026</title>
   <link rel="icon" type="image/png" href="img/favicon-32.png" sizes="32x32">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 </head>
@@ -36,13 +36,12 @@
 
       <!-- Intro / Welcome card -->
       <div class="form-section" style="border-left:3px solid var(--orange); background:var(--orange-light);">
-        <p style="font-weight:700; font-size:1rem; color:var(--blau); margin-bottom:0.5rem;">Exkursionsreflexion Valmorel 2026</p>
-        <p style="font-size:0.9rem; color:var(--text); line-height:1.55; margin-bottom:0.5rem;">
-          Wir m&ouml;chten wissen, wie du die Exkursion erlebt hast. Dein Feedback zu Rahmenbedingungen, Organisation, Ausbildung, Pr&uuml;fung, sozialem Miteinander und deinen Ausbilder*innen hilft uns, k&uuml;nftige Exkursionen noch besser zu gestalten.
-        </p>
-        <div style="display:flex; gap:1.25rem; flex-wrap:wrap; align-items:center;">
-          <span style="font-size:0.82rem; color:var(--text-muted);">&#x23F1;&nbsp;ca.&nbsp;10&nbsp;Minuten</span>
-          <span style="font-size:0.82rem; font-weight:700; color:var(--blau);">&#x1F512;&nbsp;Vollst&auml;ndig anonym &mdash; kein Name erforderlich</span>
+        <p style="font-weight:700; font-size:1rem; color:var(--blau); margin-bottom:0.25rem;">Exkursionsreflexion Valmorel 2026</p>
+        <p style="font-size:0.88rem; color:var(--text); line-height:1.5; margin-bottom:0;">Sag uns, wie du die Exkursion erlebt hast &mdash; dein Feedback macht k&uuml;nftige Ausfahrten besser.</p>
+        <div class="intro-chips">
+          <span class="intro-chip">&#x23F1;&#xFE0F; ~10 Min</span>
+          <span class="intro-chip">&#x1F512; Anonym</span>
+          <span class="intro-chip">&#x1F4CA; 6 Themen</span>
         </div>
       </div>
 
@@ -64,17 +63,17 @@
         <label class="field-label">Deine Gruppe <span class="req">*</span></label>
         <div class="card-grid" id="groupGrid">
           <!-- Row 1: Gruppe 1-4 -->
-          <div class="tile-base card" data-group="1">1</div>
-          <div class="tile-base card" data-group="2">2</div>
-          <div class="tile-base card" data-group="3">3</div>
-          <div class="tile-base card" data-group="4">4</div>
+          <div class="tile-base card" data-group="1">&#x26F7;&#xFE0F; 1</div>
+          <div class="tile-base card" data-group="2">&#x26F7;&#xFE0F; 2</div>
+          <div class="tile-base card" data-group="3">&#x26F7;&#xFE0F; 3</div>
+          <div class="tile-base card" data-group="4">&#x26F7;&#xFE0F; 4</div>
           <!-- Row 2: Gruppe 5-8 -->
-          <div class="tile-base card" data-group="5">5</div>
-          <div class="tile-base card" data-group="6">6</div>
-          <div class="tile-base card" data-group="7">7</div>
-          <div class="tile-base card" data-group="8">8</div>
+          <div class="tile-base card" data-group="5">&#x26F7;&#xFE0F; 5</div>
+          <div class="tile-base card" data-group="6">&#x26F7;&#xFE0F; 6</div>
+          <div class="tile-base card" data-group="7">&#x26F7;&#xFE0F; 7</div>
+          <div class="tile-base card" data-group="8">&#x26F7;&#xFE0F; 8</div>
           <!-- Row 3: Snowboard (full width, single group) -->
-          <div class="tile-base card card-snowboard" data-group="Snowboard">Snowboard</div>
+          <div class="tile-base card card-snowboard" data-group="Snowboard">&#x1F3C2; Snowboard</div>
         </div>
       </div>
 
@@ -99,8 +98,7 @@
 
       <!-- rating_skibo_service: Reiseveranstalter -->
       <div class="form-section" data-question="rating_skibo_service">
-        <label class="field-label">Reiseveranstalter</label>
-        <p class="question-subtitle">Wie bewertest du den Service von SkiBo Tours?</p>
+        <label class="field-label">Reiseveranstalter <span class="field-hint">(SkiBo Tours)</span></label>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -114,7 +112,6 @@
       <!-- rating_prep_info: Vorab-Informationen -->
       <div class="form-section" data-question="rating_prep_info">
         <label class="field-label">Vorab-Informationen</label>
-        <p class="question-subtitle">Waren die Vorab-Informationen der Universit&#x00e4;t hilfreich?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -128,7 +125,6 @@
       <!-- rating_costs: Kosten / Preis-Leistung (bipolar) -->
       <div class="form-section" data-question="rating_costs">
         <label class="field-label">Kosten / Preis-Leistung</label>
-        <p class="question-subtitle">Wie bewertest du das Preis-Leistungs-Verh&#x00e4;ltnis?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -141,8 +137,7 @@
 
       <!-- rating_location: Ausbildungsort -->
       <div class="form-section" data-question="rating_location">
-        <label class="field-label">Ausbildungsort</label>
-        <p class="question-subtitle">Wie bewertest du den Ort (Unterkunft, Skigebiet)?</p>
+        <label class="field-label">Ausbildungsort <span class="field-hint">(Unterkunft, Skigebiet)</span></label>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -155,9 +150,8 @@
 
       <!-- Freitext (erscheint automatisch bei negativer Bewertung) -->
       <div class="form-section freitext-section" data-freitext="1">
-        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
-        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="1"></textarea>
+        <label class="field-label">Was hat gest&#x00f6;rt? <span class="field-hint">(optional)</span></label>
+        <textarea rows="3" placeholder="Was h&#x00e4;tte besser sein k&#x00f6;nnen?" data-freitext-input="1"></textarea>
       </div>
 
       <div class="nav-row">
@@ -172,7 +166,6 @@
       <!-- rating_driving_skills: Fahrerisches Können -->
       <div class="form-section" data-question="rating_driving_skills">
         <label class="field-label">Fahrerisches K&#x00f6;nnen</label>
-        <p class="question-subtitle">Wie bewertest du deine fahrerische Entwicklung?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -186,7 +179,6 @@
       <!-- rating_teaching_skills: Lehrkompetenz -->
       <div class="form-section" data-question="rating_teaching_skills">
         <label class="field-label">Lehrkompetenz</label>
-        <p class="question-subtitle">Wie bewertest du die Entwicklung deiner Lehrf&#x00e4;higkeit?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -200,7 +192,6 @@
       <!-- rating_methodology: Einsteigermethodik -->
       <div class="form-section" data-question="rating_methodology">
         <label class="field-label">Einsteigermethodik</label>
-        <p class="question-subtitle">Wie bewertest du die Vermittlung der Einsteigermethodik?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -214,7 +205,6 @@
       <!-- rating_video_analysis: Videoanalysen -->
       <div class="form-section" data-question="rating_video_analysis">
         <label class="field-label">Videoanalysen</label>
-        <p class="question-subtitle">Waren die Videoanalysen f&#x00fc;r dich hilfreich?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -227,9 +217,8 @@
 
       <!-- Freitext (erscheint automatisch bei negativer Bewertung) -->
       <div class="form-section freitext-section" data-freitext="2">
-        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
-        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="2"></textarea>
+        <label class="field-label">Was hat gest&#x00f6;rt? <span class="field-hint">(optional)</span></label>
+        <textarea rows="3" placeholder="Was h&#x00e4;tte besser sein k&#x00f6;nnen?" data-freitext-input="2"></textarea>
       </div>
 
       <div class="nav-row">
@@ -243,8 +232,7 @@
 
       <!-- rating_lvs_training: Verschüttetensuche -->
       <div class="form-section" data-question="rating_lvs_training">
-        <label class="field-label">Versch&#x00fc;ttetensuche</label>
-        <p class="question-subtitle">Wie bewertest du die LVS-&#x00dc;bung (Versch&#x00fc;ttetensuche)?</p>
+        <label class="field-label">Versch&#x00fc;ttetensuche <span class="field-hint">(LVS-&#x00dc;bung)</span></label>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -258,7 +246,6 @@
       <!-- rating_theory: Theorie-Inhalte -->
       <div class="form-section" data-question="rating_theory">
         <label class="field-label">Theorie-Inhalte</label>
-        <p class="question-subtitle">Wie bewertest du die Qualit&#x00e4;t der Theorie-Vortr&#x00e4;ge?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -271,8 +258,7 @@
 
       <!-- rating_snow_event: Schnee-Event -->
       <div class="form-section" data-question="rating_snow_event">
-        <label class="field-label">Schnee-Event</label>
-        <p class="question-subtitle">Wie bewertest du das Schnee-Event (Rallye)?</p>
+        <label class="field-label">Schnee-Event <span class="field-hint">(Rallye)</span></label>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -285,9 +271,8 @@
 
       <!-- Freitext (erscheint automatisch bei negativer Bewertung) -->
       <div class="form-section freitext-section" data-freitext="3">
-        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
-        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="3"></textarea>
+        <label class="field-label">Was hat gest&#x00f6;rt? <span class="field-hint">(optional)</span></label>
+        <textarea rows="3" placeholder="Was h&#x00e4;tte besser sein k&#x00f6;nnen?" data-freitext-input="3"></textarea>
       </div>
 
       <div class="nav-row">
@@ -302,7 +287,6 @@
       <!-- rating_organisation: Lehrgangs-Organisation -->
       <div class="form-section" data-question="rating_organisation">
         <label class="field-label">Lehrgangs-Organisation</label>
-        <p class="question-subtitle">Wie bewertest du den organisatorischen Ablauf?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -316,7 +300,6 @@
       <!-- rating_workload: Zeitliche Belastung (bipolar) -->
       <div class="form-section" data-question="rating_workload">
         <label class="field-label">Zeitliche Belastung</label>
-        <p class="question-subtitle">War der zeitliche Umfang des Programms angemessen?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -331,7 +314,6 @@
       <!-- rating_group_split: Gruppeneinteilung -->
       <div class="form-section" data-question="rating_group_split">
         <label class="field-label">Gruppeneinteilung</label>
-        <p class="question-subtitle">Waren die Kriterien der Gruppenbildung nachvollziehbar?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -344,9 +326,8 @@
 
       <!-- Freitext (erscheint automatisch bei negativer Bewertung) -->
       <div class="form-section freitext-section" data-freitext="4">
-        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
-        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="4"></textarea>
+        <label class="field-label">Was hat gest&#x00f6;rt? <span class="field-hint">(optional)</span></label>
+        <textarea rows="3" placeholder="Was h&#x00e4;tte besser sein k&#x00f6;nnen?" data-freitext-input="4"></textarea>
       </div>
 
       <div class="nav-row">
@@ -361,7 +342,6 @@
       <!-- rating_exam_org: Prüfungs-Organisation -->
       <div class="form-section" data-question="rating_exam_org">
         <label class="field-label">Pr&#x00fc;fungs-Organisation</label>
-        <p class="question-subtitle">Wie bewertest du den Ablauf der Pr&#x00fc;fung?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -375,7 +355,6 @@
       <!-- rating_exam_difficulty: Prüfungsanforderungen (bipolar) -->
       <div class="form-section" data-question="rating_exam_difficulty">
         <label class="field-label">Pr&#x00fc;fungsanforderungen</label>
-        <p class="question-subtitle">Wie bewertest du das Niveau der Anforderungen?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -390,7 +369,6 @@
       <!-- rating_exam_clarity: Klarheit der Kriterien -->
       <div class="form-section" data-question="rating_exam_clarity">
         <label class="field-label">Klarheit der Kriterien</label>
-        <p class="question-subtitle">Wurden die Anforderungen verst&#x00e4;ndlich kommuniziert?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -403,9 +381,8 @@
 
       <!-- Freitext (erscheint automatisch bei negativer Bewertung) -->
       <div class="form-section freitext-section" data-freitext="5">
-        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
-        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="5"></textarea>
+        <label class="field-label">Was hat gest&#x00f6;rt? <span class="field-hint">(optional)</span></label>
+        <textarea rows="3" placeholder="Was h&#x00e4;tte besser sein k&#x00f6;nnen?" data-freitext-input="5"></textarea>
       </div>
 
       <div class="nav-row">
@@ -420,7 +397,6 @@
       <!-- rating_hut_evening: Hüttenabend -->
       <div class="form-section" data-question="rating_hut_evening">
         <label class="field-label">H&#x00fc;ttenabend</label>
-        <p class="question-subtitle">Wie bewertest du den H&#x00fc;ttenabend?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -434,7 +410,6 @@
       <!-- rating_apres_ski: Après-Ski -->
       <div class="form-section" data-question="rating_apres_ski">
         <label class="field-label">Apr&#x00e8;s-Ski</label>
-        <p class="question-subtitle">Wie bewertest du das Apr&#x00e8;s-Ski-Angebot?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -448,7 +423,6 @@
       <!-- rating_social_atmosphere: Soziales Miteinander -->
       <div class="form-section" data-question="rating_social_atmosphere">
         <label class="field-label">Soziales Miteinander</label>
-        <p class="question-subtitle">Wie bewertest du die Atmosph&#x00e4;re unter den Studierenden?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -461,9 +435,8 @@
 
       <!-- Freitext (erscheint automatisch bei negativer Bewertung) -->
       <div class="form-section freitext-section" data-freitext="6">
-        <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
-        <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="6"></textarea>
+        <label class="field-label">Was hat gest&#x00f6;rt? <span class="field-hint">(optional)</span></label>
+        <textarea rows="3" placeholder="Was h&#x00e4;tte besser sein k&#x00f6;nnen?" data-freitext-input="6"></textarea>
       </div>
 
       <div class="nav-row">
@@ -481,8 +454,7 @@
       <!-- Allgemeines Feedback -->
       <div class="form-section">
         <label class="field-label">Weitere R&#x00fc;ckmeldungen <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle">Hast du sonst noch etwas auf dem Herzen?</p>
-        <textarea rows="4" id="feedbackGeneral" placeholder="Dein Feedback (optional)&#x2026;"></textarea>
+        <textarea rows="4" id="feedbackGeneral" placeholder="Hast du noch etwas auf dem Herzen?"></textarea>
       </div>
 
       <div class="nav-row">
@@ -509,7 +481,7 @@
   <div id="adminDashboard"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
   <script src="admin.js?v=2"></script>
 </body>
 </html>

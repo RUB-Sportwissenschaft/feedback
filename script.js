@@ -123,6 +123,8 @@
       'S6 \u2014 Soziales Miteinander',
       'S7 \u2014 Ausbilder*innen & Abschluss'
     ];
+    const STEP_ICONS = ['\uD83D\uDC4B', '\uD83D\uDDFA\uFE0F', '\u26F7\uFE0F', '\uD83C\uDFD4\uFE0F', '\uD83D\uDCCB', '\uD83D\uDCDD', '\uD83E\uDD1D', '\uD83D\uDC65'];
+    const TILE_EMOJIS = { 1: '\uD83D\uDE1E', 2: '\uD83D\uDE15', 3: '\uD83D\uDE10', 4: '\uD83D\uDE42', 5: '\uD83D\uDE00' };
 
     // --- SHOW STEP ---
     function showStep(n, direction) {
@@ -153,8 +155,9 @@
       // Update counter: show current step as 1-indexed
       document.getElementById('progressCounter').textContent = (n + 1) + ' / ' + totalSteps;
 
-      // Update section name
-      document.getElementById('progressSectionName').textContent = sectionNames[n] || '';
+      // Update section name with icon
+      var icon = STEP_ICONS[n] ? STEP_ICONS[n] + ' ' : '';
+      document.getElementById('progressSectionName').textContent = icon + (sectionNames[n] || '');
     }
 
     // --- NAVIGATION ---
@@ -318,6 +321,17 @@
       updateSubmitState();
     }
 
+    // --- RATING TILES — emoji init ---
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.rating-tile').forEach(function(tile, i) {
+        var val = i % 5 + 1; // tiles appear in groups of 5
+        tile.dataset.val = val;
+        tile.innerHTML =
+          '<span style="font-size:1.3rem;line-height:1;">' + TILE_EMOJIS[val] + '</span>' +
+          '<span style="font-size:0.75rem;line-height:1;">' + val + '</span>';
+      });
+    });
+
     // --- RATING TILES ---
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.rating-grid').forEach(function(grid) {
@@ -326,13 +340,13 @@
           if (!tile) return;
           var section = grid.closest('.form-section');
           var questionId = section ? section.dataset.question : null;
-          var value = parseInt(tile.textContent.trim(), 10);
+          var value = parseInt(tile.dataset.val, 10);
           // Deselect all tiles in this grid
           grid.querySelectorAll('.rating-tile').forEach(function(t) {
-            t.classList.remove('selected');
+            t.classList.remove('selected-1','selected-2','selected-3','selected-4','selected-5');
           });
           // Select clicked tile
-          tile.classList.add('selected');
+          tile.classList.add('selected-' + value);
           // Track in formData
           if (questionId) formData[questionId] = value;
           // Clear required-missing on this section
