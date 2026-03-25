@@ -425,6 +425,36 @@
       outline: none;
       border-color: var(--orange);
     }
+
+    /* =====================================================
+       SUBMIT — LOADING + ERROR STATES
+    ===================================================== */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.4em;
+    }
+
+    .submit-error {
+      display: none;
+      color: #c0392b;
+      background: #fdf0ef;
+      border: 1px solid #f5c6c2;
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.8rem;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
@@ -890,6 +920,15 @@
   </main>
 
   <script>
+    // =====================================================
+    // JSONBIN v3 — Feedback Valmorel
+    // Erstelle einen neuen Bin unter https://jsonbin.io
+    // und trage die Werte hier ein.
+    // Verwende einen Collection-scoped API Key (NICHT den Master Key).
+    // =====================================================
+    const JSONBIN_BIN_ID  = 'DEINE_BIN_ID';
+    const JSONBIN_API_KEY = 'DEIN_API_KEY';
+
     // =====================================================
     // TEAM MAP — Ausbilder per Gruppe
     // Source of truth: update here only, never duplicate
