@@ -863,12 +863,8 @@
     <div class="step" data-step="6">
       <h2 class="section-title">S6 &#x2014; Ausbilder</h2>
 
-      <!-- Ausbilder placeholder -->
-      <div class="form-section">
-        <p style="color: var(--text-muted); font-style: italic; font-size: 0.9rem;">
-          Nach Auswahl deiner Gruppe erscheinen hier die Ausbilder zur Bewertung.
-        </p>
-      </div>
+      <!-- Ausbilder: rendered dynamically by JS based on selected group -->
+      <div id="ausbilderContainer"></div>
 
       <h2 class="section-title" style="margin-top: 1rem;">Allgemeines Feedback</h2>
 
@@ -887,6 +883,23 @@
   </main>
 
   <script>
+    // =====================================================
+    // TEAM MAP — Ausbilder per Gruppe
+    // Source of truth: update here only, never duplicate
+    // =====================================================
+    const TEAM_MAP = {
+      '1':    ['Kilian', 'Claudia'],
+      '2':    ['Kilian', 'Claudia'],
+      '3':    ['Arno', 'Batti'],
+      '4':    ['Arno', 'Batti'],
+      '5':    ['Michael', 'Annika'],
+      '6':    ['Michael', 'Annika'],
+      '7':    ['Tanne', 'Pablo'],
+      '8':    ['Tanne', 'Pablo'],
+      'SB 1': ['Adam', 'Kami'],
+      'SB 2': ['Adam', 'Kami']
+    };
+
     // =====================================================
     // FORM STATE
     // =====================================================
@@ -970,6 +983,8 @@
           // Select clicked
           card.classList.add('selected');
           selectedGroup = card.dataset.group;
+          renderAusbilder(selectedGroup);
+          updateSubmitState();
         });
       }
     });
@@ -999,6 +1014,46 @@
       });
 
       freitextCard.style.display = shouldShow ? '' : 'none';
+    }
+
+    // =====================================================
+    // AUSBILDER RENDERING
+    // =====================================================
+    function renderAusbilder(group) {
+      var container = document.getElementById('ausbilderContainer');
+      if (!container) return;
+
+      var ausbilder = group ? TEAM_MAP[group] : null;
+      if (!ausbilder) {
+        container.innerHTML =
+          '<div class="form-section">' +
+          '<p style="color:var(--text-muted);font-style:italic;font-size:0.9rem;">' +
+          'Nach Auswahl deiner Gruppe erscheinen hier die Ausbilder zur Bewertung.' +
+          '</p></div>';
+        return;
+      }
+
+      var html = '';
+      ausbilder.forEach(function(name, i) {
+        html +=
+          '<div class="form-section ausbilder-card">' +
+          '<label class="field-label">' + name + ' <span class="req">*</span></label>' +
+          '<textarea rows="3" ' +
+            'class="ausbilder-textarea" ' +
+            'data-ausbilder="' + i + '" ' +
+            'placeholder="Dein Feedback zu ' + name + ' (Pflichtfeld)&#x2026;" ' +
+            'required>' +
+          '</textarea>' +
+          '</div>';
+      });
+      container.innerHTML = html;
+
+      // Attach input listeners for submit gate
+      container.querySelectorAll('.ausbilder-textarea').forEach(function(ta) {
+        ta.addEventListener('input', updateSubmitState);
+      });
+
+      updateSubmitState();
     }
 
     // =====================================================
@@ -1032,6 +1087,8 @@
     // =====================================================
     document.addEventListener('DOMContentLoaded', function() {
       showStep(0);
+      renderAusbilder(null);
+      updateSubmitState();
     });
   </script>
 </body>
