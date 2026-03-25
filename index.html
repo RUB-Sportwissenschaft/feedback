@@ -182,9 +182,9 @@
       gap: 0.5rem;
     }
 
-    /* Snowboard cards: each spans 2 of the 4 columns */
+    /* Snowboard card: spans all 4 columns */
     .card-snowboard {
-      grid-column: span 2;
+      grid-column: span 4;
     }
 
     .tile-base {
@@ -509,16 +509,35 @@
       </div>
       <span class="progress-counter" id="progressCounter">1 / 7</span>
     </div>
-    <div class="progress-section-name" id="progressSectionName">Gruppe &amp; Name</div>
+    <div class="progress-section-name" id="progressSectionName">Start</div>
   </div>
 
   <!-- MAIN CONTENT -->
   <main>
 
-    <!-- STEP 0: Gruppe & Name -->
+    <!-- STEP 0: Start -->
     <div class="step" data-step="0">
 
-      <h2 class="section-title">Gruppe &amp; Name</h2>
+      <!-- Intro / Welcome card -->
+      <div class="form-section" style="border-left:3px solid var(--orange); background:var(--orange-light);">
+        <p style="font-weight:700; font-size:1rem; color:var(--blau); margin-bottom:0.5rem;">Lehrgangskritik Schneesport 2026</p>
+        <p style="font-size:0.9rem; color:var(--text); line-height:1.55; margin-bottom:0.5rem;">
+          Wir m&ouml;chten wissen, wie du die Ausfahrt erlebt hast. Dein Feedback zu Rahmenbedingungen, Organisation, Ausbildung, Pr&uuml;fung, sozialem Miteinander und deinen Ausbildern hilft uns, k&uuml;nftige Jg. noch besser zu gestalten.
+        </p>
+        <div style="display:flex; gap:1.25rem; flex-wrap:wrap; align-items:center;">
+          <span style="font-size:0.82rem; color:var(--text-muted);">&#x23F1;&nbsp;ca.&nbsp;5&nbsp;Minuten</span>
+          <span style="font-size:0.82rem; font-weight:700; color:var(--blau);">&#x1F512;&nbsp;Vollst&auml;ndig anonym &mdash; kein Name erforderlich</span>
+        </div>
+      </div>
+
+      <!-- Uni selector -->
+      <div class="form-section">
+        <label class="field-label">Deine Hochschule <span class="req">*</span></label>
+        <div class="card-grid" id="uniGrid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="tile-base card" data-uni="RUB" style="font-size:0.95rem;">RUB</div>
+          <div class="tile-base card" data-uni="TU Dortmund" style="font-size:0.95rem;">TU Dortmund</div>
+        </div>
+      </div>
 
       <!-- Group selector -->
       <div class="form-section">
@@ -534,18 +553,17 @@
           <div class="tile-base card" data-group="6">6</div>
           <div class="tile-base card" data-group="7">7</div>
           <div class="tile-base card" data-group="8">8</div>
-          <!-- Row 3: Snowboard 1-2 (each spans 2 cols) -->
-          <div class="tile-base card card-snowboard" data-group="SB 1">SB 1</div>
-          <div class="tile-base card card-snowboard" data-group="SB 2">SB 2</div>
+          <!-- Row 3: Snowboard (full width, single group) -->
+          <div class="tile-base card card-snowboard" data-group="Snowboard">Snowboard</div>
         </div>
       </div>
 
-      <!-- Name field -->
-      <div class="form-section">
+      <!-- Name field (clearly optional / anonymous) -->
+      <div class="form-section" style="border-color:var(--border);">
         <label class="field-label" for="inputName">
-          Name <span class="field-hint">(optional)</span>
+          Name <span class="field-hint">(optional &mdash; Feedback ist anonym)</span>
         </label>
-        <input type="text" id="inputName" placeholder="Dein Name (optional)">
+        <input type="text" id="inputName" placeholder="Nur wenn du m&ouml;chtest &mdash; kein Pflichtfeld">
       </div>
 
       <!-- Navigation: only Weiter on Step 0 -->
@@ -676,9 +694,12 @@
     <div class="step" data-step="3">
       <h2 class="section-title">S2 &#x2014; Ausbildung</h2>
 
+      <p style="font-size:0.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Pers&#x00f6;nliche Entwicklung</p>
+
       <!-- S2-01: Situatives und demonstratives Können -->
       <div class="form-section" data-question="S2-01">
         <label class="field-label">Situatives und demonstratives K&#x00f6;nnen</label>
+        <p class="question-subtitle">Wie sehr hat der Lehrgang deine eigene fahrerische Leistung verbessert?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -687,14 +708,15 @@
           <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
-          <span>schlecht</span>
-          <span>sehr gut</span>
+          <span>kaum</span>
+          <span>sehr viel</span>
         </div>
       </div>
 
       <!-- S2-02: Eigene Lehrkompetenz / Lehrübungen -->
       <div class="form-section" data-question="S2-02">
         <label class="field-label">Eigene Lehrkompetenz / Lehr&#x00fc;bungen</label>
+        <p class="question-subtitle">Wie sehr hat der Lehrgang deine eigene Lehrkompetenz weiterentwickelt?</p>
         <div class="rating-grid">
           <div class="tile-base rating-tile">1</div>
           <div class="tile-base rating-tile">2</div>
@@ -703,26 +725,12 @@
           <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
-          <span>schlecht</span>
-          <span>sehr gut</span>
+          <span>kaum</span>
+          <span>sehr viel</span>
         </div>
       </div>
 
-      <!-- S2-03: Modellunterricht durch Ausbilder -->
-      <div class="form-section" data-question="S2-03">
-        <label class="field-label">Modellunterricht durch Ausbilder</label>
-        <div class="rating-grid">
-          <div class="tile-base rating-tile">1</div>
-          <div class="tile-base rating-tile">2</div>
-          <div class="tile-base rating-tile">3</div>
-          <div class="tile-base rating-tile">4</div>
-          <div class="tile-base rating-tile">5</div>
-        </div>
-        <div class="rating-labels">
-          <span>schlecht</span>
-          <span>sehr gut</span>
-        </div>
-      </div>
+      <p style="font-size:0.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;margin-top:0.75rem;">Ausbildungselemente</p>
 
       <!-- S2-04: Einsteigermethodik -->
       <div class="form-section" data-question="S2-04">
@@ -993,8 +1001,7 @@
       '6':    ['Michael', 'Annika'],
       '7':    ['Tanne', 'Pablo'],
       '8':    ['Tanne', 'Pablo'],
-      'SB 1': ['Adam', 'Kami'],
-      'SB 2': ['Adam', 'Kami']
+      'Snowboard': ['Adam', 'Kami']
     };
 
     // =====================================================
@@ -1008,7 +1015,6 @@
       'S3-02': 'Zeitliche Belastung',
       'S2-01': 'Situatives und demonstratives K\u00f6nnen',
       'S2-02': 'Eigene Lehrkompetenz / Lehr\u00fcbungen',
-      'S2-03': 'Modellunterricht durch Ausbilder',
       'S2-04': 'Einsteigermethodik',
       'S2-05': 'Videoanalysen',
       'S2-06': 'Schnee-Event',
@@ -1037,6 +1043,7 @@
     // FORM STATE
     // =====================================================
     let selectedGroup = null;
+    let selectedUni = null;
     const formData = {}; // keyed by data-question ID, value 1-5
 
     // =====================================================
@@ -1046,7 +1053,7 @@
     const totalSteps = 7;
 
     const sectionNames = [
-      'Gruppe \u0026 Name',
+      'Start',
       'S1 \u2014 Rahmenbedingungen',
       'S3 \u2014 Organisation',
       'S2 \u2014 Ausbildung',
@@ -1109,15 +1116,22 @@
         grid.addEventListener('click', function(e) {
           var card = e.target.closest('.card');
           if (!card) return;
-          // Deselect all
-          grid.querySelectorAll('.card').forEach(function(c) {
-            c.classList.remove('selected');
-          });
-          // Select clicked
+          grid.querySelectorAll('.card').forEach(function(c) { c.classList.remove('selected'); });
           card.classList.add('selected');
           selectedGroup = card.dataset.group;
           renderAusbilder(selectedGroup);
           updateSubmitState();
+        });
+      }
+
+      var uniGrid = document.getElementById('uniGrid');
+      if (uniGrid) {
+        uniGrid.addEventListener('click', function(e) {
+          var card = e.target.closest('.card');
+          if (!card) return;
+          uniGrid.querySelectorAll('.card').forEach(function(c) { c.classList.remove('selected'); });
+          card.classList.add('selected');
+          selectedUni = card.dataset.uni;
         });
       }
     });
@@ -1156,8 +1170,8 @@
       var btn = document.getElementById('submitBtn');
       if (!btn) return;
 
-      // Gate 1: group must be selected
-      if (!selectedGroup) {
+      // Gate 1: group and uni must be selected
+      if (!selectedGroup || !selectedUni) {
         btn.disabled = true;
         return;
       }
@@ -1300,7 +1314,8 @@
 
       var payload = {
         timestamp: new Date().toISOString(),
-        group: groupDisplay
+        group: groupDisplay,
+        uni: selectedUni || ''
       };
       if (nameVal) payload.name = nameVal;
       payload.ratings = ratings;
@@ -1585,7 +1600,7 @@
     function exportToExcel(adminData) {
       // ---- Sheet 1: Einzelantworten ----
       var qKeys = Object.keys(QUESTION_LABELS);
-      var headerRow = ['Timestamp', 'Gruppe', 'Name']
+      var headerRow = ['Timestamp', 'Gruppe', 'Hochschule', 'Name']
         .concat(qKeys)
         .concat(['S1 Freitext', 'S3 Freitext', 'S2 Freitext', 'S4 Freitext', 'S5 Freitext', 'Allgemeines Freitext'])
         .concat(['Ausbilder Feedback']);
@@ -1600,7 +1615,7 @@
         var ausbilder = s.ausbilder
           ? Object.keys(s.ausbilder).map(function(n) { return n + ': ' + s.ausbilder[n]; }).join(' | ')
           : '';
-        return [s.timestamp, s.group, s.name || ''].concat(ratings).concat(freitexte).concat([ausbilder]);
+        return [s.timestamp, s.group, s.uni || '', s.name || ''].concat(ratings).concat(freitexte).concat([ausbilder]);
       });
 
       var sheet1 = XLSX.utils.aoa_to_sheet([headerRow].concat(dataRows));
