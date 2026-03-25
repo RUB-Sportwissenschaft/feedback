@@ -315,6 +315,13 @@
       background: var(--orange-dark);
     }
 
+    .btn:disabled,
+    .btn[disabled] {
+      opacity: 0.45;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
     .btn-ghost {
       background: transparent;
       color: var(--blau);
@@ -876,7 +883,7 @@
 
       <div class="nav-row">
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
-        <button class="btn btn-primary" id="submitBtn">Absenden</button>
+        <button class="btn btn-primary" id="submitBtn" disabled>Absenden</button>
       </div>
     </div>
 
@@ -1014,6 +1021,29 @@
       });
 
       freitextCard.style.display = shouldShow ? '' : 'none';
+    }
+
+    // =====================================================
+    // SUBMIT GATE
+    // =====================================================
+    function updateSubmitState() {
+      var btn = document.getElementById('submitBtn');
+      if (!btn) return;
+
+      // Gate 1: group must be selected
+      if (!selectedGroup) {
+        btn.disabled = true;
+        return;
+      }
+
+      // Gate 2: all Ausbilder textareas must be filled
+      var ausbilderTextareas = document.querySelectorAll('.ausbilder-textarea');
+      var allFilled = true;
+      ausbilderTextareas.forEach(function(ta) {
+        if (!ta.value.trim()) allFilled = false;
+      });
+
+      btn.disabled = !allFilled;
     }
 
     // =====================================================
