@@ -91,13 +91,13 @@
 
     const sectionNames = [
       'Start',
-      'S1 \u2014 Vorbereitung',
-      'S2 \u2014 Praxis',
-      'S3 \u2014 Themen',
-      'S4 \u2014 Ablauf',
+      'S1 \u2014 Reise & Ausbildungsort',
+      'S2 \u2014 Praktische Ausbildung',
+      'S3 \u2014 Lehrgangsthemen',
+      'S4 \u2014 Ablauf & Organisation',
       'S5 \u2014 Pr\u00fcfung',
-      'S6 \u2014 Soziales',
-      'S7 \u2014 Abschluss'
+      'S6 \u2014 Soziales Miteinander',
+      'S7 \u2014 Ausbilder*innen & Abschluss'
     ];
 
     // --- SHOW STEP ---
