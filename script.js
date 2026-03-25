@@ -73,8 +73,8 @@
     const sectionNames = [
       'Start',
       'S1 \u2014 Rahmenbedingungen',
-      'S3 \u2014 Organisation',
       'S2 \u2014 Ausbildung',
+      'S3 \u2014 Organisation',
       'S4 \u2014 Pr\u00fcfung',
       'S5 \u2014 Soziales',
       'S6 \u2014 Ausbilder*innen \u0026 Abschluss'
@@ -350,7 +350,7 @@
 
       // Freitexte per section (only non-empty values)
       var freitexte = {};
-      var sectionMap = { '1': 'S1', '2': 'S3', '3': 'S2', '4': 'S4', '5': 'S5' };
+      var sectionMap = { '1': 'S1', '2': 'S2', '3': 'S3', '4': 'S4', '5': 'S5' };
       document.querySelectorAll('[data-freitext-input]').forEach(function(ta) {
         var val = ta.value.trim();
         if (val) {
