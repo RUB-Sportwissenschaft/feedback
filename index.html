@@ -275,6 +275,40 @@
     }
 
     /* =====================================================
+       UNI CARDS
+    ===================================================== */
+    .uni-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 0.5rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      background: var(--white);
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      user-select: none;
+      min-height: 44px;
+    }
+
+    .uni-card img {
+      max-height: 44px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .uni-card.selected {
+      border-color: var(--orange);
+      background: var(--orange-light);
+      box-shadow: var(--shadow);
+    }
+
+    @media (hover: hover) {
+      .uni-card:hover:not(.selected) { border-color: #ccc; box-shadow: var(--shadow-sm); }
+    }
+
+    /* =====================================================
        SECTION TITLE
     ===================================================== */
     .section-title {
@@ -522,7 +556,7 @@
       <div class="form-section" style="border-left:3px solid var(--orange); background:var(--orange-light);">
         <p style="font-weight:700; font-size:1rem; color:var(--blau); margin-bottom:0.5rem;">Lehrgangskritik Schneesport 2026</p>
         <p style="font-size:0.9rem; color:var(--text); line-height:1.55; margin-bottom:0.5rem;">
-          Wir m&ouml;chten wissen, wie du die Ausfahrt erlebt hast. Dein Feedback zu Rahmenbedingungen, Organisation, Ausbildung, Pr&uuml;fung, sozialem Miteinander und deinen Ausbildern hilft uns, k&uuml;nftige Jg. noch besser zu gestalten.
+          Wir m&ouml;chten wissen, wie du die Exkursion erlebt hast. Dein Feedback zu Rahmenbedingungen, Organisation, Ausbildung, Pr&uuml;fung, sozialem Miteinander und deinen Ausbildern hilft uns, k&uuml;nftige Jg. noch besser zu gestalten.
         </p>
         <div style="display:flex; gap:1.25rem; flex-wrap:wrap; align-items:center;">
           <span style="font-size:0.82rem; color:var(--text-muted);">&#x23F1;&nbsp;ca.&nbsp;5&nbsp;Minuten</span>
@@ -533,9 +567,13 @@
       <!-- Uni selector -->
       <div class="form-section">
         <label class="field-label">Deine Hochschule <span class="req">*</span></label>
-        <div class="card-grid" id="uniGrid" style="grid-template-columns:repeat(2,1fr);">
-          <div class="tile-base card" data-uni="RUB" style="font-size:0.95rem;">RUB</div>
-          <div class="tile-base card" data-uni="TU Dortmund" style="font-size:0.95rem;">TU Dortmund</div>
+        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.75rem;" id="uniGrid">
+          <div class="uni-card" data-uni="RUB">
+            <img src="img/sportwiss.png" alt="Fakult&#x00e4;t f&#x00fc;r Sportwissenschaft, RUB">
+          </div>
+          <div class="uni-card" data-uni="TU Dortmund">
+            <img src="img/tu-dortmund.png" alt="TU Dortmund">
+          </div>
         </div>
       </div>
 
@@ -980,7 +1018,7 @@
     <div class="confirmation-card">
       <div class="confirmation-check">&#x2713;</div>
       <h2 class="confirmation-heading">Danke f&#x00fc;r dein Feedback!</h2>
-      <p class="confirmation-message">Deine R&#x00fc;ckmeldung hilft uns die Ausfahrt zu verbessern.</p>
+      <p class="confirmation-message">Deine R&#x00fc;ckmeldung hilft uns die Exkursion zu verbessern.</p>
     </div>
   </div>
 
@@ -1136,9 +1174,9 @@
       var uniGrid = document.getElementById('uniGrid');
       if (uniGrid) {
         uniGrid.addEventListener('click', function(e) {
-          var card = e.target.closest('.card');
+          var card = e.target.closest('.uni-card');
           if (!card) return;
-          uniGrid.querySelectorAll('.card').forEach(function(c) { c.classList.remove('selected'); });
+          uniGrid.querySelectorAll('.uni-card').forEach(function(c) { c.classList.remove('selected'); });
           card.classList.add('selected');
           selectedUni = card.dataset.uni;
         });
