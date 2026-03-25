@@ -915,6 +915,7 @@
         <button class="btn btn-ghost" onclick="prevStep()">Zur&#x00fc;ck</button>
         <button class="btn btn-primary" id="submitBtn" disabled>Absenden</button>
       </div>
+      <div id="submitError" class="submit-error"></div>
     </div>
 
   </main>
@@ -1152,12 +1153,127 @@
     });
 
     // =====================================================
+    // SUBMIT HANDLER
+    // =====================================================
+    async function submitFeedback() {
+      var btn = document.getElementById('submitBtn');
+      var errorEl = document.getElementById('submitError');
+
+      // --- Loading state ---
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>Wird gesendet\u2026';
+
+      // Hide any previous error
+      if (errorEl) {
+        errorEl.style.display = 'none';
+        errorEl.textContent = '';
+      }
+
+      // --- Assemble payload ---
+      // Ratings: copy formData (already keyed by question ID, values 1-5)
+      var ratings = {};
+      Object.keys(formData).forEach(function(k) { ratings[k] = formData[k]; });
+
+      // Freitexte per section (only non-empty values)
+      var freitexte = {};
+      var sectionMap = { '1': 'S1', '2': 'S3', '3': 'S2', '4': 'S4', '5': 'S5' };
+      document.querySelectorAll('[data-freitext-input]').forEach(function(ta) {
+        var val = ta.value.trim();
+        if (val) {
+          var stepKey = ta.dataset.freitextInput;
+          var sectionId = sectionMap[stepKey] || stepKey;
+          freitexte[sectionId] = val;
+        }
+      });
+
+      // Allgemeines Freitext (step 6, no data-freitext-input attribute)
+      var allgemeinesEl = document.querySelector('[data-step="6"] textarea:not(.ausbilder-textarea)');
+      if (allgemeinesEl && allgemeinesEl.value.trim()) {
+        freitexte['allgemein'] = allgemeinesEl.value.trim();
+      }
+
+      // Ausbilder feedback: named object using TEAM_MAP
+      var ausbilder = {};
+      var names = selectedGroup ? TEAM_MAP[selectedGroup] : [];
+      document.querySelectorAll('.ausbilder-textarea').forEach(function(ta) {
+        var idx = parseInt(ta.dataset.ausbilder, 10);
+        var name = names && names[idx] ? names[idx] : ('Ausbilder ' + (idx + 1));
+        var val = ta.value.trim();
+        if (val) ausbilder[name] = val;
+      });
+
+      // Name (optional)
+      var nameEl = document.querySelector('[data-step="0"] input[type=text]');
+      var nameVal = nameEl ? nameEl.value.trim() : '';
+
+      // Group display value: TEAM_MAP keys use plain numbers ("1"-"8", "SB 1", "SB 2")
+      // selectedGroup holds this raw key; display as "Gruppe N" for 1-8, keep "SB N" as-is
+      var groupDisplay = selectedGroup
+        ? (/^\d+$/.test(selectedGroup) ? 'Gruppe ' + selectedGroup : selectedGroup)
+        : '';
+
+      var payload = {
+        timestamp: new Date().toISOString(),
+        group: groupDisplay
+      };
+      if (nameVal) payload.name = nameVal;
+      payload.ratings = ratings;
+      if (Object.keys(freitexte).length) payload.freitexte = freitexte;
+      payload.ausbilder = ausbilder;
+
+      // --- UUID-keyed PATCH to JSONBin ---
+      var uuid = crypto.randomUUID();
+      var patchBody = {};
+      patchBody[uuid] = payload;
+
+      try {
+        var response = await fetch(
+          'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Access-Key': JSONBIN_API_KEY
+            },
+            body: JSON.stringify(patchBody)
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
+
+        // --- Success: show confirmation screen (added in Plan 03-02) ---
+        var confirmEl = document.getElementById('confirmationScreen');
+        if (confirmEl) {
+          document.querySelector('main').style.display = 'none';
+          confirmEl.style.display = 'flex';
+        }
+
+      } catch (err) {
+        // --- Error state ---
+        btn.disabled = false;
+        btn.textContent = 'Absenden';
+        if (errorEl) {
+          errorEl.textContent = 'Fehler beim Senden. Bitte versuche es erneut.';
+          errorEl.style.display = 'block';
+        }
+      }
+    }
+
+    // =====================================================
     // INIT
     // =====================================================
     document.addEventListener('DOMContentLoaded', function() {
       showStep(0);
       renderAusbilder(null);
       updateSubmitState();
+
+      // Attach submit handler
+      var submitBtn = document.getElementById('submitBtn');
+      if (submitBtn) {
+        submitBtn.addEventListener('click', submitFeedback);
+      }
     });
   </script>
 </body>
