@@ -576,7 +576,7 @@
       <div class="form-section" style="border-left:3px solid var(--orange); background:var(--orange-light);">
         <p style="font-weight:700; font-size:1rem; color:var(--blau); margin-bottom:0.5rem;">Lehrgangskritik Schneesport 2026</p>
         <p style="font-size:0.9rem; color:var(--text); line-height:1.55; margin-bottom:0.5rem;">
-          Wir m&ouml;chten wissen, wie du die Exkursion erlebt hast. Dein Feedback zu Rahmenbedingungen, Organisation, Ausbildung, Pr&uuml;fung, sozialem Miteinander und deinen Ausbildern hilft uns, k&uuml;nftige Jg. noch besser zu gestalten.
+          Wir m&ouml;chten wissen, wie du die Exkursion erlebt hast. Dein Feedback zu Rahmenbedingungen, Organisation, Ausbildung, Pr&uuml;fung, sozialem Miteinander und deinen Ausbilder*innen hilft uns, k&uuml;nftige Jg. noch besser zu gestalten.
         </p>
         <div style="display:flex; gap:1.25rem; flex-wrap:wrap; align-items:center;">
           <span style="font-size:0.82rem; color:var(--text-muted);">&#x23F1;&nbsp;ca.&nbsp;5&nbsp;Minuten</span>
@@ -1009,7 +1009,7 @@
 
     <!-- STEP 6: S6 — Ausbilder & Abschluss -->
     <div class="step" data-step="6">
-      <h2 class="section-title">S6 &#x2014; Ausbilder</h2>
+      <h2 class="section-title">S6 &#x2014; Ausbilder*innen</h2>
 
       <!-- Ausbilder: rendered dynamically by JS based on selected group -->
       <div id="ausbilderContainer"></div>
@@ -1126,7 +1126,7 @@
       'S2 \u2014 Ausbildung',
       'S4 \u2014 Pr\u00fcfung',
       'S5 \u2014 Soziales',
-      'S6 \u2014 Ausbilder \u0026 Abschluss'
+      'S6 \u2014 Ausbilder*innen \u0026 Abschluss'
     ];
 
     // =====================================================
@@ -1265,7 +1265,7 @@
         container.innerHTML =
           '<div class="form-section">' +
           '<p style="color:var(--text-muted);font-style:italic;font-size:0.9rem;">' +
-          'Nach Auswahl deiner Gruppe erscheinen hier die Ausbilder zur Bewertung.' +
+          'Nach Auswahl deiner Gruppe erscheinen hier die Ausbilder*innen zur Bewertung.' +
           '</p></div>';
         return;
       }
@@ -1364,7 +1364,7 @@
       var names = selectedGroup ? TEAM_MAP[selectedGroup] : [];
       document.querySelectorAll('.ausbilder-textarea').forEach(function(ta) {
         var idx = parseInt(ta.dataset.ausbilder, 10);
-        var name = names && names[idx] ? names[idx] : ('Ausbilder ' + (idx + 1));
+        var name = names && names[idx] ? names[idx] : ('Ausbilder*in ' + (idx + 1));
         var val = ta.value.trim();
         if (val) ausbilder[name] = val;
       });
@@ -1581,20 +1581,20 @@
       // Top bar
       html += '<div class="admin-topbar">';
       html += '<div><div class="admin-topbar-title">Admin</div>';
-      html += '<div class="admin-topbar-meta">' + adminData.total + ' Teilnehmer</div></div>';
+      html += '<div class="admin-topbar-meta">' + adminData.total + ' Teilnehmer*innen</div></div>';
       html += '<button id="exportBtn" class="btn-export" disabled>Excel</button>';
       html += '</div>';
 
       // Tab bar — Übersicht first
       html += '<div class="admin-tabs">';
       html += '<button class="admin-tab active" data-tab="overview">\u00dcbersicht</button>';
-      html += '<button class="admin-tab" data-tab="ausbilder">Ausbilder</button>';
+      html += '<button class="admin-tab" data-tab="ausbilder">Ausbilder*innen</button>';
       html += '<button class="admin-tab" data-tab="questions">Details</button>';
       html += '</div>';
 
       // ---- Panel 1: Ausbilder ----
       html += '<div class="admin-panel" id="panel-ausbilder">';
-      html += '<p class="admin-panel-label">Ausbilder ausw\u00e4hlen</p>';
+      html += '<p class="admin-panel-label">Ausbilder*in ausw\u00e4hlen</p>';
       html += '<div class="admin-name-grid">';
       allAusbilder.forEach(function(name) {
         var count = adminData.ausbilderFeedback[name] ? adminData.ausbilderFeedback[name].length : 0;
@@ -1605,7 +1605,7 @@
       });
       html += '</div>';
       html += '<div id="ausbilderFeedbackPanel">';
-      html += '<p style="color:var(--text-muted);font-size:0.9rem;">W\u00e4hle einen Ausbilder aus.</p>';
+      html += '<p style="color:var(--text-muted);font-size:0.9rem;">Ausbilder*in ausw\u00e4hlen.</p>';
       html += '</div>';
       html += '</div>';
 
@@ -1719,7 +1719,7 @@
       var headerRow = ['Timestamp', 'Gruppe', 'Hochschule', 'Name']
         .concat(qKeys.map(function(k) { return k + ' ' + QUESTION_LABELS[k]; }))
         .concat(['S1 Freitext', 'S3 Freitext', 'S2 Freitext', 'S4 Freitext', 'S5 Freitext', 'Allgemeines Freitext'])
-        .concat(allAusbilder.map(function(n) { return 'Ausbilder: ' + n; }));
+        .concat(allAusbilder.map(function(n) { return 'Ausbilder*in: ' + n; }));
 
       var dataRows = adminData.submissions.map(function(s) {
         var ratings = qKeys.map(function(q) { return s.ratings ? (s.ratings[q] || '') : ''; });
@@ -1738,7 +1738,7 @@
         return [qId, QUESTION_LABELS[qId], avg !== null ? +avg.toFixed(2) : ''];
       });
       var blankRow = [''];
-      var partBHeader = ['Gruppe', '\u00d8 gesamt', 'N Teilnehmer'];
+      var partBHeader = ['Gruppe', '\u00d8 gesamt', 'N Teilnehmer*innen'];
       var sortedGroups = sortGroups(Object.keys(adminData.groupAverages));
       var partBRows = sortedGroups.map(function(g) {
         var qVals = Object.values(adminData.groupAverages[g]).filter(function(v) { return v !== null; });
@@ -1748,7 +1748,7 @@
       var sheet2 = XLSX.utils.aoa_to_sheet([partAHeader].concat(partARows).concat([blankRow]).concat([partBHeader]).concat(partBRows));
 
       // ---- Sheet 3: Ausbilder-Feedback ----
-      var sheet3Rows = [['Ausbilder', 'Gruppe', 'Feedback']];
+      var sheet3Rows = [['Ausbilder*in', 'Gruppe', 'Feedback']];
       allAusbilder.forEach(function(name) {
         (adminData.ausbilderFeedback[name] || []).forEach(function(entry) {
           sheet3Rows.push([name, entry.group, entry.text]);
