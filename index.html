@@ -162,6 +162,8 @@
     /* =====================================================
        CARD / FORM-SECTION PATTERN
     ===================================================== */
+    .freitext-section { display: none; }
+
     .form-section {
       background: var(--white);
       border-radius: var(--radius);
@@ -185,11 +187,10 @@
       grid-column: span 2;
     }
 
-    .card {
+    .tile-base {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0.65rem;
       min-height: 44px;
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
@@ -199,18 +200,22 @@
       background: var(--white);
       transition: border-color 0.2s, background 0.2s;
       user-select: none;
-      position: relative;
     }
 
-    .card:hover {
+    .tile-base:hover {
       border-color: var(--orange);
       background: var(--orange-light);
     }
 
-    .card.selected {
+    .tile-base.selected {
       border-color: var(--orange);
       background: var(--orange-light);
       color: var(--orange);
+    }
+
+    .card {
+      padding: 0.65rem;
+      position: relative;
     }
 
     .card.selected::after {
@@ -332,21 +337,6 @@
       background: var(--blau-light);
     }
 
-    /* Placeholder step styling */
-    .step-placeholder {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 2rem 1rem;
-      text-align: center;
-      color: var(--text-muted);
-      border: 1px dashed var(--border);
-      margin-bottom: 1rem;
-    }
-
-    .step-placeholder p {
-      font-size: 0.9rem;
-    }
-
     /* =====================================================
        RATING TILE WIDGETS
     ===================================================== */
@@ -357,31 +347,7 @@
     }
 
     .rating-tile {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 0.65rem 0.25rem;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      font-weight: 700;
-      font-size: 1.1rem;
-      cursor: pointer;
-      background: var(--white);
-      user-select: none;
-      min-height: 44px;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .rating-tile:hover {
-      border-color: var(--orange);
-      background: var(--orange-light);
-    }
-
-    .rating-tile.selected {
-      border-color: var(--orange);
-      background: var(--orange-light);
-      color: var(--orange);
-      font-weight: 700;
     }
 
     .rating-labels {
@@ -559,18 +525,18 @@
         <label class="field-label">Deine Gruppe <span class="req">*</span></label>
         <div class="card-grid" id="groupGrid">
           <!-- Row 1: Gruppe 1-4 -->
-          <div class="card" data-group="1">1</div>
-          <div class="card" data-group="2">2</div>
-          <div class="card" data-group="3">3</div>
-          <div class="card" data-group="4">4</div>
+          <div class="tile-base card" data-group="1">1</div>
+          <div class="tile-base card" data-group="2">2</div>
+          <div class="tile-base card" data-group="3">3</div>
+          <div class="tile-base card" data-group="4">4</div>
           <!-- Row 2: Gruppe 5-8 -->
-          <div class="card" data-group="5">5</div>
-          <div class="card" data-group="6">6</div>
-          <div class="card" data-group="7">7</div>
-          <div class="card" data-group="8">8</div>
+          <div class="tile-base card" data-group="5">5</div>
+          <div class="tile-base card" data-group="6">6</div>
+          <div class="tile-base card" data-group="7">7</div>
+          <div class="tile-base card" data-group="8">8</div>
           <!-- Row 3: Snowboard 1-2 (each spans 2 cols) -->
-          <div class="card card-snowboard" data-group="SB 1">SB 1</div>
-          <div class="card card-snowboard" data-group="SB 2">SB 2</div>
+          <div class="tile-base card card-snowboard" data-group="SB 1">SB 1</div>
+          <div class="tile-base card card-snowboard" data-group="SB 2">SB 2</div>
         </div>
       </div>
 
@@ -598,11 +564,11 @@
         <label class="field-label">Ausbildungsort</label>
         <p class="question-subtitle">Unterkunft, Skigebiet, Lage</p>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -614,11 +580,11 @@
       <div class="form-section" data-question="S1-02">
         <label class="field-label">Kosten / Preis-Leistung</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>zu teuer</span>
@@ -631,11 +597,11 @@
         <label class="field-label">Reiseleitung / SkiBo Tours</label>
         <p class="question-subtitle">Reiseabwicklung, Kundenservice, Vor-Ort-Betreuung</p>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -644,9 +610,9 @@
       </div>
 
       <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
-      <div class="form-section freitext-section" data-freitext="1" style="display:none;">
+      <div class="form-section freitext-section" data-freitext="1">
         <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
         <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="1"></textarea>
       </div>
 
@@ -665,11 +631,11 @@
         <label class="field-label">Organisation des Lehrgangs</label>
         <p class="question-subtitle">Ablauf, Kommunikation, Zeitplanung</p>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -681,11 +647,11 @@
       <div class="form-section" data-question="S3-02">
         <label class="field-label">Zeitliche Belastung</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>zu hoch</span>
@@ -694,9 +660,9 @@
       </div>
 
       <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
-      <div class="form-section freitext-section" data-freitext="2" style="display:none;">
+      <div class="form-section freitext-section" data-freitext="2">
         <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
         <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="2"></textarea>
       </div>
 
@@ -714,11 +680,11 @@
       <div class="form-section" data-question="S2-01">
         <label class="field-label">Situatives und demonstratives K&#x00f6;nnen</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -730,11 +696,11 @@
       <div class="form-section" data-question="S2-02">
         <label class="field-label">Eigene Lehrkompetenz / Lehr&#x00fc;bungen</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -746,11 +712,11 @@
       <div class="form-section" data-question="S2-03">
         <label class="field-label">Modellunterricht durch Ausbilder</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -762,11 +728,11 @@
       <div class="form-section" data-question="S2-04">
         <label class="field-label">Einsteigermethodik</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -778,11 +744,11 @@
       <div class="form-section" data-question="S2-05">
         <label class="field-label">Videoanalysen</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -794,11 +760,11 @@
       <div class="form-section" data-question="S2-06">
         <label class="field-label">Schnee-Event</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -810,11 +776,11 @@
       <div class="form-section" data-question="S2-07">
         <label class="field-label">Versch&#x00fc;ttetensuche / Risikomanagement</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -823,9 +789,9 @@
       </div>
 
       <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
-      <div class="form-section freitext-section" data-freitext="3" style="display:none;">
+      <div class="form-section freitext-section" data-freitext="3">
         <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
         <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="3"></textarea>
       </div>
 
@@ -843,11 +809,11 @@
       <div class="form-section" data-question="S4-01">
         <label class="field-label">Organisation der Pr&#x00fc;fung</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -859,11 +825,11 @@
       <div class="form-section" data-question="S4-02">
         <label class="field-label">Pr&#x00fc;fungsanforderungen</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>zu leicht</span>
@@ -876,11 +842,11 @@
       <div class="form-section" data-question="S4-03">
         <label class="field-label">Klarheit der Anforderungen</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>unklar</span>
@@ -889,9 +855,9 @@
       </div>
 
       <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
-      <div class="form-section freitext-section" data-freitext="4" style="display:none;">
+      <div class="form-section freitext-section" data-freitext="4">
         <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
         <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="4"></textarea>
       </div>
 
@@ -909,11 +875,11 @@
       <div class="form-section" data-question="S5-01">
         <label class="field-label">H&#x00fc;ttenabend</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -925,11 +891,11 @@
       <div class="form-section" data-question="S5-02">
         <label class="field-label">Apr&#x00e8;s-Ski</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -941,11 +907,11 @@
       <div class="form-section" data-question="S5-03">
         <label class="field-label">Soziales Miteinander</label>
         <div class="rating-grid">
-          <div class="rating-tile">1</div>
-          <div class="rating-tile">2</div>
-          <div class="rating-tile">3</div>
-          <div class="rating-tile">4</div>
-          <div class="rating-tile">5</div>
+          <div class="tile-base rating-tile">1</div>
+          <div class="tile-base rating-tile">2</div>
+          <div class="tile-base rating-tile">3</div>
+          <div class="tile-base rating-tile">4</div>
+          <div class="tile-base rating-tile">5</div>
         </div>
         <div class="rating-labels">
           <span>schlecht</span>
@@ -954,9 +920,9 @@
       </div>
 
       <!-- Freitext-Sektion (erscheint automatisch bei negativer Bewertung) -->
-      <div class="form-section freitext-section" data-freitext="5" style="display:none;">
+      <div class="form-section freitext-section" data-freitext="5">
         <label class="field-label">Feedback <span class="field-hint">(optional)</span></label>
-        <p class="question-subtitle" style="margin-bottom:0.5rem;">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
+        <p class="question-subtitle">Wenn du etwas in dieser Sektion negativ bewertet hast, sage uns kurz warum.</p>
         <textarea rows="3" placeholder="Dein Feedback (optional)&#x2026;" data-freitext-input="5"></textarea>
       </div>
 
@@ -1180,7 +1146,7 @@
         }
       });
 
-      freitextCard.style.display = shouldShow ? '' : 'none';
+      freitextCard.style.display = shouldShow ? 'block' : 'none';
     }
 
     // =====================================================
@@ -1421,6 +1387,17 @@
       }
     }
 
+    function sortGroups(keys) {
+      return keys.sort(function(a, b) {
+        var aIsNum = /^Gruppe \d+$/.test(a);
+        var bIsNum = /^Gruppe \d+$/.test(b);
+        if (aIsNum && bIsNum) return parseInt(a.replace('Gruppe ', '')) - parseInt(b.replace('Gruppe ', ''));
+        if (aIsNum) return -1;
+        if (bIsNum) return 1;
+        return a.localeCompare(b);
+      });
+    }
+
     function computeAdminData(submissions) {
       var total = submissions.length;
 
@@ -1513,14 +1490,7 @@
       html += '<div class="admin-section">';
       html += '<h3 class="admin-section-title">Teilnahme pro Gruppe</h3>';
       html += '<div class="admin-stat-grid">';
-      var groupKeys = Object.keys(adminData.groupCounts).sort(function(a, b) {
-        var aIsNum = /^Gruppe \d+$/.test(a);
-        var bIsNum = /^Gruppe \d+$/.test(b);
-        if (aIsNum && bIsNum) return parseInt(a.replace('Gruppe ', '')) - parseInt(b.replace('Gruppe ', ''));
-        if (aIsNum) return -1;
-        if (bIsNum) return 1;
-        return a.localeCompare(b);
-      });
+      var groupKeys = sortGroups(Object.keys(adminData.groupCounts));
       groupKeys.forEach(function(g) {
         html += '<div class="admin-stat-card">';
         html += '<div class="stat-group">' + g + '</div>';
@@ -1552,14 +1522,7 @@
       html += '<table class="admin-table"><thead><tr>';
       html += '<th>Gruppe</th><th>\u00d8 gesamt</th>';
       html += '</tr></thead><tbody>';
-      var gAvgKeys = Object.keys(adminData.groupAverages).sort(function(a, b) {
-        var aIsNum = /^Gruppe \d+$/.test(a);
-        var bIsNum = /^Gruppe \d+$/.test(b);
-        if (aIsNum && bIsNum) return parseInt(a.replace('Gruppe ', '')) - parseInt(b.replace('Gruppe ', ''));
-        if (aIsNum) return -1;
-        if (bIsNum) return 1;
-        return a.localeCompare(b);
-      });
+      var gAvgKeys = sortGroups(Object.keys(adminData.groupAverages));
       gAvgKeys.forEach(function(g) {
         var qVals = Object.values(adminData.groupAverages[g]).filter(function(v) { return v !== null; });
         var overall = qVals.length ? (qVals.reduce(function(a, b) { return a + b; }, 0) / qVals.length) : null;
@@ -1652,14 +1615,7 @@
       var blankRow = [''];
 
       var partBHeader = ['Gruppe', '\u00d8 gesamt', 'N Teilnehmer'];
-      var sortedGroups = Object.keys(adminData.groupAverages).sort(function(a, b) {
-        var aIsNum = /^Gruppe \d+$/.test(a);
-        var bIsNum = /^Gruppe \d+$/.test(b);
-        if (aIsNum && bIsNum) return parseInt(a.replace('Gruppe ', '')) - parseInt(b.replace('Gruppe ', ''));
-        if (aIsNum) return -1;
-        if (bIsNum) return 1;
-        return a.localeCompare(b);
-      });
+      var sortedGroups = sortGroups(Object.keys(adminData.groupAverages));
       var partBRows = sortedGroups.map(function(g) {
         var qVals = Object.values(adminData.groupAverages[g]).filter(function(v) { return v !== null; });
         var overallAvg = qVals.length ? (qVals.reduce(function(a, b) { return a + b; }, 0) / qVals.length) : null;
