@@ -77,6 +77,30 @@
       { key: 'S6', label: 'Soziales',     keys: ['rating_hut_evening','rating_apres_ski','rating_social_atmosphere'] }
     ];
 
+    // --- AUSBILDER-RELEVANT QUESTIONS — shown in trainer radar + bar list ---
+    const AUSBILDER_QUESTIONS = [
+      'rating_driving_skills',
+      'rating_teaching_skills',
+      'rating_video_analysis',
+      'rating_lvs_training',
+      'rating_organisation',
+      'rating_workload',
+      'rating_exam_org',
+      'rating_exam_difficulty',
+      'rating_exam_clarity'
+    ];
+    const AUSBILDER_Q_SHORT = {
+      'rating_driving_skills':  'Fahren',
+      'rating_teaching_skills': 'Lehren',
+      'rating_video_analysis':  'Video',
+      'rating_lvs_training':    'LVS',
+      'rating_organisation':    'Organis.',
+      'rating_workload':        'Belastung',
+      'rating_exam_org':        'Pr\u00fcf.-Org.',
+      'rating_exam_difficulty': 'Anford.',
+      'rating_exam_clarity':    'Kriterien'
+    };
+
     // --- FORM STATE ---
     let selectedGroup = null;
     let selectedUni = null;
