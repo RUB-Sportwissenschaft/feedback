@@ -62,7 +62,7 @@
 
 - [x] **BACK-01**: Daten werden in JSONBin v3 gespeichert (UUID-keyed, kein Array)
 - [x] **BACK-02**: Submit-Button mit Loading-State und Fehlerhandling/Retry
-- [ ] **BACK-03**: Best&#x00e4;tigungsseite nach erfolgreicher Abgabe
+- [x] **BACK-03**: Best&#x00e4;tigungsseite nach erfolgreicher Abgabe
 
 ### Admin
 
@@ -159,7 +159,7 @@ S1 (Rahmenbedingungen) &#x2192; S3 (Organisation) &#x2192; S2 (Ausbildung) &#x21
 | S6-02 | Phase 2 | Complete |
 | BACK-01 | Phase 3 | Complete |
 | BACK-02 | Phase 3 | Complete |
-| BACK-03 | Phase 3 | Pending |
+| BACK-03 | Phase 3 | Complete |
 | ADM-01 | Phase 4 | Pending |
 | ADM-02 | Phase 4 | Pending |
 | ADM-03 | Phase 4 | Pending |

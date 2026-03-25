@@ -8,7 +8,7 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 
 - [x] **Phase 1: Foundation** - Static HTML/CSS skeleton with all sections and RUB design system
 - [x] **Phase 2: Interactive Form** - Rating tiles, Ausbilder mapping, freitext triggers, validation (completed 2026-03-25)
-- [ ] **Phase 3: Submission and Backend** - JSONBin integration, confirmation screen, error handling
+- [x] **Phase 3: Submission and Backend** - JSONBin integration, confirmation screen, error handling (completed 2026-03-25)
 - [ ] **Phase 4: Admin Export** - Admin view, Excel export with per-group summary
 
 ## Phase Details
@@ -62,7 +62,7 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 3. On network failure an error message appears with a retry button; tapping retry re-attempts the submission without data loss
 4. Each saved response in JSONBin is keyed by a client-generated UUID so simultaneous submissions from different students do not overwrite each other
 
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
 - [ ] 03-01-PLAN.md — JSONBin constants, submitFeedback() with payload assembly, UUID-keyed PATCH, loading and error states
@@ -96,5 +96,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-03-24 |
 | 2. Interactive Form | 2/2 | Complete   | 2026-03-25 |
-| 3. Submission and Backend | 1/2 | In Progress|  |
+| 3. Submission and Backend | 2/2 | Complete   | 2026-03-25 |
 | 4. Admin Export | 0/? | Not started | - |
