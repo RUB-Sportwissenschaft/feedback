@@ -226,8 +226,6 @@
     // =====================================================
     // FREITEXT REVEAL LOGIC
     // =====================================================
-    const BIPOLAR_IDS = ['rating_costs', 'rating_workload', 'rating_exam_difficulty'];
-
     function checkSectionFreitext(stepEl) {
       var stepNum = stepEl.dataset.step;
       var freitextCard = stepEl.querySelector('[data-freitext="' + stepNum + '"]');
@@ -239,14 +237,7 @@
         var qId = sec.dataset.question;
         var rating = formData[qId];
         if (rating === undefined) return;
-
-        if (BIPOLAR_IDS.indexOf(qId) !== -1) {
-          // Bipolar scale: trigger at extremes (1-2 or 4-5), not at 3
-          if (rating <= 2 || rating >= 4) shouldShow = true;
-        } else {
-          // Standard: trigger at 1 or 2 only
-          if (rating <= 2) shouldShow = true;
-        }
+        if (rating <= 2) shouldShow = true;
       });
 
       freitextCard.style.display = shouldShow ? 'block' : 'none';
@@ -265,9 +256,12 @@
         return;
       }
 
-      // Gate 2: Ausbilder-Feedback textarea must be filled
-      var instructorTextarea = document.getElementById('instructorFeedback');
-      var allFilled = instructorTextarea ? instructorTextarea.value.trim().length > 0 : false;
+      // Gate 2: alle Ausbilder-Textareas müssen ausgefüllt sein
+      var ausbilderTextareas = document.querySelectorAll('.ausbilder-textarea');
+      var allFilled = ausbilderTextareas.length > 0;
+      ausbilderTextareas.forEach(function(ta) {
+        if (!ta.value.trim()) allFilled = false;
+      });
 
       btn.disabled = !allFilled;
     }
@@ -290,19 +284,23 @@
         return;
       }
 
-      var names = ausbilder.join(' & ');
-      var html =
-        '<div class="form-section">' +
-        '<label class="field-label">Ausbilder-Feedback: ' + names + ' <span class="req">*</span></label>' +
-        '<p class="question-subtitle">Wie bewertest du die fachliche Betreuung?</p>' +
-        '<textarea rows="4" id="instructorFeedback" ' +
-          'placeholder="Dein Feedback zu ' + names + ' (Pflichtfeld)\u2026" ' +
-          'required></textarea>' +
-        '</div>';
+      var html = '';
+      ausbilder.forEach(function(name) {
+        html +=
+          '<div class="form-section">' +
+          '<label class="field-label">' + name + ' <span class="req">*</span></label>' +
+          '<p class="question-subtitle">Wie bewertest du die fachliche Betreuung durch ' + name + '?</p>' +
+          '<textarea rows="3" ' +
+            'class="ausbilder-textarea" ' +
+            'data-ausbilder-name="' + name + '" ' +
+            'placeholder="Dein Feedback zu ' + name + ' (Pflichtfeld)\u2026" ' +
+            'required></textarea>' +
+          '</div>';
+      });
       container.innerHTML = html;
 
-      // Attach input listener for submit gate
-      container.querySelectorAll('textarea').forEach(function(ta) {
+      // Attach input listeners for submit gate
+      container.querySelectorAll('.ausbilder-textarea').forEach(function(ta) {
         ta.addEventListener('input', updateSubmitState);
       });
 
@@ -377,11 +375,13 @@
         }
       });
 
-      // Ausbilder-Feedback (Pflicht)
-      var instructorEl = document.getElementById('instructorFeedback');
-      if (instructorEl && instructorEl.value.trim()) {
-        freitexte['feedback_instructor'] = instructorEl.value.trim();
-      }
+      // Ausbilder-Feedback (individuell, Pflicht)
+      var ausbilder = {};
+      document.querySelectorAll('.ausbilder-textarea').forEach(function(ta) {
+        var name = ta.dataset.ausbilderName;
+        var val = ta.value.trim();
+        if (name && val) ausbilder[name] = val;
+      });
 
       // Allgemeines Feedback (optional)
       var generalEl = document.getElementById('feedbackGeneral');
@@ -407,6 +407,7 @@
       if (nameVal) payload.name = nameVal;
       payload.ratings = ratings;
       if (Object.keys(freitexte).length) payload.freitexte = freitexte;
+      if (Object.keys(ausbilder).length) payload.ausbilder = ausbilder;
 
       // --- Supabase INSERT (atomic, kein Race Condition) ---
       try {
@@ -818,15 +819,19 @@
             } else { chartWrap.style.display = 'none'; }
           }
 
-          // Feedback cards (from feedback_instructor, filtered by trainer's groups)
-          var trainerGroups = [];
-          Object.keys(TEAM_MAP).forEach(function(key) {
-            if (TEAM_MAP[key].indexOf(name) !== -1)
-              trainerGroups.push(/^\d+$/.test(key) ? 'Gruppe ' + key : key);
-          });
+          // Feedback cards — individuell per Ausbilder (neues Format)
           var panel = document.getElementById('ausbilderFeedbackPanel');
-          var entries = (adminData.freitexteBySection['feedback_instructor'] || [])
-            .filter(function(e) { return trainerGroups.indexOf(e.group) !== -1; });
+          var entries = adminData.ausbilderFeedback[name] || [];
+          // Fallback: altes kombiniertes Format (feedback_instructor), gefiltert nach Gruppe
+          if (!entries.length) {
+            var trainerGroups = [];
+            Object.keys(TEAM_MAP).forEach(function(key) {
+              if (TEAM_MAP[key].indexOf(name) !== -1)
+                trainerGroups.push(/^\d+$/.test(key) ? 'Gruppe ' + key : key);
+            });
+            entries = (adminData.freitexteBySection['feedback_instructor'] || [])
+              .filter(function(e) { return trainerGroups.indexOf(e.group) !== -1; });
+          }
           if (!entries.length) {
             panel.innerHTML = '<p style="color:var(--text-muted);font-size:0.9rem;">Noch kein Feedback f\u00fcr ' + name + '.</p>';
             return;
@@ -864,22 +869,34 @@
       var sortedGroups = sortGroups(Object.keys(adminData.groupAverages));
 
       // Freitext-Schlüssel für Sheet 1
-      var freitextKeys = ['S1','S2','S3','S4','S5','S6','feedback_instructor','feedback_general'];
+      var freitextKeys = ['S1','S2','S3','S4','S5','S6','feedback_general'];
       var freitextLabels = {
         'S1': 'S1 Freitext', 'S2': 'S2 Freitext', 'S3': 'S3 Freitext',
         'S4': 'S4 Freitext', 'S5': 'S5 Freitext', 'S6': 'S6 Freitext',
-        'feedback_instructor': 'Ausbilder-Feedback', 'feedback_general': 'Allgemeines Feedback'
+        'feedback_general': 'Allgemeines Feedback'
       };
+
+      // Alle Ausbilder-Namen für separate Spalten
+      var allAusbilderNames = [];
+      Object.values(TEAM_MAP).forEach(function(arr) {
+        arr.forEach(function(n) { if (allAusbilderNames.indexOf(n) === -1) allAusbilderNames.push(n); });
+      });
+      allAusbilderNames.sort();
 
       // ---- Sheet 1: Einzelantworten ----
       var headerRow = ['Timestamp', 'Gruppe', 'Hochschule', 'Name']
         .concat(qKeys.map(function(k) { return QUESTION_LABELS[k]; }))
-        .concat(freitextKeys.map(function(k) { return freitextLabels[k]; }));
+        .concat(freitextKeys.map(function(k) { return freitextLabels[k]; }))
+        .concat(allAusbilderNames.map(function(n) { return 'Feedback: ' + n; }));
 
       var dataRows = adminData.submissions.map(function(s) {
         var ratings = qKeys.map(function(q) { return s.ratings ? (s.ratings[q] || '') : ''; });
         var freitexte = freitextKeys.map(function(k) { return s.freitexte ? (s.freitexte[k] || '') : ''; });
-        return [s.timestamp, s.group || '', s.uni || '', s.name || ''].concat(ratings).concat(freitexte);
+        var ausbilderCols = allAusbilderNames.map(function(n) {
+          if (s.ausbilder && s.ausbilder[n]) return s.ausbilder[n];
+          return '';
+        });
+        return [s.timestamp, s.group || '', s.uni || '', s.name || ''].concat(ratings).concat(freitexte).concat(ausbilderCols);
       });
       var sheet1 = XLSX.utils.aoa_to_sheet([headerRow].concat(dataRows));
 
@@ -898,10 +915,16 @@
       });
       var sheet2 = XLSX.utils.aoa_to_sheet([partAHeader].concat(partARows).concat([blankRow]).concat([partBHeader]).concat(partBRows));
 
-      // ---- Sheet 3: Ausbilder-Feedback ----
-      var sheet3Rows = [['Gruppe', 'Feedback']];
+      // ---- Sheet 3: Ausbilder-Feedback (individuell) ----
+      var sheet3Rows = [['Ausbilder*in', 'Gruppe', 'Feedback']];
+      allAusbilderNames.forEach(function(name) {
+        (adminData.ausbilderFeedback[name] || []).forEach(function(entry) {
+          sheet3Rows.push([name, entry.group, entry.text]);
+        });
+      });
+      // Fallback: altes kombiniertes Format
       (adminData.freitexteBySection['feedback_instructor'] || []).forEach(function(entry) {
-        sheet3Rows.push([entry.group, entry.text]);
+        sheet3Rows.push(['(kombiniert)', entry.group, entry.text]);
       });
       var sheet3 = XLSX.utils.aoa_to_sheet(sheet3Rows);
 
