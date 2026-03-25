@@ -22,9 +22,16 @@
       'Snowboard': ['Adam', 'Kami']
     };
 
-    // =====================================================
-    // QUESTION LABELS — admin dashboard display
-    // =====================================================
+    // Alle Ausbilder-Namen, sortiert (aus TEAM_MAP abgeleitet)
+    const ALL_AUSBILDER = (function() {
+      var list = [];
+      Object.values(TEAM_MAP).forEach(function(arr) {
+        arr.forEach(function(n) { if (list.indexOf(n) === -1) list.push(n); });
+      });
+      return list.sort();
+    })();
+
+    // --- QUESTION LABELS — admin dashboard display ---
     const QUESTION_LABELS = {
       'rating_skibo_service':     'Reiseveranstalter',
       'rating_prep_info':         'Vorab-Informationen',
@@ -48,9 +55,7 @@
       'rating_social_atmosphere': 'Soziales Miteinander'
     };
 
-    // =====================================================
-    // SECTION LABELS — admin freitext display
-    // =====================================================
+    // --- SECTION LABELS — admin freitext display ---
     const SECTION_LABELS = {
       'S1': 'S1 \u2014 Vorbereitung & Rahmen',
       'S2': 'S2 \u2014 Kern-Ausbildung',
@@ -62,9 +67,7 @@
       'feedback_general':    'Allgemeines Feedback'
     };
 
-    // =====================================================
-    // SECTIONS — Section → Question-Keys Mapping
-    // =====================================================
+    // --- SECTIONS — Section → Question-Keys Mapping ---
     const SECTIONS = [
       { key: 'S1', label: 'Vorbereitung', keys: ['rating_skibo_service','rating_prep_info','rating_costs','rating_location'] },
       { key: 'S2', label: 'Praxis',       keys: ['rating_driving_skills','rating_teaching_skills','rating_methodology','rating_video_analysis'] },
@@ -74,9 +77,7 @@
       { key: 'S6', label: 'Soziales',     keys: ['rating_hut_evening','rating_apres_ski','rating_social_atmosphere'] }
     ];
 
-    // =====================================================
-    // FORM STATE
-    // =====================================================
+    // --- FORM STATE ---
     let selectedGroup = null;
     let selectedUni = null;
     const formData = {}; // keyed by data-question ID, value 1-5
@@ -84,9 +85,7 @@
     // Active Chart.js instance for trainer radar (destroyed on re-render)
     var activeTrainerChart = null;
 
-    // =====================================================
-    // WIZARD STATE
-    // =====================================================
+    // --- WIZARD STATE ---
     let currentStep = 0;
     const totalSteps = 8;
 
@@ -101,9 +100,7 @@
       'S7 \u2014 Abschluss'
     ];
 
-    // =====================================================
-    // SHOW STEP
-    // =====================================================
+    // --- SHOW STEP ---
     function showStep(n, direction) {
       // Clamp
       if (n < 0) n = 0;
@@ -136,9 +133,7 @@
       document.getElementById('progressSectionName').textContent = sectionNames[n] || '';
     }
 
-    // =====================================================
-    // NAVIGATION
-    // =====================================================
+    // --- NAVIGATION ---
     function validateStep(n) {
       var stepEl = document.querySelector('[data-step="' + n + '"]');
       if (!stepEl) return true;
@@ -188,9 +183,7 @@
       }
     }
 
-    // =====================================================
-    // GROUP SELECTOR
-    // =====================================================
+    // --- GROUP SELECTOR ---
     document.addEventListener('DOMContentLoaded', function() {
       var grid = document.getElementById('groupGrid');
       if (grid) {
@@ -223,9 +216,7 @@
       }
     });
 
-    // =====================================================
-    // FREITEXT REVEAL LOGIC
-    // =====================================================
+    // --- FREITEXT REVEAL LOGIC ---
     function checkSectionFreitext(stepEl) {
       var stepNum = stepEl.dataset.step;
       var freitextCard = stepEl.querySelector('[data-freitext="' + stepNum + '"]');
@@ -243,9 +234,7 @@
       freitextCard.style.display = shouldShow ? 'block' : 'none';
     }
 
-    // =====================================================
-    // SUBMIT GATE
-    // =====================================================
+    // --- SUBMIT GATE ---
     function updateSubmitState() {
       var btn = document.getElementById('submitBtn');
       if (!btn) return;
@@ -266,9 +255,7 @@
       btn.disabled = !allFilled;
     }
 
-    // =====================================================
-    // AUSBILDER RENDERING
-    // =====================================================
+    // --- AUSBILDER RENDERING ---
     function renderAusbilder(group) {
       var container = document.getElementById('ausbilderContainer');
       if (!container) return;
@@ -307,9 +294,7 @@
       updateSubmitState();
     }
 
-    // =====================================================
-    // RATING TILES
-    // =====================================================
+    // --- RATING TILES ---
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.rating-grid').forEach(function(grid) {
         grid.addEventListener('click', function(e) {
@@ -341,9 +326,7 @@
       });
     });
 
-    // =====================================================
-    // SUBMIT HANDLER
-    // =====================================================
+    // --- SUBMIT HANDLER ---
     async function submitFeedback() {
       var btn = document.getElementById('submitBtn');
       var errorEl = document.getElementById('submitError');
@@ -432,9 +415,7 @@
       }
     }
 
-    // =====================================================
-    // ADMIN — data layer, compute, render
-    // =====================================================
+    // --- ADMIN — data layer, compute, render ---
     async function initAdmin() {
       var mainEl = document.querySelector('main');
       var confirmEl = document.getElementById('confirmationScreen');
@@ -472,9 +453,7 @@
       });
     }
 
-    // =====================================================
-    // STOPWORDS (DE) — for tag cloud
-    // =====================================================
+    // --- STOPWORDS (DE) — for tag cloud ---
     const STOPWORDS_DE = new Set([
       'der','die','das','ein','eine','und','ist','ich','hat','war','in','im','an','am',
       'mit','von','zu','zum','zur','auf','f\u00fcr','bei','es','sie','wir','du','er',
@@ -609,11 +588,7 @@
     }
 
     function renderAdminDashboard(adminData, adminEl) {
-      var allAusbilder = [];
-      Object.values(TEAM_MAP).forEach(function(arr) {
-        arr.forEach(function(name) { if (allAusbilder.indexOf(name) === -1) allAusbilder.push(name); });
-      });
-      allAusbilder.sort();
+      var allAusbilder = ALL_AUSBILDER;
 
       var html = '';
 
@@ -877,11 +852,7 @@
       };
 
       // Alle Ausbilder-Namen für separate Spalten
-      var allAusbilderNames = [];
-      Object.values(TEAM_MAP).forEach(function(arr) {
-        arr.forEach(function(n) { if (allAusbilderNames.indexOf(n) === -1) allAusbilderNames.push(n); });
-      });
-      allAusbilderNames.sort();
+      var allAusbilderNames = ALL_AUSBILDER;
 
       // ---- Sheet 1: Einzelantworten ----
       var headerRow = ['Timestamp', 'Gruppe', 'Hochschule', 'Name']
@@ -970,9 +941,7 @@
       XLSX.writeFile(wb, 'Lehrgangskritik-Valmorel-Export.xlsx');
     }
 
-    // =====================================================
-    // INIT
-    // =====================================================
+    // --- INIT ---
     document.addEventListener('DOMContentLoaded', function() {
       var urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('admin') === 'true') {
