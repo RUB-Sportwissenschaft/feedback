@@ -501,6 +501,29 @@
       color: var(--text-muted);
       line-height: 1.5;
     }
+
+    /* =====================================================
+       ADMIN DASHBOARD
+    ===================================================== */
+    #adminDashboard { display:none; padding:1rem; max-width:800px; margin:0 auto; }
+    .admin-section { margin-bottom:2rem; }
+    .admin-section-title { font-size:1rem; font-weight:700; color:var(--blau); margin-bottom:0.75rem; padding-bottom:0.4rem; border-bottom:2px solid var(--blau-light); }
+    .admin-stat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:0.5rem; }
+    .admin-stat-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.6rem 0.75rem; text-align:center; box-shadow:var(--shadow-sm); }
+    .admin-stat-card .stat-group { font-size:0.75rem; color:var(--text-muted); margin-bottom:0.2rem; }
+    .admin-stat-card .stat-count { font-size:1.4rem; font-weight:700; color:var(--blau); }
+    .admin-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+    .admin-table th { text-align:left; padding:0.4rem 0.5rem; background:var(--blau-light); color:var(--blau); font-weight:700; border-bottom:1px solid var(--border); }
+    .admin-table td { padding:0.35rem 0.5rem; border-bottom:1px solid var(--border); vertical-align:middle; }
+    .admin-table tr:last-child td { border-bottom:none; }
+    .avg-bar-wrap { width:100px; }
+    .avg-bar { height:8px; background:var(--orange); border-radius:4px; min-width:2px; }
+    .admin-freitext-card { background:var(--white); border-left:3px solid var(--orange); border-radius:var(--radius-sm); padding:0.6rem 0.75rem; margin-bottom:0.5rem; box-shadow:var(--shadow-sm); }
+    .admin-freitext-text { font-size:0.9rem; color:var(--text); margin-bottom:0.3rem; }
+    .admin-freitext-meta { font-size:0.75rem; color:var(--text-muted); }
+    .admin-header-card { background:var(--blau); color:var(--white); border-radius:var(--radius); padding:1rem 1.25rem; margin-bottom:1.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem; }
+    .admin-header-title { font-size:1.1rem; font-weight:700; }
+    .admin-header-count { font-size:0.9rem; opacity:0.85; }
   </style>
 </head>
 <body>
@@ -977,6 +1000,9 @@
     </div>
   </div>
 
+  <!-- ADMIN DASHBOARD — shown when ?admin=true -->
+  <div id="adminDashboard"></div>
+
   <script>
     // =====================================================
     // JSONBIN v3 — Feedback Valmorel
@@ -1002,6 +1028,42 @@
       '8':    ['Tanne', 'Pablo'],
       'SB 1': ['Adam', 'Kami'],
       'SB 2': ['Adam', 'Kami']
+    };
+
+    // =====================================================
+    // QUESTION LABELS — admin dashboard display
+    // =====================================================
+    const QUESTION_LABELS = {
+      'S1-01': 'Ausbildungsort',
+      'S1-02': 'Kosten / Preis-Leistung',
+      'S1-03': 'SkiBo Tours',
+      'S3-01': 'Organisation des Lehrgangs',
+      'S3-02': 'Zeitliche Belastung',
+      'S2-01': 'Situatives und demonstratives K\u00f6nnen',
+      'S2-02': 'Eigene Lehrkompetenz / Lehr\u00fcbungen',
+      'S2-03': 'Modellunterricht durch Ausbilder',
+      'S2-04': 'Einsteigermethodik',
+      'S2-05': 'Videoanalysen',
+      'S2-06': 'Schnee-Event',
+      'S2-07': 'Versch\u00fcttetensuche / Risikomanagement',
+      'S4-01': 'Pr\u00fcfung Organisation',
+      'S4-02': 'Pr\u00fcfungsanforderungen',
+      'S4-03': 'Klarheit der Pr\u00fcfungsanforderungen',
+      'S5-01': 'H\u00fcttenabend',
+      'S5-02': 'Apr\u00e8s-Ski',
+      'S5-03': 'Soziales Miteinander'
+    };
+
+    // =====================================================
+    // SECTION LABELS — admin freitext display
+    // =====================================================
+    const SECTION_LABELS = {
+      'S1': 'S1 \u2014 Rahmenbedingungen',
+      'S3': 'S3 \u2014 Organisation',
+      'S2': 'S2 \u2014 Ausbildung',
+      'S4': 'S4 \u2014 Pr\u00fcfung',
+      'S5': 'S5 \u2014 Soziales',
+      'allgemein': 'Allgemeines Feedback'
     };
 
     // =====================================================
@@ -1331,9 +1393,235 @@
     }
 
     // =====================================================
+    // ADMIN — data layer, compute, render
+    // =====================================================
+    async function initAdmin() {
+      var mainEl = document.querySelector('main');
+      var confirmEl = document.getElementById('confirmationScreen');
+      var adminEl = document.getElementById('adminDashboard');
+      if (mainEl) mainEl.style.display = 'none';
+      if (confirmEl) confirmEl.style.display = 'none';
+      if (adminEl) adminEl.style.display = 'block';
+
+      adminEl.innerHTML = '<p style="padding:1rem;color:var(--text-muted)">Daten werden geladen\u2026</p>';
+
+      try {
+        var res = await fetch(
+          'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID + '/latest',
+          { headers: { 'X-Access-Key': JSONBIN_API_KEY } }
+        );
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        var record = (await res.json()).record || {};
+        var submissions = Object.values(record);
+        var adminData = computeAdminData(submissions);
+        renderAdminDashboard(adminData, adminEl);
+      } catch (err) {
+        adminEl.innerHTML = '<p style="padding:1rem;color:red">Fehler beim Laden: ' + err.message + '</p>';
+      }
+    }
+
+    function computeAdminData(submissions) {
+      var total = submissions.length;
+
+      // Group counts
+      var groupCounts = {};
+      submissions.forEach(function(s) {
+        var g = s.group || 'Unbekannt';
+        groupCounts[g] = (groupCounts[g] || 0) + 1;
+      });
+
+      // Per-question averages (global)
+      var qSums = {}, qCounts = {};
+      submissions.forEach(function(s) {
+        if (!s.ratings) return;
+        Object.keys(s.ratings).forEach(function(qId) {
+          var v = s.ratings[qId];
+          if (typeof v === 'number') {
+            qSums[qId] = (qSums[qId] || 0) + v;
+            qCounts[qId] = (qCounts[qId] || 0) + 1;
+          }
+        });
+      });
+      var qAverages = {};
+      Object.keys(QUESTION_LABELS).forEach(function(qId) {
+        qAverages[qId] = qCounts[qId] ? qSums[qId] / qCounts[qId] : null;
+      });
+
+      // Per-group per-question averages
+      var gqSums = {}, gqCounts = {};
+      submissions.forEach(function(s) {
+        var g = s.group || 'Unbekannt';
+        if (!gqSums[g]) { gqSums[g] = {}; gqCounts[g] = {}; }
+        if (!s.ratings) return;
+        Object.keys(s.ratings).forEach(function(qId) {
+          var v = s.ratings[qId];
+          if (typeof v === 'number') {
+            gqSums[g][qId] = (gqSums[g][qId] || 0) + v;
+            gqCounts[g][qId] = (gqCounts[g][qId] || 0) + 1;
+          }
+        });
+      });
+      var groupAverages = {};
+      Object.keys(gqSums).forEach(function(g) {
+        groupAverages[g] = {};
+        Object.keys(QUESTION_LABELS).forEach(function(qId) {
+          groupAverages[g][qId] = gqCounts[g][qId] ? gqSums[g][qId] / gqCounts[g][qId] : null;
+        });
+      });
+
+      // Freitexte per section
+      var freitexteBySection = {};
+      submissions.forEach(function(s) {
+        if (!s.freitexte) return;
+        Object.keys(s.freitexte).forEach(function(key) {
+          var text = (s.freitexte[key] || '').trim();
+          if (!text) return;
+          if (!freitexteBySection[key]) freitexteBySection[key] = [];
+          freitexteBySection[key].push({ text: text, group: s.group || '' });
+        });
+      });
+
+      // Ausbilder feedback
+      var ausbilderFeedback = {};
+      submissions.forEach(function(s) {
+        if (!s.ausbilder) return;
+        Object.keys(s.ausbilder).forEach(function(name) {
+          var text = (s.ausbilder[name] || '').trim();
+          if (!text) return;
+          if (!ausbilderFeedback[name]) ausbilderFeedback[name] = [];
+          ausbilderFeedback[name].push({ text: text, group: s.group || '' });
+        });
+      });
+
+      return { total: total, groupCounts: groupCounts, qAverages: qAverages,
+               groupAverages: groupAverages, freitexteBySection: freitexteBySection,
+               ausbilderFeedback: ausbilderFeedback, submissions: submissions };
+    }
+
+    function renderAdminDashboard(adminData, adminEl) {
+      var html = '';
+
+      // a. Header card
+      html += '<div class="admin-header-card">';
+      html += '<div><p class="admin-header-title">Admin-Dashboard</p>';
+      html += '<p class="admin-header-count">Gesamt: ' + adminData.total + ' Teilnehmer</p></div>';
+      html += '<button id="exportBtn" class="btn btn-primary" disabled>Excel exportieren</button>';
+      html += '</div>';
+
+      // b. Teilnahme pro Gruppe
+      html += '<div class="admin-section">';
+      html += '<h3 class="admin-section-title">Teilnahme pro Gruppe</h3>';
+      html += '<div class="admin-stat-grid">';
+      var groupKeys = Object.keys(adminData.groupCounts).sort(function(a, b) {
+        var aIsNum = /^Gruppe \d+$/.test(a);
+        var bIsNum = /^Gruppe \d+$/.test(b);
+        if (aIsNum && bIsNum) return parseInt(a.replace('Gruppe ', '')) - parseInt(b.replace('Gruppe ', ''));
+        if (aIsNum) return -1;
+        if (bIsNum) return 1;
+        return a.localeCompare(b);
+      });
+      groupKeys.forEach(function(g) {
+        html += '<div class="admin-stat-card">';
+        html += '<div class="stat-group">' + g + '</div>';
+        html += '<div class="stat-count">' + adminData.groupCounts[g] + '</div>';
+        html += '</div>';
+      });
+      html += '</div></div>';
+
+      // c. Durchschnittswerte pro Frage
+      html += '<div class="admin-section">';
+      html += '<h3 class="admin-section-title">Durchschnittswerte pro Frage</h3>';
+      html += '<table class="admin-table"><thead><tr>';
+      html += '<th>Frage</th><th>\u00d8</th><th>Balken</th>';
+      html += '</tr></thead><tbody>';
+      Object.keys(QUESTION_LABELS).forEach(function(qId) {
+        var avg = adminData.qAverages[qId];
+        var barW = avg ? (avg / 5 * 100).toFixed(1) : 0;
+        html += '<tr>';
+        html += '<td>' + QUESTION_LABELS[qId] + '</td>';
+        html += '<td>' + (avg !== null ? avg.toFixed(1) : '\u2014') + '</td>';
+        html += '<td><div class="avg-bar-wrap"><div class="avg-bar" style="width:' + barW + '%"></div></div></td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+
+      // d. Gruppenvergleich
+      html += '<div class="admin-section">';
+      html += '<h3 class="admin-section-title">Gruppenvergleich</h3>';
+      html += '<table class="admin-table"><thead><tr>';
+      html += '<th>Gruppe</th><th>\u00d8 gesamt</th>';
+      html += '</tr></thead><tbody>';
+      var gAvgKeys = Object.keys(adminData.groupAverages).sort(function(a, b) {
+        var aIsNum = /^Gruppe \d+$/.test(a);
+        var bIsNum = /^Gruppe \d+$/.test(b);
+        if (aIsNum && bIsNum) return parseInt(a.replace('Gruppe ', '')) - parseInt(b.replace('Gruppe ', ''));
+        if (aIsNum) return -1;
+        if (bIsNum) return 1;
+        return a.localeCompare(b);
+      });
+      gAvgKeys.forEach(function(g) {
+        var qVals = Object.values(adminData.groupAverages[g]).filter(function(v) { return v !== null; });
+        var overall = qVals.length ? (qVals.reduce(function(a, b) { return a + b; }, 0) / qVals.length) : null;
+        html += '<tr>';
+        html += '<td>' + g + '</td>';
+        html += '<td>' + (overall !== null ? overall.toFixed(2) : '\u2014') + '</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+
+      // e. Freitextantworten
+      var hasFreitext = Object.keys(SECTION_LABELS).some(function(k) {
+        return adminData.freitexteBySection[k] && adminData.freitexteBySection[k].length;
+      });
+      if (hasFreitext) {
+        html += '<div class="admin-section">';
+        html += '<h3 class="admin-section-title">Freitextantworten</h3>';
+        Object.keys(SECTION_LABELS).forEach(function(key) {
+          var entries = adminData.freitexteBySection[key];
+          if (!entries || !entries.length) return;
+          html += '<h4 style="font-size:0.875rem;color:var(--text-muted);margin:0.5rem 0">' + SECTION_LABELS[key] + '</h4>';
+          entries.forEach(function(entry) {
+            html += '<div class="admin-freitext-card">';
+            html += '<p class="admin-freitext-text">' + entry.text + '</p>';
+            html += '<p class="admin-freitext-meta">' + entry.group + '</p>';
+            html += '</div>';
+          });
+        });
+        html += '</div>';
+      }
+
+      // f. Ausbilder-Feedback
+      var ausbilderNames = Object.keys(adminData.ausbilderFeedback).sort();
+      if (ausbilderNames.length) {
+        html += '<div class="admin-section">';
+        html += '<h3 class="admin-section-title">Ausbilder-Feedback</h3>';
+        ausbilderNames.forEach(function(name) {
+          var entries = adminData.ausbilderFeedback[name];
+          if (!entries || !entries.length) return;
+          html += '<h4 style="font-size:0.875rem;color:var(--text-muted);margin:0.5rem 0">' + name + '</h4>';
+          entries.forEach(function(entry) {
+            html += '<div class="admin-freitext-card">';
+            html += '<p class="admin-freitext-text">' + entry.text + '</p>';
+            html += '<p class="admin-freitext-meta">' + entry.group + '</p>';
+            html += '</div>';
+          });
+        });
+        html += '</div>';
+      }
+
+      adminEl.innerHTML = html;
+    }
+
+    // =====================================================
     // INIT
     // =====================================================
     document.addEventListener('DOMContentLoaded', function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('admin') === 'true') {
+        initAdmin();
+        return;
+      }
+
       showStep(0);
       renderAusbilder(null);
       updateSubmitState();
