@@ -26,36 +26,53 @@
     // QUESTION LABELS — admin dashboard display
     // =====================================================
     const QUESTION_LABELS = {
-      'S1-01': 'Ausbildungsort',
-      'S1-02': 'Kosten / Preis-Leistung',
-      'S1-03': 'SkiBo Tours',
-      'S3-01': 'Organisation des Lehrgangs',
-      'S3-02': 'Zeitliche Belastung',
-      'S2-01': 'Situatives und demonstratives K\u00f6nnen',
-      'S2-02': 'Eigene Lehrkompetenz / Lehr\u00fcbungen',
-      'S2-04': 'Einsteigermethodik',
-      'S2-05': 'Videoanalysen',
-      'S2-06': 'Schnee-Event',
-      'S2-07': 'Versch\u00fcttetensuche / Risikomanagement',
-      'S4-01': 'Pr\u00fcfung Organisation',
-      'S4-02': 'Pr\u00fcfungsanforderungen',
-      'S4-03': 'Klarheit der Pr\u00fcfungsanforderungen',
-      'S5-01': 'H\u00fcttenabend',
-      'S5-02': 'Apr\u00e8s-Ski',
-      'S5-03': 'Soziales Miteinander'
+      'rating_skibo_service':     'Reiseveranstalter',
+      'rating_prep_info':         'Vorab-Informationen',
+      'rating_costs':             'Kosten / Preis-Leistung',
+      'rating_location':          'Ausbildungsort',
+      'rating_driving_skills':    'Fahrerisches K\u00f6nnen',
+      'rating_teaching_skills':   'Lehrkompetenz',
+      'rating_methodology':       'Einsteigermethodik',
+      'rating_video_analysis':    'Videoanalysen',
+      'rating_lvs_training':      'Versch\u00fcttetensuche',
+      'rating_theory':            'Theorie-Inhalte',
+      'rating_snow_event':        'Schnee-Event',
+      'rating_organisation':      'Lehrgangs-Organisation',
+      'rating_workload':          'Zeitliche Belastung',
+      'rating_group_split':       'Gruppeneinteilung',
+      'rating_exam_org':          'Pr\u00fcfungs-Organisation',
+      'rating_exam_difficulty':   'Pr\u00fcfungsanforderungen',
+      'rating_exam_clarity':      'Klarheit der Kriterien',
+      'rating_hut_evening':       'H\u00fcttenabend',
+      'rating_apres_ski':         'Apr\u00e8s-Ski',
+      'rating_social_atmosphere': 'Soziales Miteinander'
     };
 
     // =====================================================
     // SECTION LABELS — admin freitext display
     // =====================================================
     const SECTION_LABELS = {
-      'S1': 'S1 \u2014 Rahmenbedingungen',
-      'S3': 'S3 \u2014 Organisation',
-      'S2': 'S2 \u2014 Ausbildung',
-      'S4': 'S4 \u2014 Pr\u00fcfung',
-      'S5': 'S5 \u2014 Soziales',
-      'allgemein': 'Allgemeines Feedback'
+      'S1': 'S1 \u2014 Vorbereitung & Rahmen',
+      'S2': 'S2 \u2014 Kern-Ausbildung',
+      'S3': 'S3 \u2014 Spezialthemen & Sicherheit',
+      'S4': 'S4 \u2014 Organisation vor Ort',
+      'S5': 'S5 \u2014 Pr\u00fcfung',
+      'S6': 'S6 \u2014 Soziales & Miteinander',
+      'feedback_instructor': 'Ausbilder-Feedback',
+      'feedback_general':    'Allgemeines Feedback'
     };
+
+    // =====================================================
+    // SECTIONS — Section → Question-Keys Mapping
+    // =====================================================
+    const SECTIONS = [
+      { key: 'S1', label: 'Vorbereitung', keys: ['rating_skibo_service','rating_prep_info','rating_costs','rating_location'] },
+      { key: 'S2', label: 'Praxis',       keys: ['rating_driving_skills','rating_teaching_skills','rating_methodology','rating_video_analysis'] },
+      { key: 'S3', label: 'Themen',       keys: ['rating_lvs_training','rating_theory','rating_snow_event'] },
+      { key: 'S4', label: 'Ablauf',       keys: ['rating_organisation','rating_workload','rating_group_split'] },
+      { key: 'S5', label: 'Pr\u00fcfung', keys: ['rating_exam_org','rating_exam_difficulty','rating_exam_clarity'] },
+      { key: 'S6', label: 'Soziales',     keys: ['rating_hut_evening','rating_apres_ski','rating_social_atmosphere'] }
+    ];
 
     // =====================================================
     // FORM STATE
@@ -64,20 +81,24 @@
     let selectedUni = null;
     const formData = {}; // keyed by data-question ID, value 1-5
 
+    // Active Chart.js instance for trainer radar (destroyed on re-render)
+    var activeTrainerChart = null;
+
     // =====================================================
     // WIZARD STATE
     // =====================================================
     let currentStep = 0;
-    const totalSteps = 7;
+    const totalSteps = 8;
 
     const sectionNames = [
       'Start',
-      'S1 \u2014 Rahmenbedingungen',
-      'S2 \u2014 Ausbildung',
-      'S3 \u2014 Organisation',
-      'S4 \u2014 Pr\u00fcfung',
-      'S5 \u2014 Soziales',
-      'S6 \u2014 Ausbilder*innen \u0026 Abschluss'
+      'S1 \u2014 Vorbereitung',
+      'S2 \u2014 Praxis',
+      'S3 \u2014 Themen',
+      'S4 \u2014 Ablauf',
+      'S5 \u2014 Pr\u00fcfung',
+      'S6 \u2014 Soziales',
+      'S7 \u2014 Abschluss'
     ];
 
     // =====================================================
@@ -205,6 +226,8 @@
     // =====================================================
     // FREITEXT REVEAL LOGIC
     // =====================================================
+    const BIPOLAR_IDS = ['rating_costs', 'rating_workload', 'rating_exam_difficulty'];
+
     function checkSectionFreitext(stepEl) {
       var stepNum = stepEl.dataset.step;
       var freitextCard = stepEl.querySelector('[data-freitext="' + stepNum + '"]');
@@ -217,7 +240,7 @@
         var rating = formData[qId];
         if (rating === undefined) return;
 
-        if (qId === 'S4-02') {
+        if (BIPOLAR_IDS.indexOf(qId) !== -1) {
           // Bipolar scale: trigger at extremes (1-2 or 4-5), not at 3
           if (rating <= 2 || rating >= 4) shouldShow = true;
         } else {
@@ -242,12 +265,9 @@
         return;
       }
 
-      // Gate 2: all Ausbilder textareas must be filled
-      var ausbilderTextareas = document.querySelectorAll('.ausbilder-textarea');
-      var allFilled = true;
-      ausbilderTextareas.forEach(function(ta) {
-        if (!ta.value.trim()) allFilled = false;
-      });
+      // Gate 2: Ausbilder-Feedback textarea must be filled
+      var instructorTextarea = document.getElementById('instructorFeedback');
+      var allFilled = instructorTextarea ? instructorTextarea.value.trim().length > 0 : false;
 
       btn.disabled = !allFilled;
     }
@@ -263,29 +283,26 @@
       if (!ausbilder) {
         container.innerHTML =
           '<div class="form-section">' +
+          '<label class="field-label">Ausbilder-Feedback <span class="req">*</span></label>' +
           '<p style="color:var(--text-muted);font-style:italic;font-size:0.9rem;">' +
           'Nach Auswahl deiner Gruppe erscheinen hier die Ausbilder*innen zur Bewertung.' +
           '</p></div>';
         return;
       }
 
-      var html = '';
-      ausbilder.forEach(function(name, i) {
-        html +=
-          '<div class="form-section ausbilder-card">' +
-          '<label class="field-label">' + name + ' <span class="req">*</span></label>' +
-          '<textarea rows="3" ' +
-            'class="ausbilder-textarea" ' +
-            'data-ausbilder="' + i + '" ' +
-            'placeholder="Dein Feedback zu ' + name + ' (Pflichtfeld)&#x2026;" ' +
-            'required>' +
-          '</textarea>' +
-          '</div>';
-      });
+      var names = ausbilder.join(' & ');
+      var html =
+        '<div class="form-section">' +
+        '<label class="field-label">Ausbilder-Feedback: ' + names + ' <span class="req">*</span></label>' +
+        '<p class="question-subtitle">Wie bewertest du die fachliche Betreuung?</p>' +
+        '<textarea rows="4" id="instructorFeedback" ' +
+          'placeholder="Dein Feedback zu ' + names + ' (Pflichtfeld)\u2026" ' +
+          'required></textarea>' +
+        '</div>';
       container.innerHTML = html;
 
-      // Attach input listeners for submit gate
-      container.querySelectorAll('.ausbilder-textarea').forEach(function(ta) {
+      // Attach input listener for submit gate
+      container.querySelectorAll('textarea').forEach(function(ta) {
         ta.addEventListener('input', updateSubmitState);
       });
 
@@ -350,7 +367,7 @@
 
       // Freitexte per section (only non-empty values)
       var freitexte = {};
-      var sectionMap = { '1': 'S1', '2': 'S2', '3': 'S3', '4': 'S4', '5': 'S5' };
+      var sectionMap = { '1': 'S1', '2': 'S2', '3': 'S3', '4': 'S4', '5': 'S5', '6': 'S6' };
       document.querySelectorAll('[data-freitext-input]').forEach(function(ta) {
         var val = ta.value.trim();
         if (val) {
@@ -360,27 +377,17 @@
         }
       });
 
-      // Per-Frage-Freitexte S2
-      document.querySelectorAll('[data-freitext-q]').forEach(function(ta) {
-        var val = ta.value.trim();
-        if (val) freitexte[ta.dataset.freitextQ] = val;
-      });
-
-      // Allgemeines Freitext (step 6, no data-freitext-input attribute)
-      var allgemeinesEl = document.querySelector('[data-step="6"] textarea:not(.ausbilder-textarea)');
-      if (allgemeinesEl && allgemeinesEl.value.trim()) {
-        freitexte['allgemein'] = allgemeinesEl.value.trim();
+      // Ausbilder-Feedback (Pflicht)
+      var instructorEl = document.getElementById('instructorFeedback');
+      if (instructorEl && instructorEl.value.trim()) {
+        freitexte['feedback_instructor'] = instructorEl.value.trim();
       }
 
-      // Ausbilder feedback: named object using TEAM_MAP
-      var ausbilder = {};
-      var names = selectedGroup ? TEAM_MAP[selectedGroup] : [];
-      document.querySelectorAll('.ausbilder-textarea').forEach(function(ta) {
-        var idx = parseInt(ta.dataset.ausbilder, 10);
-        var name = names && names[idx] ? names[idx] : ('Ausbilder*in ' + (idx + 1));
-        var val = ta.value.trim();
-        if (val) ausbilder[name] = val;
-      });
+      // Allgemeines Feedback (optional)
+      var generalEl = document.getElementById('feedbackGeneral');
+      if (generalEl && generalEl.value.trim()) {
+        freitexte['feedback_general'] = generalEl.value.trim();
+      }
 
       // Name (optional)
       var nameEl = document.querySelector('[data-step="0"] input[type=text]');
@@ -400,7 +407,6 @@
       if (nameVal) payload.name = nameVal;
       payload.ratings = ratings;
       if (Object.keys(freitexte).length) payload.freitexte = freitexte;
-      payload.ausbilder = ausbilder;
 
       // --- Supabase INSERT (atomic, kein Race Condition) ---
       try {
@@ -433,6 +439,7 @@
       var confirmEl = document.getElementById('confirmationScreen');
       var adminEl = document.getElementById('adminDashboard');
       var progressBarEl = document.getElementById('progressBar');
+      document.body.classList.add('admin-mode');
       if (mainEl) mainEl.style.display = 'none';
       if (confirmEl) confirmEl.style.display = 'none';
       if (progressBarEl) progressBarEl.style.display = 'none';
@@ -463,6 +470,64 @@
         if (bIsNum) return 1;
         return a.localeCompare(b);
       });
+    }
+
+    // =====================================================
+    // STOPWORDS (DE) — for tag cloud
+    // =====================================================
+    const STOPWORDS_DE = new Set([
+      'der','die','das','ein','eine','und','ist','ich','hat','war','in','im','an','am',
+      'mit','von','zu','zum','zur','auf','f\u00fcr','bei','es','sie','wir','du','er',
+      'sein','auch','als','aber','wie','oder','wenn','dass','sehr','gut','nicht','noch',
+      'mehr','so','da','mir','uns','dem','den','des','einer','eines','waren','haben',
+      'hatte','wird','werden','wurde','worden','kann','doch','mal','aus','durch','nach',
+      '\u00fcber','vor','unter','alle','alles','man','sich','mich','dich','ihr','ihn',
+      'ihm','habe','bist','sind','euch','ihnen','diese','dieser','dieses','diesen',
+      'diesem','jeder','jede','kein','keine','keiner','viel','viele','wenig','beim',
+      'weil','aber','dann','also','hier','dort','schon','immer','jetzt','eine','einen',
+      'etwas','wurde','haben','hatte','muss','kann','konnte','sollte','w\u00e4re',
+      'h\u00e4tte','gibt','gab','beim','ohne','selbst','immer','schon','halt','leider',
+      'finde','fand','habe','wurde','wurden','wird','denn','mal','war','war','wir'
+    ]);
+
+    // Compute per-section averages for all groups a trainer is assigned to
+    function computeTrainerSectionAverages(trainerName, submissions) {
+      var trainerGroups = [];
+      Object.keys(TEAM_MAP).forEach(function(key) {
+        if (TEAM_MAP[key].indexOf(trainerName) !== -1) {
+          trainerGroups.push(/^\d+$/.test(key) ? 'Gruppe ' + key : key);
+        }
+      });
+      var secSums = {}, secCounts = {};
+      SECTIONS.forEach(function(sec) { secSums[sec.key] = 0; secCounts[sec.key] = 0; });
+      submissions.forEach(function(s) {
+        if (!s.group || trainerGroups.indexOf(s.group) === -1) return;
+        if (!s.ratings) return;
+        SECTIONS.forEach(function(sec) {
+          sec.keys.forEach(function(qId) {
+            var v = s.ratings[qId];
+            if (typeof v === 'number') { secSums[sec.key] += v; secCounts[sec.key]++; }
+          });
+        });
+      });
+      return SECTIONS.map(function(sec) {
+        return secCounts[sec.key] ? +(secSums[sec.key] / secCounts[sec.key]).toFixed(2) : null;
+      });
+    }
+
+    // Word frequency count for tag cloud
+    function computeWordFrequencies(freitexteBySection) {
+      var freq = {};
+      Object.keys(freitexteBySection).forEach(function(key) {
+        freitexteBySection[key].forEach(function(entry) {
+          var words = entry.text.toLowerCase()
+            .replace(/[^a-z\u00e4\u00f6\u00fc\u00df\s]/g, ' ')
+            .split(/\s+/)
+            .filter(function(w) { return w.length > 3 && !STOPWORDS_DE.has(w); });
+          words.forEach(function(w) { freq[w] = (freq[w] || 0) + 1; });
+        });
+      });
+      return freq;
     }
 
     function computeAdminData(submissions) {
@@ -550,15 +615,6 @@
       });
       allAusbilder.sort();
 
-      // Section → questions mapping (single source of truth for both Übersicht and Fragen)
-      var SECTIONS = [
-        { key: 'S1', label: 'Rahmen',        keys: ['S1-01','S1-02','S1-03'] },
-        { key: 'S2', label: 'Ausbildung',    keys: ['S2-01','S2-02','S2-04','S2-05','S2-06','S2-07'] },
-        { key: 'S3', label: 'Organisation',  keys: ['S3-01','S3-02'] },
-        { key: 'S4', label: 'Pr\u00fcfung', keys: ['S4-01','S4-02','S4-03'] },
-        { key: 'S5', label: 'Soziales',      keys: ['S5-01','S5-02','S5-03'] }
-      ];
-
       var html = '';
 
       // Top bar
@@ -580,12 +636,21 @@
       html += '<p class="admin-panel-label">Ausbilder*in ausw\u00e4hlen</p>';
       html += '<div class="admin-name-grid">';
       allAusbilder.forEach(function(name) {
-        var count = adminData.ausbilderFeedback[name] ? adminData.ausbilderFeedback[name].length : 0;
+        // Count submissions from this trainer's groups
+        var trainerGroups = [];
+        Object.keys(TEAM_MAP).forEach(function(key) {
+          if (TEAM_MAP[key].indexOf(name) !== -1)
+            trainerGroups.push(/^\d+$/.test(key) ? 'Gruppe ' + key : key);
+        });
+        var count = adminData.submissions.filter(function(s) { return trainerGroups.indexOf(s.group) !== -1; }).length;
         html += '<button class="admin-name-pill" data-name="' + name + '">';
         html += '<span>' + name + '</span>';
         html += '<span class="admin-name-badge">' + count + '</span>';
         html += '</button>';
       });
+      html += '</div>';
+      html += '<div class="admin-chart-wrap" id="trainerChartWrap" style="display:none;">';
+      html += '<canvas id="trainerRadarChart" height="220"></canvas>';
       html += '</div>';
       html += '<div id="ausbilderFeedbackPanel">';
       html += '<p style="color:var(--text-muted);font-size:0.9rem;">Ausbilder*in ausw\u00e4hlen.</p>';
@@ -607,28 +672,17 @@
       html += '<div class="admin-kpi-card"><div class="admin-kpi-value">' + numGruppen + '</div><div class="admin-kpi-label">Gruppen</div></div>';
       html += '</div>';
 
-      // Sektionsschnitte als Balken
+      // Sektionsschnitte als Chart.js Bar/Line
       html += '<p class="admin-panel-label">Sektionsschnitte</p>';
-      html += '<div class="admin-sec-list">';
-      SECTIONS.forEach(function(sec) {
-        var vals = sec.keys.map(function(k) { return adminData.qAverages[k]; }).filter(function(v) { return v !== null; });
-        var avg = vals.length ? vals.reduce(function(a,b){return a+b;},0) / vals.length : null;
-        var barW = avg !== null ? (avg / 6 * 100).toFixed(1) : 0;
-        html += '<div class="admin-sec-row">';
-        html += '<span class="admin-sec-label">' + sec.label + '</span>';
-        html += '<div class="admin-sec-bar-track"><div class="admin-sec-bar-fill" style="width:' + barW + '%"></div></div>';
-        html += '<span class="admin-sec-avg">' + (avg !== null ? avg.toFixed(1) : '\u2014') + '</span>';
-        html += '</div>';
-      });
-      html += '</div>';
+      html += '<div class="admin-chart-wrap"><canvas id="sectionChart" height="220"></canvas></div>';
 
-      // Gruppenvergleich
+      // Gruppenvergleich (HTML-Balken, Skala 1-5)
       html += '<p class="admin-panel-label">Gruppenvergleich</p>';
       html += '<div class="admin-group-list">';
       sortGroups(Object.keys(adminData.groupAverages)).forEach(function(g) {
         var gVals = Object.values(adminData.groupAverages[g]).filter(function(v) { return v !== null; });
         var gAvg = gVals.length ? gVals.reduce(function(a,b){return a+b;},0) / gVals.length : null;
-        var barW = gAvg !== null ? (gAvg / 6 * 100).toFixed(1) : 0;
+        var barW = gAvg !== null ? ((gAvg - 1) / 4 * 100).toFixed(1) : 0;
         html += '<div class="admin-group-row">';
         html += '<span class="admin-group-name">' + g + '</span>';
         html += '<span class="admin-group-n">n=' + (adminData.groupCounts[g] || 0) + '</span>';
@@ -638,8 +692,22 @@
       });
       html += '</div>';
 
-      // Allgemeine Freitext-Karten
-      var allgFT = adminData.freitexteBySection['allgemein'] || [];
+      // Tag-Cloud aus Freitexten
+      var wordFreqs = computeWordFrequencies(adminData.freitexteBySection);
+      var topWords = Object.keys(wordFreqs).sort(function(a,b){return wordFreqs[b]-wordFreqs[a];}).slice(0,30);
+      if (topWords.length) {
+        var maxFreq = wordFreqs[topWords[0]];
+        html += '<p class="admin-panel-label">H\u00e4ufige Begriffe</p>';
+        html += '<div class="admin-tag-cloud">';
+        topWords.forEach(function(w) {
+          var size = (0.78 + (wordFreqs[w] / maxFreq) * 0.72).toFixed(2);
+          html += '<span class="admin-tag" style="font-size:' + size + 'rem;">' + w + '</span>';
+        });
+        html += '</div>';
+      }
+
+      // Allgemeines Feedback-Karten
+      var allgFT = adminData.freitexteBySection['feedback_general'] || [];
       if (allgFT.length) {
         html += '<p class="admin-panel-label">Allgemeines Feedback</p>';
         allgFT.forEach(function(entry) {
@@ -677,6 +745,36 @@
       adminEl.innerHTML = html;
       window.lastAdminData = adminData;
 
+      // ---- Section Chart (Bar + Line) ----
+      var secChartEl = document.getElementById('sectionChart');
+      if (secChartEl && window.Chart) {
+        var secLabels = SECTIONS.map(function(s) { return s.label; });
+        var secAvgVals = SECTIONS.map(function(sec) {
+          var vals = sec.keys.map(function(k) { return adminData.qAverages[k]; }).filter(function(v) { return v !== null; });
+          return vals.length ? +(vals.reduce(function(a,b){return a+b;},0) / vals.length).toFixed(2) : null;
+        });
+        var validSecVals = secAvgVals.filter(function(v) { return v !== null; });
+        var overallAvg = validSecVals.length ? +(validSecVals.reduce(function(a,b){return a+b;},0) / validSecVals.length).toFixed(2) : 3;
+        new window.Chart(secChartEl, {
+          data: {
+            labels: secLabels,
+            datasets: [
+              { type: 'bar', label: 'Ø Sektion', data: secAvgVals,
+                backgroundColor: 'rgba(0,53,96,0.75)', borderColor: '#003560',
+                borderWidth: 1, borderRadius: 4 },
+              { type: 'line', label: 'Ø gesamt', data: secAvgVals.map(function(){ return overallAvg; }),
+                borderColor: '#EC633A', borderWidth: 2, borderDash: [5,4],
+                pointRadius: 0, fill: false, tension: 0 }
+            ]
+          },
+          options: {
+            scales: { y: { min: 1, max: 5, ticks: { stepSize: 1 } } },
+            plugins: { legend: { display: false } },
+            responsive: true, maintainAspectRatio: false
+          }
+        });
+      }
+
       // Tab switching
       adminEl.querySelectorAll('.admin-tab').forEach(function(tab) {
         tab.addEventListener('click', function() {
@@ -687,14 +785,49 @@
         });
       });
 
-      // Ausbilder name pills
+      // Ausbilder name pills + Radar Chart
       adminEl.querySelectorAll('.admin-name-pill').forEach(function(pill) {
         pill.addEventListener('click', function() {
           adminEl.querySelectorAll('.admin-name-pill').forEach(function(p) { p.classList.remove('active'); });
           pill.classList.add('active');
           var name = pill.dataset.name;
+
+          // Radar chart
+          var radarCanvas = document.getElementById('trainerRadarChart');
+          var chartWrap = document.getElementById('trainerChartWrap');
+          if (activeTrainerChart) { activeTrainerChart.destroy(); activeTrainerChart = null; }
+          if (radarCanvas && chartWrap && window.Chart) {
+            var avgs = computeTrainerSectionAverages(name, adminData.submissions);
+            var hasData = avgs.some(function(v) { return v !== null; });
+            if (hasData) {
+              chartWrap.style.display = 'block';
+              activeTrainerChart = new window.Chart(radarCanvas, {
+                type: 'radar',
+                data: {
+                  labels: SECTIONS.map(function(s) { return s.label; }),
+                  datasets: [{ label: name, data: avgs.map(function(v){ return v || 0; }),
+                    backgroundColor: 'rgba(236,99,58,0.18)', borderColor: '#EC633A',
+                    borderWidth: 2, pointBackgroundColor: '#EC633A', pointRadius: 3 }]
+                },
+                options: {
+                  scales: { r: { min: 1, max: 5, ticks: { stepSize: 1 },
+                    pointLabels: { font: { size: 10 } } } },
+                  plugins: { legend: { display: false } },
+                  responsive: true, maintainAspectRatio: false
+                }
+              });
+            } else { chartWrap.style.display = 'none'; }
+          }
+
+          // Feedback cards (from feedback_instructor, filtered by trainer's groups)
+          var trainerGroups = [];
+          Object.keys(TEAM_MAP).forEach(function(key) {
+            if (TEAM_MAP[key].indexOf(name) !== -1)
+              trainerGroups.push(/^\d+$/.test(key) ? 'Gruppe ' + key : key);
+          });
           var panel = document.getElementById('ausbilderFeedbackPanel');
-          var entries = adminData.ausbilderFeedback[name] || [];
+          var entries = (adminData.freitexteBySection['feedback_instructor'] || [])
+            .filter(function(e) { return trainerGroups.indexOf(e.group) !== -1; });
           if (!entries.length) {
             panel.innerHTML = '<p style="color:var(--text-muted);font-size:0.9rem;">Noch kein Feedback f\u00fcr ' + name + '.</p>';
             return;
@@ -728,78 +861,82 @@
     }
 
     function exportToExcel(adminData) {
-      // All unique Ausbilder (consistent column order)
-      var allAusbilder = [];
-      Object.values(TEAM_MAP).forEach(function(arr) {
-        arr.forEach(function(name) { if (allAusbilder.indexOf(name) === -1) allAusbilder.push(name); });
-      });
-      allAusbilder.sort();
-
       var qKeys = Object.keys(QUESTION_LABELS);
+      var sortedGroups = sortGroups(Object.keys(adminData.groupAverages));
+
+      // Freitext-Schlüssel für Sheet 1
+      var freitextKeys = ['S1','S2','S3','S4','S5','S6','feedback_instructor','feedback_general'];
+      var freitextLabels = {
+        'S1': 'S1 Freitext', 'S2': 'S2 Freitext', 'S3': 'S3 Freitext',
+        'S4': 'S4 Freitext', 'S5': 'S5 Freitext', 'S6': 'S6 Freitext',
+        'feedback_instructor': 'Ausbilder-Feedback', 'feedback_general': 'Allgemeines Feedback'
+      };
 
       // ---- Sheet 1: Einzelantworten ----
       var headerRow = ['Timestamp', 'Gruppe', 'Hochschule', 'Name']
-        .concat(qKeys.map(function(k) { return k + ' ' + QUESTION_LABELS[k]; }))
-        .concat(['S1 Freitext', 'S3 Freitext',
-                 'S2-01 Freitext', 'S2-02 Freitext', 'S2-04 Freitext',
-                 'S2-05 Freitext', 'S2-06 Freitext', 'S2-07 Freitext',
-                 'S4 Freitext', 'S5 Freitext', 'Allgemeines Freitext'])
-        .concat(allAusbilder.map(function(n) { return 'Ausbilder*in: ' + n; }));
+        .concat(qKeys.map(function(k) { return QUESTION_LABELS[k]; }))
+        .concat(freitextKeys.map(function(k) { return freitextLabels[k]; }));
 
       var dataRows = adminData.submissions.map(function(s) {
         var ratings = qKeys.map(function(q) { return s.ratings ? (s.ratings[q] || '') : ''; });
-        var freitexte = ['S1', 'S3', 'S2-01', 'S2-02', 'S2-04', 'S2-05', 'S2-06', 'S2-07', 'S4', 'S5', 'allgemein'].map(function(k) {
-          return s.freitexte ? (s.freitexte[k] || '') : '';
-        });
-        var ausbilderCols = allAusbilder.map(function(n) { return s.ausbilder ? (s.ausbilder[n] || '') : ''; });
-        return [s.timestamp, s.group, s.uni || '', s.name || ''].concat(ratings).concat(freitexte).concat(ausbilderCols);
+        var freitexte = freitextKeys.map(function(k) { return s.freitexte ? (s.freitexte[k] || '') : ''; });
+        return [s.timestamp, s.group || '', s.uni || '', s.name || ''].concat(ratings).concat(freitexte);
       });
       var sheet1 = XLSX.utils.aoa_to_sheet([headerRow].concat(dataRows));
 
       // ---- Sheet 2: Zusammenfassung ----
-      var partAHeader = ['Frage-ID', 'Frage', '\u00d8 gesamt'];
+      var partAHeader = ['Frage', 'ID', '\u00d8 gesamt'];
       var partARows = qKeys.map(function(qId) {
         var avg = adminData.qAverages[qId];
-        return [qId, QUESTION_LABELS[qId], avg !== null ? +avg.toFixed(2) : ''];
+        return [QUESTION_LABELS[qId], qId, avg !== null ? +avg.toFixed(2) : ''];
       });
       var blankRow = [''];
-      var partBHeader = ['Gruppe', '\u00d8 gesamt', 'N Teilnehmer*innen'];
-      var sortedGroups = sortGroups(Object.keys(adminData.groupAverages));
+      var partBHeader = ['Gruppe', '\u00d8 gesamt', 'N'];
       var partBRows = sortedGroups.map(function(g) {
         var qVals = Object.values(adminData.groupAverages[g]).filter(function(v) { return v !== null; });
-        var overallAvg = qVals.length ? (qVals.reduce(function(a, b) { return a + b; }, 0) / qVals.length) : null;
+        var overallAvg = qVals.length ? qVals.reduce(function(a,b){return a+b;},0) / qVals.length : null;
         return [g, overallAvg !== null ? +overallAvg.toFixed(2) : '', adminData.groupCounts[g] || 0];
       });
       var sheet2 = XLSX.utils.aoa_to_sheet([partAHeader].concat(partARows).concat([blankRow]).concat([partBHeader]).concat(partBRows));
 
       // ---- Sheet 3: Ausbilder-Feedback ----
-      var sheet3Rows = [['Ausbilder*in', 'Gruppe', 'Feedback']];
-      allAusbilder.forEach(function(name) {
-        (adminData.ausbilderFeedback[name] || []).forEach(function(entry) {
-          sheet3Rows.push([name, entry.group, entry.text]);
-        });
+      var sheet3Rows = [['Gruppe', 'Feedback']];
+      (adminData.freitexteBySection['feedback_instructor'] || []).forEach(function(entry) {
+        sheet3Rows.push([entry.group, entry.text]);
       });
       var sheet3 = XLSX.utils.aoa_to_sheet(sheet3Rows);
 
-      // ---- Sheet 4: Gruppenvergleich (Kreuztabelle) ----
-      var exportSECTIONS = [
-        { key: 'S1', label: 'S1 Rahmen',        keys: ['S1-01','S1-02','S1-03'] },
-        { key: 'S2', label: 'S2 Ausbildung',    keys: ['S2-01','S2-02','S2-04','S2-05','S2-06','S2-07'] },
-        { key: 'S3', label: 'S3 Organisation',  keys: ['S3-01','S3-02'] },
-        { key: 'S4', label: 'S4 Pr\u00fcfung',  keys: ['S4-01','S4-02','S4-03'] },
-        { key: 'S5', label: 'S5 Soziales',      keys: ['S5-01','S5-02','S5-03'] }
-      ];
-      var sheet4Header = ['Gruppe', 'N', '\u00d8 gesamt'].concat(exportSECTIONS.map(function(s) { return s.label; }));
-      var sheet4Rows = sortGroups(Object.keys(adminData.groupAverages)).map(function(g) {
+      // ---- Sheet 4: Gruppenvergleich (Kreuztabelle) + Totals ----
+      var sheet4Header = ['Gruppe', 'N', '\u00d8 gesamt'].concat(SECTIONS.map(function(s) { return s.label; }));
+      var sheet4DataRows = sortedGroups.map(function(g) {
         var gVals = Object.values(adminData.groupAverages[g]).filter(function(v) { return v !== null; });
         var gAvg = gVals.length ? gVals.reduce(function(a,b){return a+b;},0) / gVals.length : null;
-        var secAvgs = exportSECTIONS.map(function(sec) {
+        var secAvgs = SECTIONS.map(function(sec) {
           var sVals = sec.keys.map(function(k) { return adminData.groupAverages[g][k]; }).filter(function(v) { return v !== null; });
           return sVals.length ? +(sVals.reduce(function(a,b){return a+b;},0) / sVals.length).toFixed(2) : '';
         });
         return [g, adminData.groupCounts[g] || 0, gAvg !== null ? +gAvg.toFixed(2) : ''].concat(secAvgs);
       });
-      var sheet4 = XLSX.utils.aoa_to_sheet([sheet4Header].concat(sheet4Rows));
+      // Totals row
+      var totalN = adminData.total;
+      var totalAvgAll = Object.keys(adminData.qAverages).map(function(k){ return adminData.qAverages[k]; }).filter(function(v){ return v !== null; });
+      var totalAvg = totalAvgAll.length ? +(totalAvgAll.reduce(function(a,b){return a+b;},0) / totalAvgAll.length).toFixed(2) : '';
+      var totalSecAvgs = SECTIONS.map(function(sec) {
+        var vals = sec.keys.map(function(k){ return adminData.qAverages[k]; }).filter(function(v){ return v !== null; });
+        return vals.length ? +(vals.reduce(function(a,b){return a+b;},0) / vals.length).toFixed(2) : '';
+      });
+      var totalsRow = ['\u00d8 gesamt', totalN, totalAvg].concat(totalSecAvgs);
+      var sheet4 = XLSX.utils.aoa_to_sheet([sheet4Header].concat(sheet4DataRows).concat([totalsRow]));
+
+      // ---- Sheet 5: Alle Freitexte ----
+      var sheet5Rows = [['Sektion', 'Gruppe', 'Text']];
+      Object.keys(adminData.freitexteBySection).forEach(function(key) {
+        var label = (SECTION_LABELS[key] || key);
+        (adminData.freitexteBySection[key] || []).forEach(function(entry) {
+          sheet5Rows.push([label, entry.group, entry.text]);
+        });
+      });
+      var sheet5 = XLSX.utils.aoa_to_sheet(sheet5Rows);
 
       // ---- Assemble workbook ----
       var wb = XLSX.utils.book_new();
@@ -807,6 +944,7 @@
       XLSX.utils.book_append_sheet(wb, sheet2, 'Zusammenfassung');
       XLSX.utils.book_append_sheet(wb, sheet3, 'Ausbilder-Feedback');
       XLSX.utils.book_append_sheet(wb, sheet4, 'Gruppenvergleich');
+      XLSX.utils.book_append_sheet(wb, sheet5, 'Freitexte');
       XLSX.writeFile(wb, 'Lehrgangskritik-Valmorel-Export.xlsx');
     }
 

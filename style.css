@@ -570,6 +570,64 @@
     .admin-group-bar-fill { height:100%; background:var(--orange); border-radius:4px; }
     .admin-group-avg { font-size:0.85rem; font-weight:700; color:var(--blau); min-width:28px; text-align:right; flex-shrink:0; }
 
+    /* Chart wrapper */
+    .admin-chart-wrap { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:0.75rem; margin-bottom:1rem; box-shadow:var(--shadow-sm); position:relative; }
+
+    /* Tag-Cloud */
+    .admin-tag-cloud { display:flex; flex-wrap:wrap; gap:0.4rem; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:0.75rem; margin-bottom:1rem; box-shadow:var(--shadow-sm); }
+    .admin-tag { color:var(--blau); font-weight:700; padding:0.15rem 0.45rem; border-radius:var(--radius-sm); background:var(--blau-light); line-height:1.5; cursor:default; transition:background 0.1s; }
+    .admin-tag:hover { background:var(--blau); color:var(--white); }
+
+    /* =====================================================
+       DARK MODE (body.admin-mode)
+    ===================================================== */
+    body.admin-mode {
+      --bg: #0f1117;
+      --white: #1c1f2e;
+      --text: #e8eef5;
+      --text-muted: #8890a0;
+      --border: #2d3147;
+      --blau-light: #1a2540;
+      --orange-light: #2a1812;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.45);
+      --shadow: 0 4px 16px rgba(0,0,0,.55);
+    }
+    body.admin-mode header {
+      background: rgba(0,53,96,0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    body.admin-mode .admin-topbar {
+      background: rgba(0,53,96,0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    body.admin-mode .admin-tabs { background: var(--white); }
+    body.admin-mode .admin-tab { background: var(--white); color: var(--text-muted); }
+    body.admin-mode .admin-tab.active { color: #5b9bd5; border-bottom-color: #5b9bd5; }
+    body.admin-mode .admin-kpi-card,
+    body.admin-mode .admin-sec-list,
+    body.admin-mode .admin-group-list,
+    body.admin-mode .admin-q-list,
+    body.admin-mode .admin-freitext-card,
+    body.admin-mode .admin-chart-wrap,
+    body.admin-mode .admin-tag-cloud,
+    body.admin-mode .admin-name-pill,
+    body.admin-mode .admin-pill {
+      background: var(--white);
+      border-color: var(--border);
+    }
+    body.admin-mode .admin-kpi-value,
+    body.admin-mode .admin-q-avg,
+    body.admin-mode .admin-sec-avg,
+    body.admin-mode .admin-group-avg { color: #5b9bd5; }
+    body.admin-mode .admin-name-badge { background: rgba(91,155,213,0.18); color: #5b9bd5; }
+    body.admin-mode .admin-tag { background: rgba(91,155,213,0.18); color: #5b9bd5; }
+    body.admin-mode .admin-tag:hover { background: #5b9bd5; color: #0f1117; }
+    body.admin-mode .admin-q-row,
+    body.admin-mode .admin-sec-row,
+    body.admin-mode .admin-group-row { border-bottom-color: var(--border); }
+
     /* =====================================================
        VALIDATION FEEDBACK
     ===================================================== */
