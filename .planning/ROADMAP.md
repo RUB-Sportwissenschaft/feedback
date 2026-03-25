@@ -9,7 +9,7 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 - [x] **Phase 1: Foundation** - Static HTML/CSS skeleton with all sections and RUB design system
 - [x] **Phase 2: Interactive Form** - Rating tiles, Ausbilder mapping, freitext triggers, validation (completed 2026-03-25)
 - [x] **Phase 3: Submission and Backend** - JSONBin integration, confirmation screen, error handling (completed 2026-03-25)
-- [ ] **Phase 4: Admin Export** - Admin view, Excel export with per-group summary
+- [x] **Phase 4: Admin Export** - Admin view, Excel export with per-group summary (completed 2026-03-25)
 
 ## Phase Details
 
@@ -80,10 +80,10 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 4. Alle Freitextantworten sind gesammelt pro Sektion einsehbar
 5. Export-Button l&#x00e4;dt .xlsx mit Einzelantworten und Zusammenfassung herunter
 
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans executed
 
-- [ ] 04-01-PLAN.md — Admin mode detection, JSONBin fetch, stats computation, dashboard render (ADM-01 through ADM-05)
-- [ ] 04-02-PLAN.md — SheetJS Excel export + visual verification checkpoint (ADM-06)
+- [x] 04-01-PLAN.md — Admin mode detection, JSONBin fetch, stats computation, dashboard render (ADM-01 through ADM-05)
+- [x] 04-02-PLAN.md — SheetJS Excel export + visual verification checkpoint (ADM-06)
 
 ## Progress
 
@@ -93,6 +93,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-03-24 |
-| 2. Interactive Form | 2/2 | Complete   | 2026-03-25 |
-| 3. Submission and Backend | 2/2 | Complete   | 2026-03-25 |
-| 4. Admin Export | 1/2 | In Progress|  |
+| 2. Interactive Form | 2/2 | Complete | 2026-03-25 |
+| 3. Submission and Backend | 2/2 | Complete | 2026-03-25 |
+| 4. Admin Export | 2/2 | Complete | 2026-03-25 |
