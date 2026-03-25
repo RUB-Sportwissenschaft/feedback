@@ -984,8 +984,8 @@
     // und trage die Werte hier ein.
     // Verwende einen Collection-scoped API Key (NICHT den Master Key).
     // =====================================================
-    const JSONBIN_BIN_ID  = 'DEINE_BIN_ID';
-    const JSONBIN_API_KEY = 'DEIN_API_KEY';
+    const JSONBIN_BIN_ID  = '69c37b2daa77b81da91886c9';
+    const JSONBIN_API_KEY = '$2a$10$RBiA8/n0UWZTquJ/7Y9O4ejusjtKSVuG/XP9JeT7Jg/Vz0OuiFhQq';
 
     // =====================================================
     // TEAM MAP — Ausbilder per Gruppe
@@ -1278,26 +1278,38 @@
       if (Object.keys(freitexte).length) payload.freitexte = freitexte;
       payload.ausbilder = ausbilder;
 
-      // --- UUID-keyed PATCH to JSONBin ---
+      // --- UUID-keyed GET+PUT to JSONBin (v3 hat kein PATCH) ---
       var uuid = crypto.randomUUID();
-      var patchBody = {};
-      patchBody[uuid] = payload;
 
       try {
+        // 1. Aktuellen Bin-Inhalt lesen
+        var getRes = await fetch(
+          'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID + '/latest',
+          {
+            headers: { 'X-Access-Key': JSONBIN_API_KEY }
+          }
+        );
+        if (!getRes.ok) throw new Error('GET HTTP ' + getRes.status);
+        var existing = (await getRes.json()).record || {};
+
+        // 2. Neuen Eintrag unter UUID-Key hinzufügen
+        existing[uuid] = payload;
+
+        // 3. Kompletten Inhalt zurückschreiben
         var response = await fetch(
           'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID,
           {
-            method: 'PATCH',
+            method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               'X-Access-Key': JSONBIN_API_KEY
             },
-            body: JSON.stringify(patchBody)
+            body: JSON.stringify(existing)
           }
         );
 
         if (!response.ok) {
-          throw new Error('HTTP ' + response.status);
+          throw new Error('PUT HTTP ' + response.status);
         }
 
         // --- Success: show confirmation screen (added in Plan 03-02) ---
