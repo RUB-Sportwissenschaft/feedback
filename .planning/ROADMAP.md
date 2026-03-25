@@ -62,7 +62,11 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 3. On network failure an error message appears with a retry button; tapping retry re-attempts the submission without data loss
 4. Each saved response in JSONBin is keyed by a client-generated UUID so simultaneous submissions from different students do not overwrite each other
 
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — JSONBin constants, submitFeedback() with payload assembly, UUID-keyed PATCH, loading and error states
+- [ ] 03-02-PLAN.md — Confirmation screen HTML/CSS (Danke card) and visual verification
 
 ### Phase 4: Admin Dashboard und Export
 
@@ -77,7 +81,11 @@ A single-file feedback web app for ~80 students on a ski trip. Built in 4 sequen
 4. Alle Freitextantworten sind gesammelt pro Sektion einsehbar
 5. Export-Button l&#x00e4;dt .xlsx mit Einzelantworten und Zusammenfassung herunter
 
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — JSONBin constants, submitFeedback() with payload assembly, UUID-keyed PATCH, loading and error states
+- [ ] 03-02-PLAN.md — Confirmation screen HTML/CSS (Danke card) and visual verification
 
 ## Progress
 
