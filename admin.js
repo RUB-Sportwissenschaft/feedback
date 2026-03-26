@@ -400,6 +400,19 @@
           html += '<span class="admin-q-avg">' + (avg !== null ? avg.toFixed(1) : '\u2014') + '</span>';
           html += '</div>';
         });
+        // Freitexte dieser Sektion (nur vorhanden wenn Rating ≤ 2)
+        var secTexts = adminData.freitexteBySection[sec.key] || [];
+        if (secTexts.length) {
+          html += '<div class="admin-freitext-section-header" data-section="' + sec.key + '">';
+          html += 'Kritische R\u00fcckmeldungen (' + secTexts.length + ')';
+          html += '</div>';
+          secTexts.forEach(function(entry) {
+            html += '<div class="admin-freitext-card" data-section="' + sec.key + '">';
+            html += '<p class="admin-freitext-text">' + entry.text + '</p>';
+            html += '<p class="admin-freitext-meta">' + entry.group + '</p>';
+            html += '</div>';
+          });
+        }
       });
       html += '</div>';
       html += '</div>';
@@ -524,7 +537,7 @@
           adminEl.querySelectorAll('.admin-pill[data-section]').forEach(function(p) { p.classList.remove('active'); });
           pill.classList.add('active');
           var sec = pill.dataset.section;
-          adminEl.querySelectorAll('#questionList .admin-q-row').forEach(function(row) {
+          adminEl.querySelectorAll('#questionList [data-section]').forEach(function(row) {
             row.style.display = (sec === 'alle' || row.dataset.section === sec) ? '' : 'none';
           });
         });

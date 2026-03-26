@@ -568,6 +568,7 @@
     .admin-q-bar-track { width:48px; height:6px; background:var(--bg); border-radius:3px; flex-shrink:0; }
     .admin-q-bar-fill { height:100%; background:var(--orange); border-radius:3px; }
     .admin-freitext-card { background:var(--white); border-left:3px solid var(--orange); border-radius:var(--radius-sm); padding:0.6rem 0.75rem; margin-bottom:0.5rem; box-shadow:var(--shadow-sm); }
+    .admin-freitext-section-header { font-size:0.75rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:0.04em; margin:1rem 0 0.4rem; }
     .admin-freitext-text { font-size:0.9rem; color:var(--text); margin-bottom:0.3rem; }
     .admin-freitext-meta { font-size:0.75rem; color:var(--text-muted); }
     /* Sektions-Filter: festes 3-Spalten-Raster, breite rechteckige Buttons */
