@@ -312,6 +312,25 @@
     }
 
     /* =====================================================
+       SECTION HEADING (step title with emoji)
+    ===================================================== */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blau);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-heading-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* =====================================================
        SECTION TITLE
     ===================================================== */
     .section-title {
@@ -391,9 +410,7 @@
 
     .rating-tile {
       padding: 0.5rem 0.25rem;
-      flex-direction: column;
-      gap: 0.1rem;
-      min-height: 58px;
+      min-height: 48px;
     }
 
     .rating-tile.selected-1 { border-color:#e74c3c; background:#fdecea; color:#e74c3c; box-shadow:0 2px 6px rgba(231,76,60,.25); }

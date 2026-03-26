@@ -156,7 +156,7 @@
       document.getElementById('progressCounter').textContent = (n + 1) + ' / ' + totalSteps;
 
       // Update section name
-      document.getElementById('progressSectionName').textContent = sectionNames[n] || '';
+      document.getElementById('progressSectionName').textContent = (STEP_ICONS[n] ? STEP_ICONS[n] + ' ' : '') + (sectionNames[n] || '');
     }
 
     // --- NAVIGATION ---
@@ -320,14 +320,12 @@
       updateSubmitState();
     }
 
-    // --- RATING TILES — emoji init ---
+    // --- RATING TILES — number init ---
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.rating-tile').forEach(function(tile, i) {
         var val = i % 5 + 1; // tiles appear in groups of 5
         tile.dataset.val = val;
-        tile.innerHTML =
-          '<span style="font-size:1.3rem;line-height:1;">' + TILE_EMOJIS[val] + '</span>' +
-          '<span style="font-size:0.75rem;line-height:1;">' + val + '</span>';
+        tile.innerHTML = '<span style="font-size:1.25rem;font-weight:700;line-height:1;">' + val + '</span>';
       });
     });
 
