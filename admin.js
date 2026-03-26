@@ -482,6 +482,10 @@
           var chartWrap = document.getElementById('trainerChartWrap');
           if (activeTrainerChart) { activeTrainerChart.destroy(); activeTrainerChart = null; }
           var avgs = computeTrainerQuestionAverages(name, adminData.submissions);
+          var globalAvgs = AUSBILDER_QUESTIONS.map(function(qId) {
+            var v = adminData.qAverages[qId];
+            return v !== null ? +v.toFixed(2) : 0;
+          });
           var hasData = avgs.some(function(v) { return v !== null; });
           if (radarCanvas && chartWrap && window.Chart && hasData) {
             chartWrap.style.display = 'block';
@@ -489,14 +493,19 @@
               type: 'radar',
               data: {
                 labels: AUSBILDER_QUESTIONS.map(function(qId) { return AUSBILDER_Q_SHORT[qId]; }),
-                datasets: [{ label: name, data: avgs.map(function(v){ return v !== null ? v : 0; }),
-                  backgroundColor: 'rgba(236,99,58,0.18)', borderColor: '#EC633A',
-                  borderWidth: 2, pointBackgroundColor: '#EC633A', pointRadius: 4 }]
+                datasets: [
+                  { label: name, data: avgs.map(function(v){ return v !== null ? v : 0; }),
+                    backgroundColor: 'rgba(236,99,58,0.15)', borderColor: '#EC633A',
+                    borderWidth: 2, pointBackgroundColor: '#EC633A', pointRadius: 4 },
+                  { label: '\u00d8 Gesamt', data: globalAvgs,
+                    backgroundColor: 'rgba(0,83,149,0.08)', borderColor: 'rgba(0,83,149,0.5)',
+                    borderWidth: 1.5, borderDash: [5,3], pointBackgroundColor: 'rgba(0,83,149,0.5)', pointRadius: 3 }
+                ]
               },
               options: {
                 scales: { r: { min: 1, max: 5, ticks: { stepSize: 1 },
                   pointLabels: { font: { size: 11 } } } },
-                plugins: { legend: { display: false } },
+                plugins: { legend: { display: true, labels: { font: { size: 11 }, boxWidth: 20 } } },
                 responsive: true, maintainAspectRatio: false
               }
             });

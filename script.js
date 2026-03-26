@@ -83,8 +83,10 @@
       'rating_teaching_skills',
       'rating_video_analysis',
       'rating_lvs_training',
+      'rating_theory',
       'rating_organisation',
       'rating_workload',
+      'rating_group_split',
       'rating_exam_org',
       'rating_exam_difficulty',
       'rating_exam_clarity'
@@ -94,10 +96,12 @@
       'rating_teaching_skills': 'Lehren',
       'rating_video_analysis':  'Video',
       'rating_lvs_training':    'LVS',
-      'rating_organisation':    'Organis.',
+      'rating_theory':          'Theorie',
+      'rating_organisation':    'Organisation',
       'rating_workload':        'Belastung',
+      'rating_group_split':     'Gruppen',
       'rating_exam_org':        'Pr\u00fcf.-Org.',
-      'rating_exam_difficulty': 'Anford.',
+      'rating_exam_difficulty': 'Anforderung',
       'rating_exam_clarity':    'Kriterien'
     };
 
