@@ -182,6 +182,13 @@
     function computeAdminData(submissions) {
       var total = submissions.length;
 
+      // Uni counts
+      var uniCounts = {};
+      submissions.forEach(function(s) {
+        var u = s.uni || 'Unbekannt';
+        uniCounts[u] = (uniCounts[u] || 0) + 1;
+      });
+
       // Group counts
       var groupCounts = {};
       submissions.forEach(function(s) {
@@ -252,7 +259,7 @@
         });
       });
 
-      return { total: total, groupCounts: groupCounts, qAverages: qAverages,
+      return { total: total, uniCounts: uniCounts, groupCounts: groupCounts, qAverages: qAverages,
                groupAverages: groupAverages, freitexteBySection: freitexteBySection,
                ausbilderFeedback: ausbilderFeedback, submissions: submissions };
     }
@@ -314,7 +321,10 @@
 
       // KPI-Strip
       html += '<div class="admin-kpi-strip">';
-      html += '<div class="admin-kpi-card"><div class="admin-kpi-value">' + adminData.total + '</div><div class="admin-kpi-label">Teilnehmer*innen</div></div>';
+      var uniSub = Object.keys(adminData.uniCounts).sort().map(function(u) {
+        return adminData.uniCounts[u] + '\u00a0' + u;
+      }).join(' \u00b7 ');
+      html += '<div class="admin-kpi-card"><div class="admin-kpi-value">' + adminData.total + '</div><div class="admin-kpi-label">Teilnehmer*innen</div>' + (uniSub ? '<div class="admin-kpi-sub">' + uniSub + '</div>' : '') + '</div>';
       html += '<div class="admin-kpi-card"><div class="admin-kpi-value">' + (gesamtAvg !== null ? gesamtAvg.toFixed(1) : '\u2014') + '</div><div class="admin-kpi-label">\u00d8 Gesamt</div></div>';
       html += '<div class="admin-kpi-card"><div class="admin-kpi-value">' + numGruppen + '</div><div class="admin-kpi-label">Gruppen</div></div>';
       html += '</div>';
