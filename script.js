@@ -432,7 +432,8 @@
         var _insert = await supabaseClient.from('feedbacks').insert({ data: payload });
         if (_insert.error) throw new Error(_insert.error.message);
 
-        // --- Success: show confirmation screen ---
+        // --- Success: set localStorage flag + show confirmation screen ---
+        localStorage.setItem('valmorel_feedback_2026', '1');
         var confirmEl = document.getElementById('confirmationScreen');
         if (confirmEl) {
           document.querySelector('main').style.display = 'none';
@@ -455,6 +456,12 @@
       var urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('admin') === 'true') {
         initAdmin();
+        return;
+      }
+
+      if (localStorage.getItem('valmorel_feedback_2026')) {
+        document.querySelector('main').style.display = 'none';
+        document.getElementById('alreadySubmittedScreen').style.display = 'flex';
         return;
       }
 
