@@ -1,56 +1,3 @@
-    // --- ZUSAMMENFASSUNG & INTERPRETATION (Stand: 27.03.2026, n=41) ---
-    const SUMMARY_HTML = `
-      <div class="admin-summary-block">
-        <p class="admin-summary-meta">Stand: 27.03.2026 &middot; 41 R&uuml;ckmeldungen aus 9 Gruppen (Gruppe 4: keine Abgaben)</p>
-      </div>
-
-      <div class="admin-summary-block">
-        <p class="admin-panel-label" style="margin-top:0;">Ratings &mdash; &Uuml;berblick</p>
-        <p class="admin-summary-p">Der Lehrgang wird im Gesamtmittel positiv bewertet. Die st&auml;rksten Ergebnisse erzielen soziale und rahmenbezogene Aspekte: <strong>H&uuml;ttenabend (4,61)</strong>, <strong>Videoanalysen (4,56)</strong> und das <strong>Soziale Miteinander (4,51)</strong> liegen deutlich &uuml;ber dem Durchschnitt und belegen eine gelungene Lehrgangsatmosph&auml;re. Auch <strong>Ausbildungsort (4,34)</strong> und <strong>Kosten&nbsp;/&nbsp;Preis-Leistung (4,29)</strong> werden durchgehend gut bewertet.</p>
-        <p class="admin-summary-p">Die Kernausbildung zeigt differenzierte Ergebnisse: <strong>Fahrentwicklung (4,05)</strong> und <strong>LVS-&Uuml;bung (4,15)</strong> werden positiv wahrgenommen, w&auml;hrend Lehrfähigkeit (3,80) und Einsteigermethodik (3,71) solide, aber mit Luft nach oben bewertet werden.</p>
-        <p class="admin-summary-p">Verbesserungsbedarf besteht klar in drei Bereichen: <strong>Pr&uuml;fungsablauf (3,05)</strong> ist mit Abstand der schw&auml;chste Wert des gesamten Lehrgangs und liegt bei fast allen Teams im kritischen Bereich. <strong>Org.-Ablauf (3,68)</strong> und <strong>Theorie-Inhalte (3,49)</strong> werden ebenfalls unterdurchschnittlich bewertet. Die bipolaren Skalen zeigen: Zeitbelastung liegt bei 3,32 (leicht unterausgelastet), das Pr&uuml;fungsniveau bei 3,41 (tendenziell zu anspruchsvoll).</p>
-      </div>
-
-      <div class="admin-summary-block">
-        <p class="admin-panel-label" style="margin-top:0;">Freitexte &mdash; &Uuml;berblick</p>
-        <p class="admin-summary-p">Die Freitexte best&auml;tigen und sch&auml;rfen das Bild der Ratings. Drei Themen dominieren wiederholt und gruppen&uuml;bergreifend:</p>
-        <p class="admin-summary-p"><strong>1. Pr&uuml;fungsorganisation und -kommunikation</strong> &mdash; Dieser Punkt taucht in fast jeder Gruppe auf. Studierende berichten von unklaren Anforderungen, langen Wartezeiten, fehlender Vorabkommunikation des Ablaufs und widerspr&uuml;chlichen Aussagen der Ausbilder*innen zu Pr&uuml;fungskriterien (besonders: demonstratives Vorfahren). Ein einzelner Pr&uuml;fungsversuch wird als nicht repr&auml;sentativ f&uuml;r das tats&auml;chliche Fahrverm&ouml;gen kritisiert.</p>
-        <p class="admin-summary-p"><strong>2. Individualfeedback</strong> &mdash; Mehrere Gruppen (insbesondere 5+6) w&uuml;nschen sich konkreteres, individuelles Feedback. Die R&uuml;ckmeldungen beschreiben gute allgemeine Betreuung, aber fehlende spezifische Entwicklungshinweise pro Person.</p>
-        <p class="admin-summary-p"><strong>3. Organisation und Kommunikation vor Ort</strong> &mdash; Uhrzeiten, Tagesplan und Programmänderungen wurden teils kurzfristig kommuniziert. Die Bitte, Infos f&uuml;r den Folgetag bereits abends bereitzustellen, wird mehrfach ge&auml;u&szlig;ert.</p>
-        <p class="admin-summary-p">Positiv hervorgehoben wird wiederholt die Qualit&auml;t der Ausbilder*innen (fachliche Kompetenz, Atmosph&auml;re, Engagement), die Videoanalysen als Lerninstrument sowie die LVS-&Uuml;bung. Der Lehrgang wird trotz der Kritikpunkte insgesamt als wertvoll beschrieben. Ein Einzelthema mit Signalcharakter: Die <strong>Helmpflicht f&uuml;r Dozenten</strong> wird von mindestens zwei Studierenden unabh&auml;ngig voneinander angesprochen.</p>
-      </div>
-
-      <div class="admin-summary-block">
-        <p class="admin-panel-label" style="margin-top:0;">Team Kilian &amp; Claudia &mdash; Gruppen 1+2 <span class="admin-summary-n">n=12</span></p>
-        <p class="admin-summary-p">Solide Gesamtbewertung, unauff&auml;llig im positiven Sinne. <strong>Gruppenaufteilung (4,42)</strong> und <strong>Soziales Miteinander (4,42)</strong> sind die st&auml;rksten Werte. Claudia wird in den Freitexten ausnahmslos gelobt: Motivation, Energie, Eingehen auf individuelle Bed&uuml;rfnisse. Kilian erh&auml;lt ebenfalls durchweg positive R&uuml;ckmeldungen, mit vereinzelten W&uuml;nschen nach mehr Technikfokus und individuellem Feedback.</p>
-        <p class="admin-summary-p">Schw&auml;chstes Ergebnis: <strong>Pr&uuml;fungsablauf (3,00)</strong>. Einzelne Stimmen kritisieren Wartezeiten und fehlende Kurvenvorgaben bei der praktischen Pr&uuml;fung.</p>
-      </div>
-
-      <div class="admin-summary-block">
-        <p class="admin-panel-label" style="margin-top:0;">Team Arno &amp; Batti &mdash; Gruppe 3 <span class="admin-summary-n">n=4, Gruppe 4 ohne R&uuml;ckmeldung</span></p>
-        <p class="admin-summary-p">Kleine Stichprobe &mdash; Aussagekraft eingeschr&auml;nkt. Auff&auml;llig positiv: <strong>Videoanalyse (5,00)</strong> und <strong>H&uuml;ttenabend (5,00)</strong> &mdash; Bestwerte im gesamten Datensatz. Arno und Batti werden als kompetent, strukturiert und mit angenehmer Lehrpers&ouml;nlichkeit beschrieben.</p>
-        <p class="admin-summary-p">Kritisch: <strong>LVS-&Uuml;bung (3,00)</strong> liegt unter Gesamtschnitt, <strong>Pr&uuml;fungsablauf (2,50)</strong> ist der schw&auml;chste Teamwert &uuml;berhaupt.</p>
-      </div>
-
-      <div class="admin-summary-block">
-        <p class="admin-panel-label" style="margin-top:0;">Team Michael &amp; Annika &mdash; Gruppen 5+6 <span class="admin-summary-n">n=11</span></p>
-        <p class="admin-summary-p"><strong>LVS-&Uuml;bung (4,45)</strong> und <strong>Apr&egrave;s-Ski (4,55)</strong> sind St&auml;rken, ebenso Annikas individuell sehr positiv bewertete Betreuung. Beide Ausbilder*innen erhalten warmherzige R&uuml;ckmeldungen zu Atmosph&auml;re und Fachkompetenz.</p>
-        <p class="admin-summary-p">Deutlicher Ausrei&szlig;er nach unten: <strong>Theorie-Inhalte (2,82)</strong> &mdash; niedrigster Wert im gesamten Datensatz, klar unter Gesamtschnitt (3,49). In den Freitexten wird mehrfach der Wunsch nach konkreterem Einzelfeedback ge&auml;u&szlig;ert sowie kritisiert, dass die Pr&uuml;fungsvorbereitung auf Buckel und Demofahrt zu kurz ausfiel.</p>
-      </div>
-
-      <div class="admin-summary-block">
-        <p class="admin-panel-label" style="margin-top:0;">Team Tanne &amp; Pablo &mdash; Gruppen 7+8 <span class="admin-summary-n">n=10</span></p>
-        <p class="admin-summary-p">St&auml;rkstes Team bei <strong>Lehrfähigkeit (4,40)</strong> und <strong>Videoanalyse (4,90)</strong> &mdash; beide Werte sind die h&ouml;chsten im Gruppenvergleich. Tanne und Pablo werden besonders enthusiastisch beschrieben: motivierend, klares Feedback, hohe Bewegungszeit, gutes Gleichgewicht zwischen F&ouml;rdern und Fordern.</p>
-        <p class="admin-summary-p">Schwachpunkt: <strong>Kriterien-Klarheit (2,70)</strong> &mdash; niedrigster Wert aller Teams. Die Freitexte best&auml;tigen: Pr&uuml;fungsinhalte waren nicht ausreichend klar kommuniziert, widerspr&uuml;chliche Aussagen zur Bewertung des demonstrativen Vorfahrens werden erw&auml;hnt. <strong>Pr&uuml;fungsniveau (3,70)</strong> liegt im oberen Bereich (Tendenz: eher zu schwierig).</p>
-      </div>
-
-      <div class="admin-summary-block">
-        <p class="admin-panel-label" style="margin-top:0;">Team Adam &amp; Kami &mdash; Snowboard <span class="admin-summary-n">n=4</span></p>
-        <p class="admin-summary-p"><strong>Einsteigermethodik (4,75)</strong> und <strong>Kriterien-Klarheit (4,75)</strong> sind die st&auml;rksten Werte. Adam wird als fachlich kompetent und menschlich vorbildhaft hervorgehoben, Kami als zug&auml;nglich und angenehm im Umgang.</p>
-        <p class="admin-summary-p">Auff&auml;llig schwach: <strong>Schnee-Event (2,75)</strong> und <strong>Pr&uuml;fungsablauf (2,75)</strong>. Die Freitexte deuten auf organisatorische Unsch&auml;rfen im Snowboard-spezifischen Ablauf hin. Der Wunsch nach mehr Integration mit den Ski-Gruppen wird ge&auml;u&szlig;ert.</p>
-      </div>
-    `;
-
     // --- ADMIN — data layer, compute, render ---
     async function initAdmin() {
       var mainEl = document.querySelector('main');
@@ -65,14 +12,14 @@
       adminEl.innerHTML = '<p style="padding:1rem;color:var(--text-muted)">Daten werden geladen\u2026</p>';
 
       try {
-        var _ref = await supabaseClient
-          .from('feedbacks')
-          .select('data, created_at')
-          .order('created_at', { ascending: true });
-        if (_ref.error) throw new Error(_ref.error.message);
-        var submissions = (_ref.data || []).map(function(r) { return r.data; });
+        var results = await Promise.all([
+          supabaseClient.from('feedbacks').select('data, created_at').order('created_at', { ascending: true }),
+          fetch('summary.html').then(function(r) { return r.ok ? r.text() : ''; }).catch(function() { return ''; })
+        ]);
+        if (results[0].error) throw new Error(results[0].error.message);
+        var submissions = (results[0].data || []).map(function(r) { return r.data; });
         var adminData = computeAdminData(submissions);
-        renderAdminDashboard(adminData, adminEl);
+        renderAdminDashboard(adminData, adminEl, results[1]);
       } catch (err) {
         adminEl.innerHTML = '<p style="padding:1rem;color:red">Fehler beim Laden: ' + err.message + '</p>';
       }
@@ -111,22 +58,6 @@
       });
     }
 
-    // --- STOPWORDS (DE) — for tag cloud ---
-    const STOPWORDS_DE = new Set([
-      'der','die','das','ein','eine','und','ist','ich','hat','war','in','im','an','am',
-      'mit','von','zu','zum','zur','auf','f\u00fcr','bei','es','sie','wir','du','er',
-      'sein','auch','als','aber','wie','oder','wenn','dass','sehr','gut','nicht','noch',
-      'mehr','so','da','mir','uns','dem','den','des','einer','eines','waren','haben',
-      'hatte','wird','werden','wurde','worden','kann','doch','mal','aus','durch','nach',
-      '\u00fcber','vor','unter','alle','alles','man','sich','mich','dich','ihr','ihn',
-      'ihm','habe','bist','sind','euch','ihnen','diese','dieser','dieses','diesen',
-      'diesem','jeder','jede','kein','keine','keiner','viel','viele','wenig','beim',
-      'weil','aber','dann','also','hier','dort','schon','immer','jetzt','eine','einen',
-      'etwas','wurde','haben','hatte','muss','kann','konnte','sollte','w\u00e4re',
-      'h\u00e4tte','gibt','gab','beim','ohne','selbst','immer','schon','halt','leider',
-      'finde','fand','habe','wurde','wurden','wird','denn','mal','war','war','wir'
-    ]);
-
     // Compute per-question averages (ausbilder-relevant) for a trainer's groups
     function computeTrainerQuestionAverages(trainerName, submissions) {
       var trainerGroups = [];
@@ -149,29 +80,34 @@
       });
     }
 
+    // Shared bar row renderer — used by trainer bar list + group detail
+    function renderBarRow(qId, val, globalVal, fallback) {
+      if (val === null) return '';
+      var bp = BIPOLAR_KEYS[qId];
+      var barW  = bp ? bipBarW(val) : (val / 5 * 100).toFixed(1);
+      var globW = globalVal !== null ? (bp ? bipBarW(globalVal) : (globalVal / 5 * 100).toFixed(1)) : null;
+      var diff  = bp ? bipDiff(val, globalVal) : (globalVal !== null ? +(val - globalVal).toFixed(1) : null);
+      var bc    = bp ? bipBarColor(val, fallback) : (diff === null ? fallback : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : fallback));
+      var dc    = diff === null ? '' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--text-muted)');
+      var ds    = diff === null ? '' : (diff > 0 ? '+' : '') + diff.toFixed(1);
+      var tip   = QUESTION_TOOLTIPS[qId] ? '<button class="admin-q-info" data-tip="' + QUESTION_TOOLTIPS[qId] + '">?</button>' : '';
+      var h = '<div class="admin-q-row">';
+      h += '<span class="admin-q-label">' + QUESTION_LABELS[qId] + tip + '</span>';
+      h += '<div class="admin-q-bar-track" style="width:80px;position:relative;">';
+      h += '<div class="admin-q-bar-fill" style="width:' + barW + '%;background:' + bc + ';"></div>';
+      if (globW !== null) h += '<div style="position:absolute;top:0;left:' + globW + '%;width:2px;height:100%;background:rgba(0,53,96,0.45);"></div>';
+      h += '</div>';
+      h += '<span class="admin-q-avg">' + val.toFixed(1) + '</span>';
+      if (diff !== null) h += '<span style="font-size:0.74rem;color:' + dc + ';min-width:2.4rem;text-align:right;">' + ds + '</span>';
+      h += '</div>';
+      return h;
+    }
+
     // Render trainer bar list (9 ausbilder-relevant questions, vs. global avg)
     function renderTrainerBarList(avgs, adminData, container) {
       var h = '<p class="admin-panel-label" style="margin-top:1rem;">Einzelfragen</p>';
       AUSBILDER_QUESTIONS.forEach(function(qId, i) {
-        var val = avgs[i];
-        var globalVal = adminData.qAverages[qId];
-        if (val === null) return;
-        var bipolar = BIPOLAR_KEYS[qId];
-        var barW    = bipolar ? bipBarW(val) : (val / 5 * 100).toFixed(1);
-        var globalW = globalVal !== null ? (bipolar ? bipBarW(globalVal) : (globalVal / 5 * 100).toFixed(1)) : null;
-        var diff    = bipolar ? bipDiff(val, globalVal) : (globalVal !== null ? +(val - globalVal).toFixed(1) : null);
-        var barColor  = bipolar ? bipBarColor(val, 'var(--blau)') : (diff === null ? 'var(--blau)' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--blau)'));
-        var diffColor = diff === null ? '' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--text-muted)');
-        var diffStr   = diff === null ? '' : (diff > 0 ? '+' : '') + diff.toFixed(1);
-        h += '<div class="admin-q-row">';
-        h += '<span class="admin-q-label">' + QUESTION_LABELS[qId] + (QUESTION_TOOLTIPS[qId] ? '<button class="admin-q-info" data-tip="' + QUESTION_TOOLTIPS[qId] + '">?</button>' : '') + '</span>';
-        h += '<div class="admin-q-bar-track" style="width:80px;position:relative;">';
-        h += '<div class="admin-q-bar-fill" style="width:' + barW + '%;background:' + barColor + ';"></div>';
-        if (globalW !== null) h += '<div style="position:absolute;top:0;left:' + globalW + '%;width:2px;height:100%;background:rgba(0,53,96,0.45);"></div>';
-        h += '</div>';
-        h += '<span class="admin-q-avg">' + val.toFixed(1) + '</span>';
-        if (diff !== null) h += '<span style="font-size:0.74rem;color:' + diffColor + ';min-width:2.4rem;text-align:right;">' + diffStr + '</span>';
-        h += '</div>';
+        h += renderBarRow(qId, avgs[i], adminData.qAverages[qId], 'var(--blau)');
       });
       container.innerHTML = h;
     }
@@ -196,23 +132,7 @@
         h += '<p class="admin-panel-label">' + sec.label + '</p>';
         sec.keys.forEach(function(qId) {
           var gAvg = adminData.groupAverages[group] ? adminData.groupAverages[group][qId] : null;
-          var glAvg = adminData.qAverages[qId];
-          var bipolar = BIPOLAR_KEYS[qId];
-          var barW    = gAvg !== null ? (bipolar ? bipBarW(gAvg) : (gAvg / 5 * 100).toFixed(1)) : 0;
-          var globalW = glAvg !== null ? (bipolar ? bipBarW(glAvg) : (glAvg / 5 * 100).toFixed(1)) : null;
-          var diff    = (gAvg !== null && glAvg !== null) ? (bipolar ? bipDiff(gAvg, glAvg) : +(gAvg - glAvg).toFixed(1)) : null;
-          var barColor  = bipolar ? bipBarColor(gAvg, 'var(--orange)') : (diff === null ? 'var(--orange)' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--orange)'));
-          var diffColor = diff === null ? '' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--text-muted)');
-          var diffStr   = diff === null ? '' : (diff > 0 ? '+' : '') + diff.toFixed(1);
-          h += '<div class="admin-q-row">';
-          h += '<span class="admin-q-label">' + QUESTION_LABELS[qId] + (QUESTION_TOOLTIPS[qId] ? '<button class="admin-q-info" data-tip="' + QUESTION_TOOLTIPS[qId] + '">?</button>' : '') + '</span>';
-          h += '<div class="admin-q-bar-track" style="width:80px;position:relative;">';
-          h += '<div class="admin-q-bar-fill" style="width:' + barW + '%;background:' + barColor + ';"></div>';
-          if (globalW !== null) h += '<div style="position:absolute;top:0;left:' + globalW + '%;width:2px;height:100%;background:rgba(0,53,96,0.45);"></div>';
-          h += '</div>';
-          h += '<span class="admin-q-avg">' + (gAvg !== null ? gAvg.toFixed(1) : '\u2014') + '</span>';
-          if (diff !== null) h += '<span style="font-size:0.74rem;color:' + diffColor + ';min-width:2.4rem;text-align:right;">' + diffStr + '</span>';
-          h += '</div>';
+          h += renderBarRow(qId, gAvg, adminData.qAverages[qId], 'var(--orange)');
         });
       });
 
@@ -242,20 +162,6 @@
     }
 
     // Word frequency count for tag cloud
-    function computeWordFrequencies(freitexteBySection) {
-      var freq = {};
-      Object.keys(freitexteBySection).forEach(function(key) {
-        freitexteBySection[key].forEach(function(entry) {
-          var words = entry.text.toLowerCase()
-            .replace(/[^a-z\u00e4\u00f6\u00fc\u00df\s]/g, ' ')
-            .split(/\s+/)
-            .filter(function(w) { return w.length > 3 && !STOPWORDS_DE.has(w); });
-          words.forEach(function(w) { freq[w] = (freq[w] || 0) + 1; });
-        });
-      });
-      return freq;
-    }
-
     function computeAdminData(submissions) {
       var total = submissions.length;
 
@@ -341,7 +247,7 @@
                ausbilderFeedback: ausbilderFeedback, submissions: submissions };
     }
 
-    function renderAdminDashboard(adminData, adminEl) {
+    function renderAdminDashboard(adminData, adminEl, summaryHTML) {
       var allAusbilder = ALL_AUSBILDER;
 
       var html = '';
@@ -428,7 +334,7 @@
 
       // Zusammenfassung & Interpretation
       html += '<p class="admin-panel-label">Zusammenfassung &amp; Interpretation</p>';
-      html += '<div class="admin-summary">' + SUMMARY_HTML + '</div>';
+      html += '<div class="admin-summary">' + (summaryHTML || '') + '</div>';
 
       html += '</div>';
 
