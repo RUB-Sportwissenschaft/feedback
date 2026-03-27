@@ -78,6 +78,28 @@
       }
     }
 
+    // --- BIPOLAR helpers ---
+    // rating_workload: 1=zu hoch, 3=angemessen, 5=zu gering
+    // rating_exam_difficulty: 1=zu leicht, 3=genau richtig, 5=zu schwierig
+    var BIPOLAR_KEYS = { 'rating_workload': true, 'rating_exam_difficulty': true };
+
+    // Bar width: 100% at ideal (3), 0% at extremes (1 or 5)
+    function bipBarW(val) { return ((1 - Math.abs(val - 3) / 2) * 100).toFixed(1); }
+
+    // Bar color based on proximity to 3
+    function bipBarColor(val, fallback) {
+      var d = Math.abs(val - 3);
+      return d <= 0.3 ? '#2e7d32' : d >= 0.8 ? '#c62828' : (fallback || 'var(--blau)');
+    }
+
+    // Diff color for bipolar: positive diff = trainer's group closer to 3 = better
+    function bipDiff(val, globalVal) {
+      return globalVal !== null ? +(Math.abs(globalVal - 3) - Math.abs(val - 3)).toFixed(1) : null;
+    }
+
+    // Radar transform: 5 at ideal (3), 1 at extremes
+    function bipRadarVal(val) { return Math.max(1, 5 - Math.abs(val - 3) * 2); }
+
     function sortGroups(keys) {
       return keys.sort(function(a, b) {
         var aIsNum = /^Gruppe \d+$/.test(a);
@@ -134,10 +156,11 @@
         var val = avgs[i];
         var globalVal = adminData.qAverages[qId];
         if (val === null) return;
-        var barW   = (val / 5 * 100).toFixed(1);
-        var globalW = globalVal !== null ? (globalVal / 5 * 100).toFixed(1) : null;
-        var diff   = globalVal !== null ? +(val - globalVal).toFixed(1) : null;
-        var barColor  = diff === null ? 'var(--blau)' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--blau)');
+        var bipolar = BIPOLAR_KEYS[qId];
+        var barW    = bipolar ? bipBarW(val) : (val / 5 * 100).toFixed(1);
+        var globalW = globalVal !== null ? (bipolar ? bipBarW(globalVal) : (globalVal / 5 * 100).toFixed(1)) : null;
+        var diff    = bipolar ? bipDiff(val, globalVal) : (globalVal !== null ? +(val - globalVal).toFixed(1) : null);
+        var barColor  = bipolar ? bipBarColor(val, 'var(--blau)') : (diff === null ? 'var(--blau)' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--blau)'));
         var diffColor = diff === null ? '' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--text-muted)');
         var diffStr   = diff === null ? '' : (diff > 0 ? '+' : '') + diff.toFixed(1);
         h += '<div class="admin-q-row">';
@@ -174,10 +197,11 @@
         sec.keys.forEach(function(qId) {
           var gAvg = adminData.groupAverages[group] ? adminData.groupAverages[group][qId] : null;
           var glAvg = adminData.qAverages[qId];
-          var barW   = gAvg !== null ? (gAvg / 5 * 100).toFixed(1) : 0;
-          var globalW = glAvg !== null ? (glAvg / 5 * 100).toFixed(1) : null;
-          var diff   = (gAvg !== null && glAvg !== null) ? +(gAvg - glAvg).toFixed(1) : null;
-          var barColor  = diff === null ? 'var(--orange)' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--orange)');
+          var bipolar = BIPOLAR_KEYS[qId];
+          var barW    = gAvg !== null ? (bipolar ? bipBarW(gAvg) : (gAvg / 5 * 100).toFixed(1)) : 0;
+          var globalW = glAvg !== null ? (bipolar ? bipBarW(glAvg) : (glAvg / 5 * 100).toFixed(1)) : null;
+          var diff    = (gAvg !== null && glAvg !== null) ? (bipolar ? bipDiff(gAvg, glAvg) : +(gAvg - glAvg).toFixed(1)) : null;
+          var barColor  = bipolar ? bipBarColor(gAvg, 'var(--orange)') : (diff === null ? 'var(--orange)' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--orange)'));
           var diffColor = diff === null ? '' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--text-muted)');
           var diffStr   = diff === null ? '' : (diff > 0 ? '+' : '') + diff.toFixed(1);
           h += '<div class="admin-q-row">';
@@ -439,10 +463,12 @@
       SECTIONS.forEach(function(sec) {
         sec.keys.forEach(function(qId) {
           var avg = adminData.qAverages[qId];
-          var barW = avg ? (avg / 5 * 100).toFixed(1) : 0;
+          var bipolar = BIPOLAR_KEYS[qId];
+          var barW = avg ? (bipolar ? bipBarW(avg) : (avg / 5 * 100).toFixed(1)) : 0;
+          var barColor = bipolar ? bipBarColor(avg, 'var(--blau)') : 'var(--blau)';
           html += '<div class="admin-q-row" data-section="' + sec.key + '">';
           html += '<span class="admin-q-label">' + QUESTION_LABELS[qId] + (QUESTION_TOOLTIPS[qId] ? '<button class="admin-q-info" data-tip="' + QUESTION_TOOLTIPS[qId] + '">?</button>' : '') + '</span>';
-          html += '<div class="admin-q-bar-track"><div class="admin-q-bar-fill" style="width:' + barW + '%"></div></div>';
+          html += '<div class="admin-q-bar-track"><div class="admin-q-bar-fill" style="width:' + barW + '%;background:' + barColor + '"></div></div>';
           html += '<span class="admin-q-avg">' + (avg !== null ? avg.toFixed(1) : '\u2014') + '</span>';
           html += '</div>';
         });
@@ -580,7 +606,8 @@
           var avgs = computeTrainerQuestionAverages(name, adminData.submissions);
           var globalAvgs = AUSBILDER_QUESTIONS.map(function(qId) {
             var v = adminData.qAverages[qId];
-            return v !== null ? +v.toFixed(2) : 0;
+            if (v === null) return 0;
+            return BIPOLAR_KEYS[qId] ? +bipRadarVal(v).toFixed(2) : +v.toFixed(2);
           });
           var hasData = avgs.some(function(v) { return v !== null; });
           if (radarCanvas && chartWrap && window.Chart && hasData) {
@@ -590,7 +617,11 @@
               data: {
                 labels: AUSBILDER_QUESTIONS.map(function(qId) { return AUSBILDER_Q_SHORT[qId]; }),
                 datasets: [
-                  { label: name, data: avgs.map(function(v){ return v !== null ? v : 0; }),
+                  { label: name, data: avgs.map(function(v, i){
+                      if (v === null) return 0;
+                      var qId = AUSBILDER_QUESTIONS[i];
+                      return BIPOLAR_KEYS[qId] ? +bipRadarVal(v).toFixed(2) : v;
+                    }),
                     backgroundColor: 'rgba(236,99,58,0.15)', borderColor: '#EC633A',
                     borderWidth: 2, pointBackgroundColor: '#EC633A', pointRadius: 4 },
                   { label: '\u00d8 Gesamt', data: globalAvgs,
