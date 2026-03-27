@@ -431,6 +431,8 @@
       SECTIONS.forEach(function(sec) {
         html += '<button class="admin-pill" data-section="' + sec.key + '">' + sec.label + '</button>';
       });
+      var allgCount = (adminData.freitexteBySection['feedback_general'] || []).length;
+      if (allgCount) html += '<button class="admin-pill" data-section="allg">Allg. Feedback <span class="admin-name-badge" style="margin-left:4px;">' + allgCount + '</span></button>';
       html += '</div>';
       // Question rows — grouped by section, each tagged with data-section
       html += '<div class="admin-q-list" id="questionList">';
@@ -463,10 +465,12 @@
       // Allgemeines Feedback am Ende des Details-Tabs
       var allgFT = adminData.freitexteBySection['feedback_general'] || [];
       if (allgFT.length) {
+        html += '<div id="allgFeedbackBlock" style="display:none;">';
         html += '<p class="admin-panel-label" style="margin-top:1.25rem;">Allgemeines Feedback</p>';
         allgFT.forEach(function(entry) {
-          html += '<div class="admin-freitext-card"><p class="admin-freitext-text">' + entry.text + '</p><p class="admin-freitext-meta">' + entry.group + '</p></div>';
+          html += '<div class="admin-freitext-card" data-section="allg"><p class="admin-freitext-text">' + entry.text + '</p><p class="admin-freitext-meta">' + entry.group + '</p></div>';
         });
+        html += '</div>';
       }
       html += '</div>';
 
@@ -654,9 +658,18 @@
           adminEl.querySelectorAll('.admin-pill[data-section]').forEach(function(p) { p.classList.remove('active'); });
           pill.classList.add('active');
           var sec = pill.dataset.section;
-          adminEl.querySelectorAll('#questionList [data-section]').forEach(function(row) {
-            row.style.display = (sec === 'alle' || row.dataset.section === sec) ? '' : 'none';
-          });
+          var qList = document.getElementById('questionList');
+          var allgBlock = document.getElementById('allgFeedbackBlock');
+          if (sec === 'allg') {
+            if (qList) qList.style.display = 'none';
+            if (allgBlock) allgBlock.style.display = '';
+          } else {
+            if (qList) qList.style.display = '';
+            if (allgBlock) allgBlock.style.display = sec === 'alle' ? '' : 'none';
+            adminEl.querySelectorAll('#questionList [data-section]').forEach(function(row) {
+              row.style.display = (sec === 'alle' || row.dataset.section === sec) ? '' : 'none';
+            });
+          }
         });
       });
 
