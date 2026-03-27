@@ -55,6 +55,30 @@
       'rating_social_atmosphere': 'Soziales Miteinander'
     };
 
+    // --- QUESTION TOOLTIPS — original subtitle from the form (used in admin hover) ---
+    const QUESTION_TOOLTIPS = {
+      'rating_skibo_service':     'Wie bewertest du den Service von SkiBo Tours?',
+      'rating_prep_info':         'Waren die Vorab-Informationen der Universit\u00e4t hilfreich?',
+      'rating_costs':             'Wie bewertest du das Preis-Leistungs-Verh\u00e4ltnis?',
+      'rating_location':          'Wie bewertest du den Ort (Unterkunft, Skigebiet)?',
+      'rating_driving_skills':    'Wie bewertest du deine fahrerische Entwicklung?',
+      'rating_teaching_skills':   'Wie bewertest du die Entwicklung deiner Lehrf\u00e4higkeit?',
+      'rating_methodology':       'Wie bewertest du die Vermittlung der Einsteigermethodik?',
+      'rating_video_analysis':    'Waren die Videoanalysen f\u00fcr dich hilfreich?',
+      'rating_lvs_training':      'Wie bewertest du die LVS-\u00dcbung (Versch\u00fcttetensuche)?',
+      'rating_theory':            'Wie bewertest du die Qualit\u00e4t der Theorie-Vortr\u00e4ge?',
+      'rating_snow_event':        'Wie bewertest du das Schnee-Event (Rallye)?',
+      'rating_organisation':      'Wie bewertest du den organisatorischen Ablauf?',
+      'rating_workload':          'War der zeitliche Umfang des Programms angemessen? (3\u00a0=\u00a0angemessen)',
+      'rating_group_split':       'Waren die Kriterien der Gruppenbildung nachvollziehbar?',
+      'rating_exam_org':          'Wie bewertest du den Ablauf der Pr\u00fcfung?',
+      'rating_exam_difficulty':   'Wie bewertest du das Niveau der Anforderungen? (3\u00a0=\u00a0genau richtig)',
+      'rating_exam_clarity':      'Wurden die Anforderungen verst\u00e4ndlich kommuniziert?',
+      'rating_hut_evening':       'Wie bewertest du den H\u00fcttenabend?',
+      'rating_apres_ski':         'Wie bewertest du das Apr\u00e8s-Ski-Angebot?',
+      'rating_social_atmosphere': 'Wie bewertest du die Atmosph\u00e4re unter den Studierenden?'
+    };
+
     // --- SECTION LABELS — admin freitext display ---
     const SECTION_LABELS = {
       'S1': 'S1 \u2014 Vorbereitung & Rahmen',

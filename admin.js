@@ -88,7 +88,7 @@
         var diffColor = diff === null ? '' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--text-muted)');
         var diffStr   = diff === null ? '' : (diff > 0 ? '+' : '') + diff.toFixed(1);
         h += '<div class="admin-q-row">';
-        h += '<span class="admin-q-label">' + QUESTION_LABELS[qId] + '</span>';
+        h += '<span class="admin-q-label" title="' + (QUESTION_TOOLTIPS[qId] || '') + '">' + QUESTION_LABELS[qId] + '</span>';
         h += '<div class="admin-q-bar-track" style="width:80px;position:relative;">';
         h += '<div class="admin-q-bar-fill" style="width:' + barW + '%;background:' + barColor + ';"></div>';
         if (globalW !== null) h += '<div style="position:absolute;top:0;left:' + globalW + '%;width:2px;height:100%;background:rgba(0,53,96,0.45);"></div>';
@@ -128,7 +128,7 @@
           var diffColor = diff === null ? '' : (diff > 0.1 ? '#2e7d32' : diff < -0.1 ? '#c62828' : 'var(--text-muted)');
           var diffStr   = diff === null ? '' : (diff > 0 ? '+' : '') + diff.toFixed(1);
           h += '<div class="admin-q-row">';
-          h += '<span class="admin-q-label">' + QUESTION_LABELS[qId] + '</span>';
+          h += '<span class="admin-q-label" title="' + (QUESTION_TOOLTIPS[qId] || '') + '">' + QUESTION_LABELS[qId] + '</span>';
           h += '<div class="admin-q-bar-track" style="width:80px;position:relative;">';
           h += '<div class="admin-q-bar-fill" style="width:' + barW + '%;background:' + barColor + ';"></div>';
           if (globalW !== null) h += '<div style="position:absolute;top:0;left:' + globalW + '%;width:2px;height:100%;background:rgba(0,53,96,0.45);"></div>';
@@ -405,7 +405,7 @@
           var avg = adminData.qAverages[qId];
           var barW = avg ? (avg / 5 * 100).toFixed(1) : 0;
           html += '<div class="admin-q-row" data-section="' + sec.key + '">';
-          html += '<span class="admin-q-label">' + QUESTION_LABELS[qId] + '</span>';
+          html += '<span class="admin-q-label" title="' + (QUESTION_TOOLTIPS[qId] || '') + '">' + QUESTION_LABELS[qId] + '</span>';
           html += '<div class="admin-q-bar-track"><div class="admin-q-bar-fill" style="width:' + barW + '%"></div></div>';
           html += '<span class="admin-q-avg">' + (avg !== null ? avg.toFixed(1) : '\u2014') + '</span>';
           html += '</div>';
@@ -505,7 +505,13 @@
               options: {
                 scales: { r: { min: 1, max: 5, ticks: { stepSize: 1 },
                   pointLabels: { font: { size: 11 } } } },
-                plugins: { legend: { display: true, labels: { font: { size: 11 }, boxWidth: 20 } } },
+                plugins: {
+                  legend: { display: true, labels: { font: { size: 11 }, boxWidth: 20 } },
+                  tooltip: { callbacks: { title: function(items) {
+                    var qId = AUSBILDER_QUESTIONS[items[0].dataIndex];
+                    return QUESTION_TOOLTIPS[qId] || QUESTION_LABELS[qId];
+                  }}}
+                },
                 responsive: true, maintainAspectRatio: false
               }
             });
