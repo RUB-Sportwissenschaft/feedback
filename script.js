@@ -37,19 +37,19 @@
       'rating_prep_info':         'Vorab-Informationen',
       'rating_costs':             'Kosten / Preis-Leistung',
       'rating_location':          'Ausbildungsort',
-      'rating_driving_skills':    'Fahrerisches K\u00f6nnen',
-      'rating_teaching_skills':   'Lehrkompetenz',
+      'rating_driving_skills':    'Fahrentwicklung',
+      'rating_teaching_skills':   'Lehrfähigkeit',
       'rating_methodology':       'Einsteigermethodik',
-      'rating_video_analysis':    'Videoanalysen',
-      'rating_lvs_training':      'Versch\u00fcttetensuche',
+      'rating_video_analysis':    'Videoanalyse',
+      'rating_lvs_training':      'LVS-\u00dcbung',
       'rating_theory':            'Theorie-Inhalte',
       'rating_snow_event':        'Schnee-Event',
-      'rating_organisation':      'Lehrgangs-Organisation',
-      'rating_workload':          'Zeitliche Belastung',
-      'rating_group_split':       'Gruppeneinteilung',
-      'rating_exam_org':          'Pr\u00fcfungs-Organisation',
-      'rating_exam_difficulty':   'Pr\u00fcfungsanforderungen',
-      'rating_exam_clarity':      'Klarheit der Kriterien',
+      'rating_organisation':      'Org.-Ablauf',
+      'rating_workload':          'Zeitbelastung',
+      'rating_group_split':       'Gruppenaufteilung',
+      'rating_exam_org':          'Pr\u00fcfungsablauf',
+      'rating_exam_difficulty':   'Pr\u00fcfungsniveau',
+      'rating_exam_clarity':      'Kriterien-Klarheit',
       'rating_hut_evening':       'H\u00fcttenabend',
       'rating_apres_ski':         'Apr\u00e8s-Ski',
       'rating_social_atmosphere': 'Soziales Miteinander'
@@ -116,17 +116,17 @@
       'rating_exam_clarity'
     ];
     const AUSBILDER_Q_SHORT = {
-      'rating_driving_skills':  'Fahren',
-      'rating_teaching_skills': 'Lehren',
-      'rating_video_analysis':  'Video',
-      'rating_lvs_training':    'LVS',
+      'rating_driving_skills':  'Fahrentwicklung',
+      'rating_teaching_skills': 'Lehrfähigkeit',
+      'rating_video_analysis':  'Videoanalyse',
+      'rating_lvs_training':    'LVS-Übung',
       'rating_theory':          'Theorie',
-      'rating_organisation':    'Organisation',
-      'rating_workload':        'Belastung',
-      'rating_group_split':     'Gruppen',
-      'rating_exam_org':        'Pr\u00fcf.-Org.',
-      'rating_exam_difficulty': 'Anforderung',
-      'rating_exam_clarity':    'Kriterien'
+      'rating_organisation':    'Org.-Ablauf',
+      'rating_workload':        'Zeitbelastung',
+      'rating_group_split':     'Gruppenaufteilung',
+      'rating_exam_org':        'Prüfungsablauf',
+      'rating_exam_difficulty': 'Prüfungsniveau',
+      'rating_exam_clarity':    'Kriterien-Klarheit'
     };
 
     // --- FORM STATE ---
