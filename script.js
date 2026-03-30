@@ -479,11 +479,21 @@
       }
     }
 
+    // --- DEADLINE ---
+    const DEADLINE = new Date('2026-03-30T17:00:00').getTime();
+
     // --- INIT ---
     document.addEventListener('DOMContentLoaded', function() {
       var urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('admin') === 'true') {
         initAdmin();
+        return;
+      }
+
+      // Check if deadline has passed
+      if (Date.now() > DEADLINE) {
+        document.querySelector('main').style.display = 'none';
+        document.getElementById('deadlinePassedScreen').style.display = 'flex';
         return;
       }
 
