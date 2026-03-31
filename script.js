@@ -480,7 +480,7 @@
     }
 
     // --- DEADLINE ---
-    const DEADLINE = new Date('2026-03-30T17:00:00').getTime();
+    const DEADLINE = new Date('2026-04-05T23:59:59').getTime();
 
     // --- INIT ---
     document.addEventListener('DOMContentLoaded', function() {
